@@ -837,7 +837,7 @@ function _paintDetail(id){
       ${sz}
       <button class="add-btn" onclick="addCart(${p.id});toast('${safeName} added to cart!')" data-testid="detail-add-to-cart">Add to Cart</button>
       <button class="wish-btn" data-testid="detail-wishlist">Add to Wishlist</button>
-      <div class="delivery-info"><span>Free delivery above Rs.999</span><span>30-day returns</span><span>Genuine product</span></div>
+      <div class="delivery-info"><span>Free delivery above Rs.2,999</span><span>30-day returns</span><span>Genuine product</span></div>
     </div>`;
   document.getElementById('related-grid').innerHTML=PRODS.filter(x=>x.cat===p.cat&&x.id!==p.id).slice(0,4).map(x=>pcard(x,`go('detail',${x.id})`)).join('');
   setupRageTraps();
