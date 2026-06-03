@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Razorpay publishable key id (NOT the secret). On Netlify this is injected from env at deploy; left blank here so the demo fallback runs on GitHub Pages. -->
 <meta name="rzp-key" content="">
+<!-- Apply saved theme before first paint (no flash) -->
+<script>(function(){try{var t=localStorage.getItem('oc-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <title>OneCurve — The Art of the Game v2</title>
 <meta name="description" content="OneCurve: Premium handcrafted cricket equipment. English Willow bats, batting pads. Made in India for champions.">
 <link rel="canonical" href="https://onecurve.in/">
@@ -19,7 +21,18 @@
   --text:#F0EEE8;--muted:rgba(240,238,232,0.52);--muted2:rgba(240,238,232,0.28);
   --blue:#1A73E8;--green:#0F9D58;--red:#E53935;--orange:#FB8C00;
   --r:12px;--rl:18px;--rxl:24px;--shadow:0 24px 48px rgba(0,0,0,0.6);
+  --hero-grid:rgba(255,255,255,0.03);--lb-bg:rgba(0,0,0,0.92);
 }
+/* Light theme — gold accent preserved, surfaces inverted */
+html[data-theme="light"]{
+  --dark:#F6F4EF;--surface:#FFFFFF;--card:#FFFFFF;--card-h:#F0EDE4;
+  --border:rgba(0,0,0,0.10);--border-h:rgba(0,0,0,0.18);
+  --text:#16140F;--muted:rgba(22,20,15,0.62);--muted2:rgba(22,20,15,0.40);
+  --gold-dim:rgba(201,168,76,0.16);
+  --shadow:0 18px 40px rgba(60,50,20,0.16);
+  --hero-grid:rgba(0,0,0,0.04);--lb-bg:rgba(40,36,28,0.86);
+}
+html[data-theme="light"] body{background:var(--dark)}
 html{scroll-behavior:smooth}
 body{background:var(--dark);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
@@ -42,6 +55,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;ali
 .nav-search::placeholder{color:var(--muted2)}
 .nav-cart-btn{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-size:.84rem;transition:all .2s}
 .nav-cart-btn:hover{border-color:var(--gold-mid);color:var(--gold)}
+.theme-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:1rem;cursor:pointer;transition:all .2s}
+.theme-btn:hover{border-color:var(--gold-mid);color:var(--gold)}
 .cart-badge{background:var(--gold);color:var(--dark);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700}
 
 /* PAGES */
@@ -51,7 +66,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;ali
 /* HERO */
 .hero{position:relative;height:calc(100vh - 64px);min-height:640px;display:flex;align-items:center;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 68% 50%,rgba(201,168,76,.09),transparent 58%),radial-gradient(ellipse at 20% 80%,rgba(26,115,232,.05),transparent 50%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px;opacity:.6}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--hero-grid) 1px,transparent 1px),linear-gradient(90deg,var(--hero-grid) 1px,transparent 1px);background-size:64px 64px;opacity:.6}
 .hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:0 32px;width:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:48px}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.09);border:1px solid rgba(201,168,76,.28);border-radius:100px;padding:6px 16px;margin-bottom:20px}
 .hero-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
@@ -396,7 +411,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 .gallery-item{position:relative;aspect-ratio:1;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);cursor:pointer}
 .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .gallery-item:hover img{transform:scale(1.07)}
-.lb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1200;display:none;align-items:center;justify-content:center;padding:24px}
+.lb-overlay{position:fixed;inset:0;background:var(--lb-bg);z-index:1200;display:none;align-items:center;justify-content:center;padding:24px}
 .lb-overlay.open{display:flex}
 .lb-overlay img{max-width:92vw;max-height:88vh;border-radius:var(--r);object-fit:contain}
 .lb-close{position:absolute;top:20px;right:26px;font-size:2rem;color:#fff;cursor:pointer;background:none;border:none}
@@ -417,6 +432,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
   </div>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="Search products..." oninput="doSearch(this.value)" data-testid="nav-search-input">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" data-testid="theme-toggle-btn" title="Toggle light / dark" aria-label="Toggle theme">&#9788;</button>
     <button class="nav-cart-btn" onclick="toggleCart()" data-testid="nav-cart-btn">
       Cart <span class="cart-badge" id="cart-cnt" data-testid="cart-count-badge">0</span>
     </button>
@@ -755,11 +771,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 let PRODS=[];
 const FALLBACK_PRODS=[{id:1,name:'OneCurve Bat',cat:'bats',grade:'1',mrp:20000,price:9999,badge:null,desc:'English Willow cricket bat.',clr:'gold',img:'',specs:[{k:'Willow',v:'English'}]}];
 async function loadProducts(){
+  let all=[];
   try{
     const r=await fetch('data/products.json',{cache:'no-store'});
-    if(r.ok){const d=await r.json();if(d&&Array.isArray(d.products)&&d.products.length)PRODS=d.products;}
+    if(r.ok){const d=await r.json();if(d&&Array.isArray(d.products)&&d.products.length)all=d.products;}
   }catch(e){console.warn('products.json load failed, using fallback',e);}
-  if(!PRODS.length)PRODS=FALLBACK_PRODS;
+  if(!all.length)all=FALLBACK_PRODS;
+  // active===false → product is hidden from the storefront entirely
+  PRODS=all.filter(p=>p.active!==false);
 }
 
 const PAL={gold:{bg:'rgba(201,168,76,.12)',s:'rgba(201,168,76,.65)',f:'rgba(201,168,76,.28)'},silver:{bg:'rgba(192,192,192,.1)',s:'rgba(210,210,210,.5)',f:'rgba(200,200,200,.2)'},teal:{bg:'rgba(0,150,136,.12)',s:'rgba(0,188,212,.6)',f:'rgba(0,188,212,.22)'},brown:{bg:'rgba(121,85,72,.14)',s:'rgba(188,143,110,.6)',f:'rgba(188,143,110,.22)'},white:{bg:'rgba(255,255,255,.06)',s:'rgba(255,255,255,.32)',f:'rgba(255,255,255,.14)'},blue:{bg:'rgba(26,115,232,.12)',s:'rgba(66,133,244,.6)',f:'rgba(66,133,244,.22)'},blue2:{bg:'rgba(63,81,181,.12)',s:'rgba(92,107,192,.6)',f:'rgba(92,107,192,.25)'},dark:{bg:'rgba(30,30,30,.85)',s:'rgba(90,90,90,.8)',f:'rgba(60,60,60,.5)'},'dark-gold':{bg:'rgba(15,15,15,.92)',s:'rgba(201,168,76,.7)',f:'rgba(201,168,76,.16)'},red:{bg:'rgba(229,57,53,.12)',s:'rgba(229,57,53,.62)',f:'rgba(229,57,53,.24)'},navy:{bg:'rgba(20,30,70,.55)',s:'rgba(70,90,170,.7)',f:'rgba(40,55,120,.4)'},royal:{bg:'rgba(30,60,180,.16)',s:'rgba(66,110,235,.7)',f:'rgba(45,80,210,.28)'},'blue-gold':{bg:'rgba(26,60,160,.16)',s:'rgba(201,168,76,.72)',f:'rgba(66,110,200,.26)'},'white-gold':{bg:'rgba(255,255,255,.08)',s:'rgba(201,168,76,.62)',f:'rgba(255,255,255,.16)'},green:{bg:'rgba(15,157,88,.12)',s:'rgba(22,180,104,.62)',f:'rgba(20,160,92,.24)'},yellow:{bg:'rgba(251,192,45,.14)',s:'rgba(251,192,45,.72)',f:'rgba(251,192,45,.28)'}};
@@ -1151,8 +1170,24 @@ function go(page,param){
   else if(page==='about'){document.getElementById('pg-home').classList.add('active');document.getElementById('nl-home').classList.add('active');setTimeout(()=>document.querySelector('.brand-section')&&document.querySelector('.brand-section').scrollIntoView({behavior:'smooth'}),100);}
 }
 
+/* === THEME === */
+function applyThemeIcon(){
+  const t=document.documentElement.getAttribute('data-theme')||'dark';
+  const b=document.getElementById('theme-btn');
+  if(b)b.innerHTML=t==='light'?'&#9790;':'&#9788;'; // moon in light mode, sun in dark
+}
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme')||'dark';
+  const next=cur==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem('oc-theme',next);}catch(e){}
+  applyThemeIcon();
+  logEv('UI','theme_toggle',next);
+}
+
 /* INIT */
 async function boot(){
+  applyThemeIcon();
   await loadProducts();
   renderHeroBats();
   renderFeatured();

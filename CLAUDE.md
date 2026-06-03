@@ -49,7 +49,10 @@ Body font:    'DM Sans' — all other text
 Rules:
 - Gold is the ONLY accent — no blue/green/red UI elements
 - All prices via fmtP(n) → "Rs.X,XXX" (en-IN locale, integer paise)
-- Dark theme only — never add light sections or white backgrounds
+- Dark is the DEFAULT theme. A light theme is now supported via the nav
+  toggle (html[data-theme="light"] overrides the CSS vars; gold accent is
+  preserved in both). Persisted in localStorage 'oc-theme'. Owner-approved
+  2026-06 — supersedes the earlier "dark only" rule.
 - Every button/interactive element needs data-testid="..."
 - Mobile: 960px tablet breakpoint, 640px mobile breakpoint
 - GST: 18% shown as line item in cart — Math.round(subtotal * 0.18)

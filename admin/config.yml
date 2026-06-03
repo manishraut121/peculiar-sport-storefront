@@ -28,6 +28,7 @@ collections:
             summary: "{{fields.name}} — Rs.{{fields.price}}"
             fields:
               - { name: "id", label: "ID", widget: "number", value_type: "int", hint: "Unique number — do not reuse." }
+              - { name: "active", label: "Visible in store", widget: "boolean", default: true, hint: "Turn OFF to hide from the storefront without deleting (e.g. out of stock)." }
               - { name: "name", label: "Name", widget: "string" }
               - name: "cat"
                 label: "Category"
