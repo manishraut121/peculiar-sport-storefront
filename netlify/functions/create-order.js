@@ -32,6 +32,13 @@ exports.handler = async (event) => {
     return resp(400, { error: 'Invalid amount' });
   }
 
+  // Bot protection: verify reCAPTCHA v3 token if a secret is configured.
+  const rcSecret = process.env.RECAPTCHA_SECRET;
+  if (rcSecret) {
+    const ok = await verifyRecaptcha(rcSecret, body.recaptcha_token, 'checkout');
+    if (!ok) return resp(403, { error: 'reCAPTCHA failed' });
+  }
+
   const auth = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
   const receipt = 'oc_' + Date.now();
 
@@ -65,6 +72,23 @@ exports.handler = async (event) => {
     return resp(500, { error: 'Order creation error', detail: String(e) });
   }
 };
+
+async function verifyRecaptcha(secret, token, action) {
+  if (!token) return false;
+  try {
+    const params = new URLSearchParams({ secret, response: token });
+    const r = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
+    });
+    const d = await r.json();
+    // v3: require success, matching action, and a non-bot score.
+    return !!d.success && (!d.action || d.action === action) && (d.score == null || d.score >= 0.5);
+  } catch (e) {
+    return false;
+  }
+}
 
 function resp(statusCode, obj) {
   return {

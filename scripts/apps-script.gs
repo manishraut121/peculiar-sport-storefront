@@ -23,14 +23,20 @@
  */
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
-var REP_PASSCODES = ['changeme123'];          // valid rep passcodes
-var OWNER_EMAIL   = 'owner@example.com';       // low-stock + sale alerts
-var LOW_STOCK_AT  = 3;                          // alert threshold
+var REP_PASSCODES    = ['changeme123'];        // valid rep passcodes
+var OWNER_EMAIL      = 'owner@example.com';     // low-stock + sale alerts
+var LOW_STOCK_AT     = 3;                        // alert threshold
+var RECAPTCHA_SECRET = '';                       // reCAPTCHA v3 secret ('' = skip check)
 
 function doPost(e) {
   var out = { ok: false };
   try {
     var data = JSON.parse(e.postData.contents);
+
+    // Bot protection: verify reCAPTCHA v3 token if a secret is configured.
+    if (RECAPTCHA_SECRET && !verifyRecaptcha(data.recaptcha_token)) {
+      return json({ ok: false, error: 'recaptcha failed' });
+    }
 
     if (data.type === 'sale') {
       // Offline rep sale — validate passcode first.
@@ -48,6 +54,21 @@ function doPost(e) {
     out.error = String(err);
   }
   return json(out);
+}
+
+function verifyRecaptcha(token) {
+  if (!token) return false;
+  try {
+    var res = UrlFetchApp.fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'post',
+      payload: { secret: RECAPTCHA_SECRET, response: token },
+      muteHttpExceptions: true
+    });
+    var d = JSON.parse(res.getContentText());
+    return !!d.success && (d.score == null || d.score >= 0.5);
+  } catch (e) {
+    return false;
+  }
 }
 
 function recordSale(data, channel) {

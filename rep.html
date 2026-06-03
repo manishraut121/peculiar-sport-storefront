@@ -8,6 +8,7 @@
 <!-- Same config as the storefront: paste your URLs here (or set on Netlify). -->
 <meta name="sheet-csv" content="">
 <meta name="orders-endpoint" content="">
+<meta name="recaptcha-key" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -42,6 +43,7 @@ input:focus,select:focus{border-color:var(--gold)}
 .gate-msg{font-size:.8rem;color:var(--muted);margin-top:8px}
 </style>
 <script src="scripts/sheet-sync.js"></script>
+<script src="scripts/recaptcha.js"></script>
 </head>
 <body>
 <div class="logo">ONE<span>CURVE</span></div>
@@ -141,7 +143,9 @@ async function submitSale(){
   const price=parseInt(document.getElementById('price').value)||p.price;
   const pc=sessionStorage.getItem('oc-rep-pc')||'';
   const url=endpoint();
-  const payload={type:'sale',channel:'OFFLINE',passcode:pc,payment_mode:mode,
+  let rcToken='';
+  try{if(window.OneCurveRecaptcha)rcToken=await window.OneCurveRecaptcha.getToken('rep_sale');}catch(e){}
+  const payload={type:'sale',channel:'OFFLINE',passcode:pc,payment_mode:mode,recaptcha_token:rcToken,
     customer_name:document.getElementById('cname').value.trim(),
     customer_phone:document.getElementById('cphone').value.trim(),
     amount:price*qty,items:[{id:p.id,name:p.name,qty,price}]};

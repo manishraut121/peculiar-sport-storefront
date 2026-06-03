@@ -9,6 +9,8 @@
 <meta name="sheet-csv" content="">
 <!-- Apps Script web-app URL for logging orders + offline sales. -->
 <meta name="orders-endpoint" content="">
+<!-- reCAPTCHA v3 site key (bot protection). Secret is verified server-side. -->
+<meta name="recaptcha-key" content="">
 <!-- Apply saved theme before first paint (no flash) -->
 <script>(function(){try{var t=localStorage.getItem('oc-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <title>OneCurve — The Art of the Game v2</title>
@@ -426,6 +428,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="scripts/sheet-sync.js"></script>
+<script src="scripts/recaptcha.js"></script>
 </head>
 <body>
 
@@ -1079,11 +1082,13 @@ async function startRazorpay(method){
   const metaKey=keyMeta?keyMeta.content.trim():'';
   if(typeof Razorpay==='undefined'){return false;}   // SDK blocked/offline
   const t=cartTotals();
+  let rcToken='';
+  try{if(window.OneCurveRecaptcha)rcToken=await window.OneCurveRecaptcha.getToken('checkout');}catch(e){}
   let order=null;
   try{
     const r=await fetch('/.netlify/functions/create-order',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({amount:t.paise,currency:'INR',items:cart})
+      body:JSON.stringify({amount:t.paise,currency:'INR',items:cart,recaptcha_token:rcToken})
     });
     if(!r.ok)return false;                 // 404 on Pages, 503 if keys missing
     order=await r.json();
