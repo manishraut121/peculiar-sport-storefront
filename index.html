@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Razorpay publishable key id (NOT the secret). On Netlify this is injected from env at deploy; left blank here so the demo fallback runs on GitHub Pages. -->
 <meta name="rzp-key" content="">
+<!-- Google Sheet stock sync (single source of truth). Paste your published CSV URL here. -->
+<meta name="sheet-csv" content="">
+<!-- Apps Script web-app URL for logging orders + offline sales. -->
+<meta name="orders-endpoint" content="">
 <!-- Apply saved theme before first paint (no flash) -->
 <script>(function(){try{var t=localStorage.getItem('oc-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <title>OneCurve — The Art of the Game v2</title>
@@ -57,6 +61,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;ali
 .nav-cart-btn:hover{border-color:var(--gold-mid);color:var(--gold)}
 .theme-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:1rem;cursor:pointer;transition:all .2s}
 .theme-btn:hover{border-color:var(--gold-mid);color:var(--gold)}
+.stock-warn{display:inline-block;margin-top:6px;font-size:.7rem;font-weight:600;letter-spacing:.02em;padding:2px 8px;border-radius:6px}
+.stock-warn.low{color:var(--orange);background:rgba(251,140,0,.12);border:1px solid rgba(251,140,0,.3)}
+.stock-warn.out{color:var(--muted);background:var(--card-h);border:1px solid var(--border)}
 .cart-badge{background:var(--gold);color:var(--dark);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700}
 
 /* PAGES */
@@ -418,6 +425,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 @media(max-width:640px){.ad-banner-overlay{background:linear-gradient(180deg,rgba(8,8,8,.4),rgba(8,8,8,.82))}.gallery-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="scripts/sheet-sync.js"></script>
 </head>
 <body>
 
@@ -777,6 +785,13 @@ async function loadProducts(){
     if(r.ok){const d=await r.json();if(d&&Array.isArray(d.products)&&d.products.length)all=d.products;}
   }catch(e){console.warn('products.json load failed, using fallback',e);}
   if(!all.length)all=FALLBACK_PRODS;
+  // Override stock/price/active from the Google Sheet (single source of truth).
+  try{
+    if(window.OneCurveStock){
+      const live=await window.OneCurveStock.fetchStock();
+      if(live){all.forEach(p=>{const e=live[p.id];if(e){if(e.stock!=null)p.stock=e.stock;if(e.price!=null)p.price=e.price;if(e.active!=null)p.active=e.active;}});}
+    }
+  }catch(e){console.warn('stock merge skipped',e);}
   // active===false → product is hidden from the storefront entirely
   PRODS=all.filter(p=>p.active!==false);
 }
@@ -817,6 +832,14 @@ function skelDetail(){return '<div class="skel-detail-grid"><div><div class="ske
 let cart=[],F={cat:'all',grade:'all',maxP:20000,sort:'featured'};
 function fmtP(n){return 'Rs.'+n.toLocaleString('en-IN')}
 function disc(p){return p.mrp&&p.mrp>p.price?Math.round((p.mrp-p.price)/p.mrp*100):0}
+/* Stock note — warn only, never blocks buying (backorders allowed). */
+function stockNote(p){
+  if(p.stock==null)return '';
+  const t=p.lowStockThreshold!=null?p.lowStockThreshold:3;
+  if(p.stock<=0)return '<span class="stock-warn out" data-testid="stock-out-'+p.id+'">Out of stock - backorder</span>';
+  if(p.stock<=t)return '<span class="stock-warn low" data-testid="stock-low-'+p.id+'">Only '+p.stock+' left!</span>';
+  return '';
+}
 function catName(c){return c==='bats'?'Cricket Bats':c==='gloves'?'Batting Gloves':'Batting Pads'}
 function catSub(c){return c==='bats'?'English Willow Cricket Bat':c==='gloves'?'Premium Batting Gloves':'Batting Pads'}
 
@@ -826,7 +849,7 @@ function pcard(p,onClick){
   const grade=p.grade?`<span class="pcard-grade">Grade ${p.grade}</span>`:'';
   const imgCls=p.cat==='bats'?'bats-bg':'pads-bg';
   const d=disc(p);
-  return `<div class="pcard" onclick="${onClick}" data-testid="product-card-${p.id}" data-product-id="${p.id}"><div class="pcard-img ${imgCls}">${badge}${grade}${prodImg(p)}</div><div class="pcard-body"><h3>${p.name}</h3><div class="pcard-sub">${catSub(p.cat)}</div></div><div class="pcard-foot"><div class="pcard-pricewrap">${p.mrp?`<span class="pcard-mrp">${fmtP(p.mrp)}</span>`:''}<span class="pcard-price">${fmtP(p.price)}</span>${d?`<span class="disc-badge">-${d}%</span>`:''}</div><button class="cart-add" onclick="event.stopPropagation();addCart(${p.id})" data-testid="cart-add-btn-${p.id}" title="Add to cart">+</button></div></div>`;
+  return `<div class="pcard" onclick="${onClick}" data-testid="product-card-${p.id}" data-product-id="${p.id}"><div class="pcard-img ${imgCls}">${badge}${grade}${prodImg(p)}</div><div class="pcard-body"><h3>${p.name}</h3><div class="pcard-sub">${catSub(p.cat)}</div>${stockNote(p)}</div><div class="pcard-foot"><div class="pcard-pricewrap">${p.mrp?`<span class="pcard-mrp">${fmtP(p.mrp)}</span>`:''}<span class="pcard-price">${fmtP(p.price)}</span>${d?`<span class="disc-badge">-${d}%</span>`:''}</div><button class="cart-add" onclick="event.stopPropagation();addCart(${p.id})" data-testid="cart-add-btn-${p.id}" title="Add to cart">+</button></div></div>`;
 }
 
 /* === HERO PHOTO ROTATOR === */
@@ -924,6 +947,7 @@ function _paintDetail(id){
       <h1 class="detail-h" data-testid="detail-name">${p.name}</h1>
       <div class="stars-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="review-count">4.9 - 127 reviews</span>${p.badge?`<span class="pcard-badge ${p.bCls||'badge-gold'}" style="position:static">${p.badge}</span>`:''}</div>
       <div class="detail-price-wrap"><span class="detail-price" data-testid="detail-price">${fmtP(p.price)}</span>${p.mrp?`<span class="detail-mrp">${fmtP(p.mrp)}</span>`:''}${disc(p)?`<span class="disc-badge">-${disc(p)}%</span><span class="detail-save">You save ${fmtP(p.mrp-p.price)}</span>`:''}</div>
+      ${stockNote(p)?`<div style="margin:4px 0 2px">${stockNote(p)}</div>`:''}
       <p class="detail-desc">${p.desc}</p>
       <div class="specs-grid" data-testid="specs-grid">${sp}</div>
       ${sz}
@@ -1098,7 +1122,22 @@ async function verifyAndFinish(resp,method){
     });
     if(r.ok){const d=await r.json();ok=!!d.verified;}
   }catch(e){ok=false;}
+  if(ok)logOrderToSheet(resp.razorpay_payment_id,method);
   showRzpSuccess(resp.razorpay_payment_id,ok,method);
+}
+
+/* Append a paid online order to the Google Sheet (fire-and-forget).
+   Also decrements stock for each item via the same Apps Script. */
+function logOrderToSheet(paymentId,method){
+  const ep=document.querySelector('meta[name="orders-endpoint"]');
+  const url=ep?ep.content.trim():'';
+  if(!url)return; // not configured (e.g. demo on GitHub Pages)
+  const t=cartTotals();
+  const items=cart.map(it=>{const p=PRODS.find(x=>x.id===it.id);return{id:it.id,name:p&&p.name,qty:it.qty,price:p&&p.price};});
+  const payload={type:'order',channel:'ONLINE',order_id:paymentId,amount:t.total,payment_mode:method,items};
+  try{
+    fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  }catch(e){console.warn('order log failed',e);}
 }
 
 function showRzpSuccess(paymentId,ok,method){
