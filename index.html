@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Razorpay publishable key id (NOT the secret). On Netlify this is injected from env at deploy; left blank here so the demo fallback runs on GitHub Pages. -->
+<meta name="rzp-key" content="">
 <title>OneCurve — The Art of the Game v2</title>
 <meta name="description" content="OneCurve: Premium handcrafted cricket equipment. English Willow bats, batting pads. Made in India for champions.">
 <link rel="canonical" href="https://onecurve.in/">
@@ -400,6 +402,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 .lb-close{position:absolute;top:20px;right:26px;font-size:2rem;color:#fff;cursor:pointer;background:none;border:none}
 @media(max-width:640px){.ad-banner-overlay{background:linear-gradient(180deg,rgba(8,8,8,.4),rgba(8,8,8,.82))}.gallery-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
@@ -747,33 +750,26 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 </footer>
 
 <script>
-const PRODS=[
-  {id:1,name:'Vintage',cat:'bats',grade:'1+',mrp:50000,price:16800,badge:'Premium',bCls:'badge-gold',desc:'A timeless beauty. Hand-picked Grade 1+ English Willow with a classic profile and big sweet spot for the complete batsman.',specs:{Weight:'1180g',Pickup:'Mid',Edge:'40mm','Sweet Spot':'Mid','Willow':'Grade 1+ English','Handle':'Round Cane'},clr:'brown'},
-  {id:2,name:'Seven Horses Orange Players Edition',cat:'bats',grade:'1',mrp:45000,price:16500,badge:'Players Edition',bCls:'badge-purple',desc:'The Seven Horses Players Edition - built for the modern strokemaker. Bold graphics, explosive power, tournament-ready.',specs:{Weight:'1170g',Pickup:'Mid-High',Edge:'42mm','Sweet Spot':'Mid','Willow':'Grade 1 English','Handle':'Oval Cane'},clr:'red'},
-  {id:3,name:'MN7',cat:'bats',grade:'1+',mrp:69999,price:17500,badge:'Flagship',bCls:'badge-gold',desc:'Our flagship. Premium Grade 1+ English Willow, meticulously balanced for elite players who demand the very best.',specs:{Weight:'1160g',Pickup:'High',Edge:'40mm','Sweet Spot':'High','Willow':'Grade 1+ English','Handle':'Round Cane'},clr:'gold'},
-  {id:4,name:'Original Grade Two',cat:'bats',grade:'2',mrp:39999,price:11500,badge:null,desc:'Trusted performance from genuine Grade 2 English Willow. Reliable, balanced and made for serious match cricket.',specs:{Weight:'1180g',Pickup:'Mid',Edge:'38mm','Sweet Spot':'Mid','Willow':'Grade 2 English','Handle':'Round Cane'},clr:'silver'},
-  {id:5,name:'Beast Grade 2',cat:'bats',grade:'2',mrp:27999,price:11000,badge:'Power',bCls:'badge-blue',desc:'Unleash the Beast. Thick-edged Grade 2 English Willow engineered for raw power and big hitting.',specs:{Weight:'1200g',Pickup:'Mid','Edge':'44mm','Sweet Spot':'Low-Mid','Willow':'Grade 2 English','Handle':'Oval Cane'},clr:'white'},
-  {id:6,name:'Stallion',cat:'bats',grade:'3',mrp:16999,price:7000,badge:null,desc:'Robust Grade 3 English Willow for intermediate players stepping up their game. Great pickup, dependable power.',specs:{Weight:'1180g',Pickup:'Mid','Edge':'38mm','Sweet Spot':'Mid','Willow':'Grade 3 English','Handle':'Round Cane'},clr:'blue2'},
-  {id:7,name:'Black Edition',cat:'bats',grade:'4',mrp:7000,price:3350,badge:'Best Value',bCls:'badge-gold',desc:'Stealthy looks, honest performance. A perfect entry-level bat for net sessions and weekend cricket.',specs:{Weight:'1170g',Pickup:'Mid','Edge':'36mm','Sweet Spot':'Mid','Willow':'Kashmir Willow','Handle':'Round Cane'},clr:'dark'},
-  {id:8,name:'Hulk & County Edition',cat:'bats',grade:'4',mrp:12999,price:6000,badge:null,desc:'Grade 4 workhorse for club and academy players. Strong, balanced and built to take a beating.',specs:{Weight:'1190g',Pickup:'Mid','Edge':'38mm','Sweet Spot':'Mid-Low','Willow':'Grade 4 / Kashmir','Handle':'Oval Cane'},clr:'teal'},
-  {id:9,name:'Players Edition Pads',cat:'pads',grade:null,mrp:5999,price:2050,badge:'Bestseller',bCls:'badge-blue',desc:'Lightweight players-grade batting pads with high-density foam protection. Available in Blue, Black, White and Gold.',specs:{Size:'Youth / Full',Material:'Premium PU',Weight:'720g',Straps:'3-strap velcro',Protection:'High-density foam',Colour:'Blue / Black / White / Gold'},clr:'white'},
-  {id:10,name:'Academy Pads',cat:'pads',grade:null,mrp:3999,price:1450,badge:null,desc:'Durable, comfortable pads built for academy training and everyday net sessions. Excellent value protection.',specs:{Size:'Youth / Full',Material:'PU Synthetic',Weight:'740g',Straps:'3-strap',Protection:'Foam padding',Colour:'White'},clr:'silver'},
-  {id:11,name:'Limited Edition Pads - Black',cat:'pads',grade:null,mrp:4999,price:2160,badge:'Limited',bCls:'badge-purple',desc:'Blacked-out limited edition pads. Dual-layer foam and premium strapping in a stealth finish.',specs:{Size:'Full',Material:'Premium PU',Weight:'710g',Straps:'3-strap velcro',Protection:'Dual-layer',Colour:'Black'},clr:'dark'},
-  {id:12,name:'Limited Edition Pads - Navy Blue',cat:'pads',grade:null,mrp:4999,price:2160,badge:'Limited',bCls:'badge-purple',desc:'Deep navy limited edition pads with dual-layer foam protection and a sharp, modern look.',specs:{Size:'Full',Material:'Premium PU',Weight:'710g',Straps:'3-strap velcro',Protection:'Dual-layer',Colour:'Navy Blue'},clr:'navy'},
-  {id:13,name:'Limited Edition Pads - Royal Blue',cat:'pads',grade:null,mrp:4999,price:2160,badge:'Limited',bCls:'badge-purple',desc:'Striking royal blue limited edition pads. Premium protection that stands out at the crease.',specs:{Size:'Full',Material:'Premium PU',Weight:'710g',Straps:'3-strap velcro',Protection:'Dual-layer',Colour:'Royal Blue'},clr:'royal'},
-  {id:14,name:'Limited Edition Pads - Black & Gold',cat:'pads',grade:null,mrp:4999,price:2160,badge:'Limited',bCls:'badge-purple',desc:'Ultimate luxury. Black PU with gold accents in a strictly limited run.',specs:{Size:'Full',Material:'Premium PU',Weight:'700g',Straps:'3-strap velcro',Protection:'Dual-layer',Colour:'Black / Gold'},clr:'dark-gold'},
-  {id:15,name:'Limited Edition Pads - Blue & Gold',cat:'pads',grade:null,mrp:4999,price:2160,badge:'Limited',bCls:'badge-purple',desc:'Bold blue and gold limited edition pads. Premium dual-layer protection with statement styling.',specs:{Size:'Full',Material:'Premium PU',Weight:'705g',Straps:'3-strap velcro',Protection:'Dual-layer',Colour:'Blue / Gold'},clr:'blue-gold'},
-  {id:16,name:'Limited Edition Pads - White & Gold',cat:'pads',grade:null,mrp:4999,price:2160,badge:'Limited',bCls:'badge-purple',desc:'Classic white with gold detailing. A clean, premium limited edition for the stylish batsman.',specs:{Size:'Full',Material:'Premium PU',Weight:'700g',Straps:'3-strap velcro',Protection:'Dual-layer',Colour:'White / Gold'},clr:'white-gold'},
-  {id:17,name:'Original Gloves - Yellow',cat:'gloves',grade:null,mrp:4999,price:2150,badge:null,desc:'Original batting gloves with sweat-absorbent palm and high-density finger protection. Bright yellow finish.',specs:{Size:'Youth / Mens',Material:'Sheep Leather Palm',Protection:'Moulded foam',Fit:'Pre-curved',Colour:'Yellow'},clr:'yellow'},
-  {id:18,name:'Original Gloves - Green',cat:'gloves',grade:null,mrp:4999,price:2150,badge:null,desc:'Original batting gloves with sweat-absorbent palm and high-density finger protection. Green finish.',specs:{Size:'Youth / Mens',Material:'Sheep Leather Palm',Protection:'Moulded foam',Fit:'Pre-curved',Colour:'Green'},clr:'green'},
-  {id:19,name:'Original Gloves - Blue',cat:'gloves',grade:null,mrp:4999,price:2150,badge:null,desc:'Original batting gloves with sweat-absorbent palm and high-density finger protection. Blue finish.',specs:{Size:'Youth / Mens',Material:'Sheep Leather Palm',Protection:'Moulded foam',Fit:'Pre-curved',Colour:'Blue'},clr:'blue'},
-];
+/* Products are loaded from /data/products.json (editable via the CMS at /admin).
+   A minimal fallback keeps the page usable if the fetch ever fails. */
+let PRODS=[];
+const FALLBACK_PRODS=[{id:1,name:'OneCurve Bat',cat:'bats',grade:'1',mrp:20000,price:9999,badge:null,desc:'English Willow cricket bat.',clr:'gold',img:'',specs:[{k:'Willow',v:'English'}]}];
+async function loadProducts(){
+  try{
+    const r=await fetch('data/products.json',{cache:'no-store'});
+    if(r.ok){const d=await r.json();if(d&&Array.isArray(d.products)&&d.products.length)PRODS=d.products;}
+  }catch(e){console.warn('products.json load failed, using fallback',e);}
+  if(!PRODS.length)PRODS=FALLBACK_PRODS;
+}
 
 const PAL={gold:{bg:'rgba(201,168,76,.12)',s:'rgba(201,168,76,.65)',f:'rgba(201,168,76,.28)'},silver:{bg:'rgba(192,192,192,.1)',s:'rgba(210,210,210,.5)',f:'rgba(200,200,200,.2)'},teal:{bg:'rgba(0,150,136,.12)',s:'rgba(0,188,212,.6)',f:'rgba(0,188,212,.22)'},brown:{bg:'rgba(121,85,72,.14)',s:'rgba(188,143,110,.6)',f:'rgba(188,143,110,.22)'},white:{bg:'rgba(255,255,255,.06)',s:'rgba(255,255,255,.32)',f:'rgba(255,255,255,.14)'},blue:{bg:'rgba(26,115,232,.12)',s:'rgba(66,133,244,.6)',f:'rgba(66,133,244,.22)'},blue2:{bg:'rgba(63,81,181,.12)',s:'rgba(92,107,192,.6)',f:'rgba(92,107,192,.25)'},dark:{bg:'rgba(30,30,30,.85)',s:'rgba(90,90,90,.8)',f:'rgba(60,60,60,.5)'},'dark-gold':{bg:'rgba(15,15,15,.92)',s:'rgba(201,168,76,.7)',f:'rgba(201,168,76,.16)'},red:{bg:'rgba(229,57,53,.12)',s:'rgba(229,57,53,.62)',f:'rgba(229,57,53,.24)'},navy:{bg:'rgba(20,30,70,.55)',s:'rgba(70,90,170,.7)',f:'rgba(40,55,120,.4)'},royal:{bg:'rgba(30,60,180,.16)',s:'rgba(66,110,235,.7)',f:'rgba(45,80,210,.28)'},'blue-gold':{bg:'rgba(26,60,160,.16)',s:'rgba(201,168,76,.72)',f:'rgba(66,110,200,.26)'},'white-gold':{bg:'rgba(255,255,255,.08)',s:'rgba(201,168,76,.62)',f:'rgba(255,255,255,.16)'},green:{bg:'rgba(15,157,88,.12)',s:'rgba(22,180,104,.62)',f:'rgba(20,160,92,.24)'},yellow:{bg:'rgba(251,192,45,.14)',s:'rgba(251,192,45,.72)',f:'rgba(251,192,45,.28)'}};
 
 function bSVG(clr,lg){const c=PAL[clr]||PAL.gold,sc=lg?1.85:1,W=Math.round(70*sc),H=Math.round(262*sc);return `<svg width="${W}" height="${H}" viewBox="0 0 70 262"><rect x="28" y="0" width="14" height="62" rx="7" fill="${c.s}"/><rect x="30" y="14" width="10" height="36" rx="5" fill="${c.f}"/><path d="M14 62 Q8 84 8 124 L8 214 Q8 254 35 258 Q62 254 62 214 L62 124 Q62 84 56 62 Z" fill="${c.bg}" stroke="${c.s}" stroke-width="1.5"/><path d="M19 90 Q16 134 16 174 L16 212 Q16 244 35 248 Q54 244 54 212 L54 174 Q54 134 51 90 Z" fill="${c.f}"/><circle cx="35" cy="182" r="7" fill="none" stroke="${c.s}" stroke-width="1.2"/></svg>`}
 function pSVGEl(clr,lg){const c=PAL[clr]||PAL.white,sc=lg?1.85:1,W=Math.round(96*sc),H=Math.round(180*sc);return `<svg width="${W}" height="${H}" viewBox="0 0 96 180"><rect x="18" y="8" width="60" height="154" rx="30" fill="${c.bg}" stroke="${c.s}" stroke-width="1.5"/><rect x="20" y="10" width="56" height="14" rx="7" fill="${c.f}"/><rect x="20" y="28" width="56" height="14" rx="7" fill="${c.f}"/><rect x="20" y="46" width="56" height="14" rx="7" fill="${c.f}"/><rect x="20" y="68" width="56" height="76" rx="14" fill="${c.f}"/><circle cx="48" cy="104" r="13" fill="none" stroke="${c.s}" stroke-width="1.2"/></svg>`}
-function prodImg(p,lg){return p.cat==='bats'?bSVG(p.clr,lg):pSVGEl(p.clr,lg)}
+function prodImg(p,lg){
+  if(p.img)return `<img src="${p.img}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:contain" loading="lazy">`;
+  return p.cat==='bats'?bSVG(p.clr,lg):pSVGEl(p.clr,lg);
+}
 
 /* === 1. TELEMETRY === */
 const TEL=[];
@@ -890,7 +886,8 @@ function _paintDetail(id){
   const cLbl=catName(p.cat);
   document.getElementById('d-cat-link').textContent=cLbl;
   document.getElementById('d-cat-link').onclick=()=>go('products',p.cat);
-  const sp=Object.entries(p.specs).map(([k,v])=>`<div class="spec rage-hint" data-sk="${k}" data-testid="spec-${k.toLowerCase().replace(/\s+/g,'-')}"><div class="spec-k">${k}</div><div class="spec-v">${v}</div></div>`).join('');
+  const specList=Array.isArray(p.specs)?p.specs:Object.entries(p.specs||{}).map(([k,v])=>({k,v}));
+  const sp=specList.map(({k,v})=>`<div class="spec rage-hint" data-sk="${k}" data-testid="spec-${k.toLowerCase().replace(/\s+/g,'-')}"><div class="spec-k">${k}</div><div class="spec-v">${v}</div></div>`).join('');
   const sz=p.cat==='bats'
     ?'<div class="size-title">Handle Size</div><div class="sizes"><button class="sz on" onclick="selSz(this)" data-testid="size-sh">SH</button><button class="sz" onclick="selSz(this)" data-testid="size-lh">LH</button><button class="sz" onclick="selSz(this)" data-testid="size-shp">SH+</button></div>'
     :'<div class="size-title">Select Size</div><div class="sizes"><button class="sz on" onclick="selSz(this)" data-testid="size-youth">Youth</button><button class="sz" onclick="selSz(this)" data-testid="size-full">Full</button><button class="sz" onclick="selSz(this)" data-testid="size-xl">XL</button></div>';
@@ -1013,19 +1010,106 @@ function startQR(){
   t();qrInt=setInterval(t,1000);
 }
 
-function simPay(method){
+/* === PAYMENT ===
+   cartTotals() returns money in integer paise-safe rupees.
+   simPay() tries the real Razorpay flow first (via Netlify functions);
+   if those aren't available (e.g. GitHub Pages, or keys not configured) it
+   transparently falls back to the in-page demo so the UX still works. */
+function cartTotals(){
+  const sub=cart.reduce((s,x)=>{const p=PRODS.find(z=>z.id===x.id);return s+(p.price*x.qty)},0);
+  const gst=Math.round(sub*.18);
+  const ship=sub>2999?0:199;
+  const total=sub+gst+ship;            // integer rupees
+  return {sub,gst,ship,total,paise:total*100};
+}
+
+async function simPay(method){
   logEv('PAYMENT','payment_initiated',method);
+  const started=await startRazorpay(method);
+  if(!started)runDemoPayment(method);
+}
+
+/* Attempt a real Razorpay checkout. Returns true if the Razorpay modal was
+   opened (real path), false if we should fall back to the demo. */
+async function startRazorpay(method){
+  const keyMeta=document.querySelector('meta[name="rzp-key"]');
+  const metaKey=keyMeta?keyMeta.content.trim():'';
+  if(typeof Razorpay==='undefined'){return false;}   // SDK blocked/offline
+  const t=cartTotals();
+  let order=null;
+  try{
+    const r=await fetch('/.netlify/functions/create-order',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({amount:t.paise,currency:'INR',items:cart})
+    });
+    if(!r.ok)return false;                 // 404 on Pages, 503 if keys missing
+    order=await r.json();
+  }catch(e){return false;}                 // network/function unavailable
+  if(!order||!order.orderId)return false;
+  const keyId=order.keyId||metaKey;
+  if(!keyId)return false;
+  return new Promise(resolve=>{
+    const options={
+      key:keyId,
+      amount:order.amount,
+      currency:order.currency||'INR',
+      name:'OneCurve Sports',
+      description:'Cricket Equipment Order',
+      order_id:order.orderId,
+      prefill:{name:'',email:'',contact:''},
+      theme:{color:'#C9A84C'},
+      modal:{ondismiss:()=>{logEv('PAYMENT','payment_dismissed',method);resolve(true);}},
+      handler:function(resp){verifyAndFinish(resp,method);resolve(true);}
+    };
+    try{const rzp=new Razorpay(options);rzp.open();}
+    catch(e){resolve(false);}             // constructing failed → demo
+  });
+}
+
+async function verifyAndFinish(resp,method){
+  let ok=false;
+  try{
+    const r=await fetch('/.netlify/functions/verify-payment',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        razorpay_order_id:resp.razorpay_order_id,
+        razorpay_payment_id:resp.razorpay_payment_id,
+        razorpay_signature:resp.razorpay_signature
+      })
+    });
+    if(r.ok){const d=await r.json();ok=!!d.verified;}
+  }catch(e){ok=false;}
+  showRzpSuccess(resp.razorpay_payment_id,ok,method);
+}
+
+function showRzpSuccess(paymentId,ok,method){
+  clearInterval(qrInt);
+  document.getElementById('co-form-wrap').style.display='none';
+  document.getElementById('co-proc').classList.remove('show');
+  document.getElementById('co-succ').classList.add('show');
+  document.getElementById('order-id').textContent=paymentId||'—';
+  logEv('PAYMENT',ok?'payment_verified':'payment_unverified',method);
+  cart=[];updCartUI();
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('co-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(!ok)toast('Payment captured — verification pending confirmation.');
+}
+
+/* In-page simulated payment (demo / offline fallback) */
+function runDemoPayment(method){
   document.getElementById('co-form-wrap').style.display='none';
   document.getElementById('co-proc').classList.add('show');
-  const labels=['Connecting to gateway...','Verifying with your bank...','Confirming transaction...','Finalising order...'];
+  const labels=['Connecting to gateway... (demo)','Verifying with your bank...','Confirming transaction...','Finalising order...'];
   let i=0;const lbl=document.getElementById('proc-lbl');
+  if(lbl)lbl.textContent=labels[0];
   const tk=setInterval(()=>{i++;if(lbl&&i<labels.length)lbl.textContent=labels[i];},900);
   setTimeout(()=>{
     clearInterval(tk);clearInterval(qrInt);
     document.getElementById('co-proc').classList.remove('show');
     document.getElementById('co-succ').classList.add('show');
-    document.getElementById('order-id').textContent=Math.floor(10000+Math.random()*90000);
-    logEv('PAYMENT','payment_success',method);
+    document.getElementById('order-id').textContent='DEMO-'+Math.floor(10000+Math.random()*90000);
+    logEv('PAYMENT','payment_success_demo',method);
     cart=[];updCartUI();
     document.getElementById('cart-overlay').classList.remove('open');
     document.body.style.overflow='hidden';
@@ -1068,10 +1152,23 @@ function go(page,param){
 }
 
 /* INIT */
-renderHeroBats();
-renderFeatured();
-renderGallery();
-logEv('NAV','page_view','home');
+async function boot(){
+  await loadProducts();
+  renderHeroBats();
+  renderFeatured();
+  renderGallery();
+  logEv('NAV','page_view','home');
+}
+boot();
+</script>
+<!-- Netlify Identity: routes CMS invite/recovery links to /admin -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+if(window.netlifyIdentity){
+  window.netlifyIdentity.on('init',u=>{
+    if(!u){window.netlifyIdentity.on('login',()=>{document.location.href='/admin/';});}
+  });
+}
 </script>
 </body>
 </html>

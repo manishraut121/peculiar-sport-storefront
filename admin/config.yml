@@ -1,0 +1,53 @@
+# Decap CMS configuration for OneCurve Sports
+# Git-based CMS: edits commit directly to the GitHub repo via Netlify's
+# Git Gateway. Requires (set up by owner in Netlify dashboard):
+#   1. Netlify Identity enabled
+#   2. Git Gateway enabled (Identity → Services)
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded product images land in the repo.
+media_folder: "images/products"
+public_folder: "/images/products"
+
+collections:
+  - name: "catalog"
+    label: "Catalog"
+    files:
+      - name: "products"
+        label: "Products"
+        file: "data/products.json"
+        description: "The product catalog — source of truth for the storefront."
+        fields:
+          - name: "products"
+            label: "Products"
+            label_singular: "Product"
+            widget: "list"
+            summary: "{{fields.name}} — Rs.{{fields.price}}"
+            fields:
+              - { name: "id", label: "ID", widget: "number", value_type: "int", hint: "Unique number — do not reuse." }
+              - { name: "name", label: "Name", widget: "string" }
+              - name: "cat"
+                label: "Category"
+                widget: "select"
+                options: ["bats", "pads", "gloves"]
+              - { name: "grade", label: "Grade", widget: "string", required: false, hint: "e.g. 1+, 2 (bats only)." }
+              - { name: "mrp", label: "MRP (Rs.)", widget: "number", value_type: "int", hint: "Strike-through price, whole rupees." }
+              - { name: "price", label: "Sale Price (Rs.)", widget: "number", value_type: "int", hint: "Whole rupees." }
+              - { name: "badge", label: "Badge Text", widget: "string", required: false, hint: "e.g. Bestseller. Leave blank for none." }
+              - name: "bCls"
+                label: "Badge Style"
+                widget: "select"
+                required: false
+                options: ["badge-gold", "badge-blue", "badge-purple"]
+              - { name: "desc", label: "Description", widget: "text" }
+              - { name: "clr", label: "Colour Theme", widget: "string", hint: "Palette key: gold, silver, dark, navy, royal, red, green, yellow, etc." }
+              - { name: "img", label: "Product Image", widget: "image", required: false, hint: "Optional — uploads to images/products." }
+              - name: "specs"
+                label: "Specifications"
+                widget: "list"
+                fields:
+                  - { name: "k", label: "Spec", widget: "string" }
+                  - { name: "v", label: "Value", widget: "string" }
