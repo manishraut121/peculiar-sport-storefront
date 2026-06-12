@@ -20,6 +20,19 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        gold: {
+          DEFAULT: "#C9A84C",
+          hover: "#E2B84C",
+        },
+        ink: {
+          DEFAULT: "#080808",
+          surface: "#0F0F0F",
+          card: "#181818",
+        },
+        cream: {
+          DEFAULT: "#F0EEE8",
+          muted: "rgba(240,238,232,0.52)",
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
@@ -59,7 +72,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "var(--font-body)",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
@@ -68,6 +81,8 @@ module.exports = {
           "Ubuntu",
           "sans-serif",
         ],
+        body: ["var(--font-body)", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"],
       },
       keyframes: {
         ring: {

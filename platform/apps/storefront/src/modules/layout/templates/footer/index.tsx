@@ -3,7 +3,6 @@ import { listCollections } from "@lib/data/collections";
 import { Text, clx } from "@modules/common/components/ui";
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
-import MedusaCTA from "@modules/layout/components/medusa-cta";
 
 export default async function Footer() {
   const { collections } = await listCollections({
@@ -109,37 +108,31 @@ export default async function Footer() {
               </div>
             )}
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
+              <span className="txt-small-plus txt-ui-fg-base">OneCurve</span>
               <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
                 <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
+                  <LocalizedClientLink
+                    href="/store"
                     className="hover:text-ui-fg-base"
                   >
-                    GitHub
-                  </a>
+                    All products
+                  </LocalizedClientLink>
                 </li>
                 <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
+                  <LocalizedClientLink
+                    href="/account"
                     className="hover:text-ui-fg-base"
                   >
-                    Documentation
-                  </a>
+                    Account
+                  </LocalizedClientLink>
                 </li>
                 <li>
-                  <a
-                    href="https://github.com/medusajs/dtc-starter"
-                    target="_blank"
-                    rel="noreferrer"
+                  <LocalizedClientLink
+                    href="/cart"
                     className="hover:text-ui-fg-base"
                   >
-                    Source code
-                  </a>
+                    Cart
+                  </LocalizedClientLink>
                 </li>
               </ul>
             </div>
@@ -149,7 +142,9 @@ export default async function Footer() {
           <Text className="txt-compact-small">
             © {new Date().getFullYear()} OneCurve Sports. All rights reserved.
           </Text>
-          <MedusaCTA />
+          <Text className="txt-compact-small">
+            Handcrafted in India <span className="text-gold">●</span> onecurve.in
+          </Text>
         </div>
       </div>
     </footer>
