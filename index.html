@@ -1064,7 +1064,7 @@ function startQR(){
 function cartTotals(){
   const sub=cart.reduce((s,x)=>{const p=PRODS.find(z=>z.id===x.id);return s+(p.price*x.qty)},0);
   const gst=Math.round(sub*.18);
-  const ship=sub>2999?0:199;
+  const ship=sub>=2999?0:199;
   const total=sub+gst+ship;            // integer rupees
   return {sub,gst,ship,total,paise:total*100};
 }
@@ -1072,7 +1072,15 @@ function cartTotals(){
 async function simPay(method){
   logEv('PAYMENT','payment_initiated',method);
   const started=await startRazorpay(method);
-  if(!started)runDemoPayment(method);
+  if(started)return;
+  /* On the live domain, never fall back to the fake demo payment — a real
+     customer must never see a success screen without a verified payment. */
+  if(/(^|\.)onecurve\.in$/.test(location.hostname)){
+    toast('Payment is temporarily unavailable. Please try again in a moment.');
+    logEv('PAYMENT','payment_unavailable',method);
+    return;
+  }
+  runDemoPayment(method);
 }
 
 /* Attempt a real Razorpay checkout. Returns true if the Razorpay modal was
@@ -1081,16 +1089,23 @@ async function startRazorpay(method){
   const keyMeta=document.querySelector('meta[name="rzp-key"]');
   const metaKey=keyMeta?keyMeta.content.trim():'';
   if(typeof Razorpay==='undefined'){return false;}   // SDK blocked/offline
-  const t=cartTotals();
   let rcToken='';
   try{if(window.OneCurveRecaptcha)rcToken=await window.OneCurveRecaptcha.getToken('checkout');}catch(e){}
   let order=null;
   try{
+    /* Only items go to the server — it recomputes the amount from the catalog
+       (+ Sheet overrides) so prices/totals can never be tampered with. */
     const r=await fetch('/.netlify/functions/create-order',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({amount:t.paise,currency:'INR',items:cart,recaptcha_token:rcToken})
+      body:JSON.stringify({items:cart,recaptcha_token:rcToken})
     });
-    if(!r.ok)return false;                 // 404 on Pages, 503 if keys missing
+    if(r.status===404||r.status===503)return false;  // no functions/keys → demo
+    if(!r.ok){
+      let msg='Could not start payment. Please try again.';
+      try{const d=await r.json();if(d&&d.error&&r.status===409)msg=d.error;}catch(e){}
+      toast(msg);logEv('PAYMENT','payment_error',msg);
+      return true;                         // handled — do NOT fall back to demo
+    }
     order=await r.json();
   }catch(e){return false;}                 // network/function unavailable
   if(!order||!order.orderId)return false;
