@@ -12,3 +12,4 @@ platform/**/build/
 .claude-out.txt
 .DS_Store
 images/.DS_Store
+.commitmsg.txt
