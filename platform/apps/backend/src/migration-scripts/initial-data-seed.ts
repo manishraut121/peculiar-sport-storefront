@@ -45,9 +45,11 @@ const slugify = (s: string) =>
 type LegacyProduct = {
   id: number;
   name: string;
+  slug?: string;
   cat: string;
   grade: string | null;
   mrp: number;
+  cost?: number;
   price: number;
   badge: string | null;
   desc: string;
@@ -55,7 +57,15 @@ type LegacyProduct = {
   active: boolean;
   stock: number;
   lowStockThreshold: number;
+  image?: string;
 };
+
+// Public base URL the storefront/browser uses to load product images served
+// by Medusa's file module (/static). Override in prod via env.
+const IMAGE_BASE_URL =
+  process.env.MEDUSA_IMAGE_BASE_URL ||
+  process.env.MEDUSA_BACKEND_URL ||
+  "http://localhost:9000";
 
 function loadLegacyCatalog(logger: {
   warn: (m: string) => void;
@@ -316,20 +326,26 @@ export default async function initial_data_seed({
   if (legacy.length) {
     await createProductsWorkflow(container).run({
       input: {
-        products: legacy.map((p) => ({
+        products: legacy.map((p) => {
+          const handle = p.slug || slugify(p.name);
+          const imageUrl = p.image
+            ? `${IMAGE_BASE_URL}/static/products/${p.image}.jpg`
+            : undefined;
+          return {
           title: p.name,
-          handle: slugify(p.name),
+          handle,
           description: p.desc,
           status:
             p.active === false ? ProductStatus.DRAFT : ProductStatus.PUBLISHED,
           category_ids: categoryId(p.cat) ? [categoryId(p.cat)!] : [],
           shipping_profile_id: shippingProfile.id,
-          // NOTE: no images on purpose — only the owner's real product photos
-          // go live (non-negotiable). Upload via admin → Products.
+          thumbnail: imageUrl,
+          images: imageUrl ? [{ url: imageUrl }] : undefined,
           metadata: {
             legacy_id: p.id,
             grade: p.grade,
             mrp: p.mrp,
+            cost: p.cost,
             badge: p.badge,
             low_stock_threshold: p.lowStockThreshold,
             specs: JSON.stringify(p.specs || []),
@@ -355,7 +371,8 @@ export default async function initial_data_seed({
             },
           ],
           sales_channels: [{ id: onlineChannel.id }, { id: posChannel.id }],
-        })),
+          };
+        }),
       },
     });
 

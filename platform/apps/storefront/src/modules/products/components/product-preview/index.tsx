@@ -19,6 +19,23 @@ export default async function ProductPreview({
 
   const category = product.categories?.[0]?.name
 
+  const mrp = Number((product.metadata as any)?.mrp) || 0
+  const sellNum = cheapestPrice
+    ? Number(cheapestPrice.calculated_price_number)
+    : 0
+  const discount =
+    mrp > 0 && sellNum > 0 && mrp > sellNum
+      ? Math.round(((mrp - sellNum) / mrp) * 100)
+      : 0
+  const mrpFmt =
+    mrp > 0
+      ? new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 0,
+        }).format(mrp)
+      : null
+
   return (
     <LocalizedClientLink
       href={`/products/${product.handle}`}
@@ -38,19 +55,29 @@ export default async function ProductPreview({
               {category}
             </span>
           )}
-          <div className="flex items-start justify-between gap-x-3">
-            <h3
-              className="text-sm font-medium text-ui-fg-base group-hover:text-gold transition-colors leading-snug"
-              data-testid="product-title"
-            >
-              {product.title}
-            </h3>
-            {cheapestPrice && (
-              <div className="shrink-0 text-sm font-semibold text-ui-fg-base">
+          <h3
+            className="text-sm font-medium text-ui-fg-base group-hover:text-gold transition-colors leading-snug"
+            data-testid="product-title"
+          >
+            {product.title}
+          </h3>
+          {cheapestPrice && (
+            <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5 mt-1">
+              <span className="text-base font-semibold text-ui-fg-base">
                 <PreviewPrice price={cheapestPrice} />
-              </div>
-            )}
-          </div>
+              </span>
+              {mrpFmt && discount > 0 && (
+                <>
+                  <span className="text-xs text-ui-fg-muted line-through">
+                    {mrpFmt}
+                  </span>
+                  <span className="text-xs font-semibold text-gold">
+                    {discount}% off
+                  </span>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </LocalizedClientLink>

@@ -21,38 +21,50 @@ export default function ProductPrice({
     return <div className="block w-32 h-9 bg-ui-bg-subtle animate-pulse" />
   }
 
+  // OneCurve: show supplier MRP as the strike-through anchor + % saved.
+  const mrp = Number((product.metadata as any)?.mrp) || 0
+  const sellNum = Number(selectedPrice.calculated_price_number) || 0
+  const discount =
+    mrp > 0 && sellNum > 0 && mrp > sellNum
+      ? Math.round(((mrp - sellNum) / mrp) * 100)
+      : 0
+  const mrpFmt =
+    mrp > 0
+      ? new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 0,
+        }).format(mrp)
+      : null
+
   return (
     <div className="flex flex-col text-ui-fg-base">
-      <span
-        className={clx("text-xl-semi", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
-        })}
-      >
-        {!variant && "From "}
+      <div className="flex items-baseline flex-wrap gap-x-3 gap-y-1">
         <span
+          className="font-display text-4xl tracking-wide"
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
         >
+          {!variant && "From "}
           {selectedPrice.calculated_price}
         </span>
-      </span>
-      {selectedPrice.price_type === "sale" && (
-        <>
-          <p>
-            <span className="text-ui-fg-subtle">Original: </span>
-            <span
-              className="line-through"
-              data-testid="original-product-price"
-              data-value={selectedPrice.original_price_number}
-            >
-              {selectedPrice.original_price}
-            </span>
-          </p>
-          <span className="text-ui-fg-interactive">
-            -{selectedPrice.percentage_diff}%
+        {mrpFmt && discount > 0 && (
+          <span
+            className="text-base text-ui-fg-muted line-through"
+            data-testid="mrp-price"
+          >
+            {mrpFmt}
           </span>
-        </>
+        )}
+      </div>
+      {mrpFmt && discount > 0 && (
+        <span className="mt-1 text-sm font-semibold text-gold">
+          You save {discount}% off MRP
+        </span>
       )}
+      <span className="mt-1 text-xs text-ui-fg-muted">
+        Inclusive of all taxes
+      </span>
     </div>
   )
 }
