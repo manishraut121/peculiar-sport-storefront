@@ -62,6 +62,15 @@ export default async function Nav() {
                   All
                 </LocalizedClientLink>
               </li>
+              <li className="h-full flex items-center">
+                <LocalizedClientLink
+                  href="/blog"
+                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-ui-fg-base after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gold hover:after:w-full after:transition-all"
+                  data-testid="nav-blog-link"
+                >
+                  Blog
+                </LocalizedClientLink>
+              </li>
             </ul>
           </div>
 

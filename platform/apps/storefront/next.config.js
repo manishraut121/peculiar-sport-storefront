@@ -39,6 +39,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "*.s3.amazonaws.com",
       },
+      {
+        // GitHub Codespaces forwarded ports (product images from backend /static)
+        protocol: "https",
+        hostname: "*.app.github.dev",
+      },
       ...(S3_HOSTNAME && S3_PATHNAME
         ? [
             {

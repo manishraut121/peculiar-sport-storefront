@@ -1,0 +1,27 @@
+{
+  "name": "OneCurve (Medusa + Next.js)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "forwardPorts": [8000, 9000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Storefront (shop)",
+      "onAutoForward": "openPreview",
+      "visibility": "public"
+    },
+    "9000": {
+      "label": "Admin + API",
+      "onAutoForward": "silent",
+      "visibility": "public"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/start.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    }
+  }
+}

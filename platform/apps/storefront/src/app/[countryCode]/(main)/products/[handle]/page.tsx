@@ -4,6 +4,8 @@ import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
+import { getBaseURL } from "@lib/util/env"
+import { getProductPrice } from "@lib/util/get-product-price"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -87,12 +89,29 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
+  const meta = (product.metadata as any) || {}
+  const title = meta.seo_title || `${product.title} | OneCurve Sports`
+  const description =
+    meta.seo_desc ||
+    product.description?.slice(0, 160) ||
+    `${product.title} — shop at OneCurve.`
+  const canonical = `${getBaseURL()}/${params.countryCode}/products/${handle}`
+
   return {
-    title: `${product.title} | OneCurve Sports`,
-    description: `${product.title}`,
+    title,
+    description,
+    alternates: { canonical },
     openGraph: {
-      title: `${product.title} | OneCurve Sports`,
-      description: `${product.title}`,
+      type: "website",
+      title,
+      description,
+      url: canonical,
+      images: product.thumbnail ? [product.thumbnail] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
       images: product.thumbnail ? [product.thumbnail] : [],
     },
   }
@@ -120,12 +139,78 @@ export default async function ProductPage(props: Props) {
     notFound()
   }
 
+  const base = getBaseURL()
+  const cc = params.countryCode
+  const meta = (pricedProduct.metadata as any) || {}
+  const { cheapestPrice } = getProductPrice({ product: pricedProduct })
+  const price = cheapestPrice?.calculated_price_number
+  const inStock = pricedProduct.variants?.some(
+    (v: any) =>
+      !v.manage_inventory ||
+      v.allow_backorder ||
+      (v.inventory_quantity || 0) > 0
+  )
+
+  const jsonLd: Record<string, any> = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: pricedProduct.title,
+    description:
+      meta.seo_desc || pricedProduct.description || pricedProduct.title,
+    image: pricedProduct.thumbnail ? [pricedProduct.thumbnail] : undefined,
+    brand: { "@type": "Brand", name: "OneCurve" },
+    category: pricedProduct.categories?.[0]?.name,
+    sku: pricedProduct.variants?.[0]?.sku,
+  }
+  if (price) {
+    jsonLd.offers = {
+      "@type": "Offer",
+      url: `${base}/${cc}/products/${pricedProduct.handle}`,
+      priceCurrency: "INR",
+      price: String(price),
+      availability: inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      seller: { "@type": "Organization", name: "OneCurve Sports" },
+    }
+  }
+
+  const breadcrumb = {
+    "@context": "https://schema.org/",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${base}/${cc}` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Shop",
+        item: `${base}/${cc}/store`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: pricedProduct.title,
+        item: `${base}/${cc}/products/${pricedProduct.handle}`,
+      },
+    ],
+  }
+
   return (
-    <ProductTemplate
-      product={pricedProduct}
-      region={region}
-      countryCode={params.countryCode}
-      images={images ?? []}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <ProductTemplate
+        product={pricedProduct}
+        region={region}
+        countryCode={params.countryCode}
+        images={images ?? []}
+      />
+    </>
   )
 }

@@ -34,6 +34,20 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       className={`${display.variable} ${body.variable}`}
     >
       <body className="font-body bg-ui-bg-base text-ui-fg-base antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "OneCurve Sports",
+              url: getBaseURL(),
+              description:
+                "Premium handcrafted cricket equipment — English Willow bats, pads and gloves. Made in India.",
+              areaServed: "IN",
+            }),
+          }}
+        />
         <main className="relative">{props.children}</main>
       </body>
     </html>
