@@ -1,6 +1,8 @@
 {
   "name": "OneCurve (Medusa + Next.js)",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/peculiar-sport-storefront",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
