@@ -27,7 +27,13 @@ Owner: solo operator, Claude Code is the dev partner
 ## Current live state — update this section after every session
 - [ ] Deployed to Netlify: NO
 - [ ] onecurve.in DNS pointed: NO
-- [ ] Razorpay live keys wired: NO (simPay() still in place)
+- [ ] Razorpay live keys wired: NO — but code is fully wired (Netlify functions
+      create-order + verify-payment; amount computed SERVER-SIDE from catalog +
+      Sheet overrides; HMAC signature verified). Needs RAZORPAY_KEY_ID /
+      RAZORPAY_KEY_SECRET (+ optional SHEET_CSV_URL) in Netlify env vars.
+- [x] Platform decision (2026-06-12): migrate to Medusa v2 + Next.js (see
+      PLATFORM.md); this vanilla site stays live as the revenue bridge until
+      Phase 5 cutover.
 - [ ] Real product photos: NO (SVG placeholders)
 - [ ] Google Sheet stock sync: NO
 - [ ] EmailJS order confirmation: NO

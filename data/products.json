@@ -1,23 +1,1025 @@
 {
   "products": [
-    {"id":1,"name":"Vintage","cat":"bats","grade":"1+","mrp":50000,"price":16800,"badge":"Premium","bCls":"badge-gold","desc":"A timeless beauty. Hand-picked Grade 1+ English Willow with a classic profile and big sweet spot for the complete batsman.","clr":"brown","img":"","specs":[{"k":"Weight","v":"1180g"},{"k":"Pickup","v":"Mid"},{"k":"Edge","v":"40mm"},{"k":"Sweet Spot","v":"Mid"},{"k":"Willow","v":"Grade 1+ English"},{"k":"Handle","v":"Round Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":2,"name":"Seven Horses Orange Players Edition","cat":"bats","grade":"1","mrp":45000,"price":16500,"badge":"Players Edition","bCls":"badge-purple","desc":"The Seven Horses Players Edition - built for the modern strokemaker. Bold graphics, explosive power, tournament-ready.","clr":"red","img":"","specs":[{"k":"Weight","v":"1170g"},{"k":"Pickup","v":"Mid-High"},{"k":"Edge","v":"42mm"},{"k":"Sweet Spot","v":"Mid"},{"k":"Willow","v":"Grade 1 English"},{"k":"Handle","v":"Oval Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":3,"name":"MN7","cat":"bats","grade":"1+","mrp":69999,"price":17500,"badge":"Flagship","bCls":"badge-gold","desc":"Our flagship. Premium Grade 1+ English Willow, meticulously balanced for elite players who demand the very best.","clr":"gold","img":"","specs":[{"k":"Weight","v":"1160g"},{"k":"Pickup","v":"High"},{"k":"Edge","v":"40mm"},{"k":"Sweet Spot","v":"High"},{"k":"Willow","v":"Grade 1+ English"},{"k":"Handle","v":"Round Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":4,"name":"Original Grade Two","cat":"bats","grade":"2","mrp":39999,"price":11500,"badge":null,"desc":"Trusted performance from genuine Grade 2 English Willow. Reliable, balanced and made for serious match cricket.","clr":"silver","img":"","specs":[{"k":"Weight","v":"1180g"},{"k":"Pickup","v":"Mid"},{"k":"Edge","v":"38mm"},{"k":"Sweet Spot","v":"Mid"},{"k":"Willow","v":"Grade 2 English"},{"k":"Handle","v":"Round Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":5,"name":"Beast Grade 2","cat":"bats","grade":"2","mrp":27999,"price":11000,"badge":"Power","bCls":"badge-blue","desc":"Unleash the Beast. Thick-edged Grade 2 English Willow engineered for raw power and big hitting.","clr":"white","img":"","specs":[{"k":"Weight","v":"1200g"},{"k":"Pickup","v":"Mid"},{"k":"Edge","v":"44mm"},{"k":"Sweet Spot","v":"Low-Mid"},{"k":"Willow","v":"Grade 2 English"},{"k":"Handle","v":"Oval Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":6,"name":"Stallion","cat":"bats","grade":"3","mrp":16999,"price":7000,"badge":null,"desc":"Robust Grade 3 English Willow for intermediate players stepping up their game. Great pickup, dependable power.","clr":"blue2","img":"","specs":[{"k":"Weight","v":"1180g"},{"k":"Pickup","v":"Mid"},{"k":"Edge","v":"38mm"},{"k":"Sweet Spot","v":"Mid"},{"k":"Willow","v":"Grade 3 English"},{"k":"Handle","v":"Round Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":7,"name":"Black Edition","cat":"bats","grade":"4","mrp":7000,"price":3350,"badge":"Best Value","bCls":"badge-gold","desc":"Stealthy looks, honest performance. A perfect entry-level bat for net sessions and weekend cricket.","clr":"dark","img":"","specs":[{"k":"Weight","v":"1170g"},{"k":"Pickup","v":"Mid"},{"k":"Edge","v":"36mm"},{"k":"Sweet Spot","v":"Mid"},{"k":"Willow","v":"Kashmir Willow"},{"k":"Handle","v":"Round Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":8,"name":"Hulk & County Edition","cat":"bats","grade":"4","mrp":12999,"price":6000,"badge":null,"desc":"Grade 4 workhorse for club and academy players. Strong, balanced and built to take a beating.","clr":"teal","img":"","specs":[{"k":"Weight","v":"1190g"},{"k":"Pickup","v":"Mid"},{"k":"Edge","v":"38mm"},{"k":"Sweet Spot","v":"Mid-Low"},{"k":"Willow","v":"Grade 4 / Kashmir"},{"k":"Handle","v":"Oval Cane"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":9,"name":"Players Edition Pads","cat":"pads","grade":null,"mrp":5999,"price":2050,"badge":"Bestseller","bCls":"badge-blue","desc":"Lightweight players-grade batting pads with high-density foam protection. Available in Blue, Black, White and Gold.","clr":"white","img":"","specs":[{"k":"Size","v":"Youth / Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"720g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"High-density foam"},{"k":"Colour","v":"Blue / Black / White / Gold"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":10,"name":"Academy Pads","cat":"pads","grade":null,"mrp":3999,"price":1450,"badge":null,"desc":"Durable, comfortable pads built for academy training and everyday net sessions. Excellent value protection.","clr":"silver","img":"","specs":[{"k":"Size","v":"Youth / Full"},{"k":"Material","v":"PU Synthetic"},{"k":"Weight","v":"740g"},{"k":"Straps","v":"3-strap"},{"k":"Protection","v":"Foam padding"},{"k":"Colour","v":"White"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":11,"name":"Limited Edition Pads - Black","cat":"pads","grade":null,"mrp":4999,"price":2160,"badge":"Limited","bCls":"badge-purple","desc":"Blacked-out limited edition pads. Dual-layer foam and premium strapping in a stealth finish.","clr":"dark","img":"","specs":[{"k":"Size","v":"Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"710g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"Dual-layer"},{"k":"Colour","v":"Black"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":12,"name":"Limited Edition Pads - Navy Blue","cat":"pads","grade":null,"mrp":4999,"price":2160,"badge":"Limited","bCls":"badge-purple","desc":"Deep navy limited edition pads with dual-layer foam protection and a sharp, modern look.","clr":"navy","img":"","specs":[{"k":"Size","v":"Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"710g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"Dual-layer"},{"k":"Colour","v":"Navy Blue"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":13,"name":"Limited Edition Pads - Royal Blue","cat":"pads","grade":null,"mrp":4999,"price":2160,"badge":"Limited","bCls":"badge-purple","desc":"Striking royal blue limited edition pads. Premium protection that stands out at the crease.","clr":"royal","img":"","specs":[{"k":"Size","v":"Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"710g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"Dual-layer"},{"k":"Colour","v":"Royal Blue"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":14,"name":"Limited Edition Pads - Black & Gold","cat":"pads","grade":null,"mrp":4999,"price":2160,"badge":"Limited","bCls":"badge-purple","desc":"Ultimate luxury. Black PU with gold accents in a strictly limited run.","clr":"dark-gold","img":"","specs":[{"k":"Size","v":"Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"700g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"Dual-layer"},{"k":"Colour","v":"Black / Gold"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":15,"name":"Limited Edition Pads - Blue & Gold","cat":"pads","grade":null,"mrp":4999,"price":2160,"badge":"Limited","bCls":"badge-purple","desc":"Bold blue and gold limited edition pads. Premium dual-layer protection with statement styling.","clr":"blue-gold","img":"","specs":[{"k":"Size","v":"Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"705g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"Dual-layer"},{"k":"Colour","v":"Blue / Gold"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":16,"name":"Limited Edition Pads - White & Gold","cat":"pads","grade":null,"mrp":4999,"price":2160,"badge":"Limited","bCls":"badge-purple","desc":"Classic white with gold detailing. A clean, premium limited edition for the stylish batsman.","clr":"white-gold","img":"","specs":[{"k":"Size","v":"Full"},{"k":"Material","v":"Premium PU"},{"k":"Weight","v":"700g"},{"k":"Straps","v":"3-strap velcro"},{"k":"Protection","v":"Dual-layer"},{"k":"Colour","v":"White / Gold"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":17,"name":"Original Gloves - Yellow","cat":"gloves","grade":null,"mrp":4999,"price":2150,"badge":null,"desc":"Original batting gloves with sweat-absorbent palm and high-density finger protection. Bright yellow finish.","clr":"yellow","img":"","specs":[{"k":"Size","v":"Youth / Mens"},{"k":"Material","v":"Sheep Leather Palm"},{"k":"Protection","v":"Moulded foam"},{"k":"Fit","v":"Pre-curved"},{"k":"Colour","v":"Yellow"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":18,"name":"Original Gloves - Green","cat":"gloves","grade":null,"mrp":4999,"price":2150,"badge":null,"desc":"Original batting gloves with sweat-absorbent palm and high-density finger protection. Green finish.","clr":"green","img":"","specs":[{"k":"Size","v":"Youth / Mens"},{"k":"Material","v":"Sheep Leather Palm"},{"k":"Protection","v":"Moulded foam"},{"k":"Fit","v":"Pre-curved"},{"k":"Colour","v":"Green"}],"active":true,"stock":12,"lowStockThreshold":3},
-    {"id":19,"name":"Original Gloves - Blue","cat":"gloves","grade":null,"mrp":4999,"price":2150,"badge":null,"desc":"Original batting gloves with sweat-absorbent palm and high-density finger protection. Blue finish.","clr":"blue","img":"","specs":[{"k":"Size","v":"Youth / Mens"},{"k":"Material","v":"Sheep Leather Palm"},{"k":"Protection","v":"Moulded foam"},{"k":"Fit","v":"Pre-curved"},{"k":"Colour","v":"Blue"}],"active":true,"stock":12,"lowStockThreshold":3}
+    {
+      "id": 1,
+      "name": "Vintage",
+      "cat": "bats",
+      "grade": "1+",
+      "mrp": 50000,
+      "price": 24999,
+      "badge": "Premium",
+      "bCls": "badge-gold",
+      "desc": "The Vintage is a timeless Grade 1+ English Willow bat for the complete batsman. Each cleft is hand-picked and pressed for a big, forgiving sweet spot and a classic mid-profile that rewards orthodox stroke play. Balanced for an effortless pickup so you can drive, pull and cut with control through a long innings.",
+      "clr": "brown",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1180g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid"
+        },
+        {
+          "k": "Edge",
+          "v": "40mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Mid"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 1+ English"
+        },
+        {
+          "k": "Handle",
+          "v": "Round Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 16800,
+      "image": "vintage",
+      "imgIdx": 25,
+      "slug": "vintage",
+      "seoTitle": "OneCurve Vintage — Grade 1+ English Willow Cricket Bat",
+      "seoDesc": "The Vintage is a timeless Grade 1+ English Willow bat for the complete batsman. Each cleft is hand-picked and pressed for a big, forgiving sweet spot — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 2,
+      "name": "Seven Horses Orange Players Edition",
+      "cat": "bats",
+      "grade": "1",
+      "mrp": 45000,
+      "price": 23999,
+      "badge": "Players Edition",
+      "bCls": "badge-purple",
+      "desc": "The Seven Horses Orange Players Edition is built for the modern strokemaker. Premium Grade 1 English Willow, bold tournament-ready graphics and a mid-to-high middle deliver explosive power without sacrificing balance. The bat of choice when you want to dominate from ball one.",
+      "clr": "red",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1170g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid-High"
+        },
+        {
+          "k": "Edge",
+          "v": "42mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Mid"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 1 English"
+        },
+        {
+          "k": "Handle",
+          "v": "Oval Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 16500,
+      "image": "seven-horses-orange-players-edition",
+      "imgIdx": 24,
+      "slug": "seven-horses-orange-players-edition",
+      "seoTitle": "OneCurve Seven Horses Orange Players Edition — Grade 1 English Willow Cricket Bat",
+      "seoDesc": "The Seven Horses Orange Players Edition is built for the modern strokemaker. Premium Grade 1 English Willow, bold tournament-ready graphics and a — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 3,
+      "name": "MN7",
+      "cat": "bats",
+      "grade": "1+",
+      "mrp": 69999,
+      "price": 26999,
+      "badge": "Flagship",
+      "bCls": "badge-gold",
+      "desc": "MN7 is our flagship — meticulously selected Grade 1+ English Willow, hand-pressed and balanced for elite players who demand the very best. A high middle, thick spine and clean grains combine for ping, power and pickup at the highest level of the game.",
+      "clr": "gold",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1160g"
+        },
+        {
+          "k": "Pickup",
+          "v": "High"
+        },
+        {
+          "k": "Edge",
+          "v": "40mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "High"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 1+ English"
+        },
+        {
+          "k": "Handle",
+          "v": "Round Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 17500,
+      "image": "mn7",
+      "imgIdx": 34,
+      "slug": "mn7",
+      "seoTitle": "OneCurve MN7 — Grade 1+ English Willow Cricket Bat",
+      "seoDesc": "MN7 is our flagship — meticulously selected Grade 1+ English Willow, hand-pressed and balanced for elite players who demand the very best. A high — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 4,
+      "name": "Original Grade Two",
+      "cat": "bats",
+      "grade": "2",
+      "mrp": 39999,
+      "price": 16999,
+      "badge": null,
+      "desc": "Honest, dependable performance from genuine Grade 2 English Willow. The Original Grade Two is built for serious match cricket — a balanced mid-profile, reliable middle and clean pickup make it a trustworthy companion across every format.",
+      "clr": "silver",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1180g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid"
+        },
+        {
+          "k": "Edge",
+          "v": "38mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Mid"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 2 English"
+        },
+        {
+          "k": "Handle",
+          "v": "Round Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 11500,
+      "image": "original-grade-two",
+      "imgIdx": 12,
+      "slug": "original-grade-two",
+      "seoTitle": "OneCurve Original Grade Two — Grade 2 English Willow Cricket Bat",
+      "seoDesc": "Honest, dependable performance from genuine Grade 2 English Willow. The Original Grade Two is built for serious match cricket — a balanced — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 5,
+      "name": "Beast Grade 2",
+      "cat": "bats",
+      "grade": "2",
+      "mrp": 27999,
+      "price": 15999,
+      "badge": "Power",
+      "bCls": "badge-blue",
+      "desc": "Unleash the Beast. Thick-edged Grade 2 English Willow engineered for raw power and big hitting, with a low-to-mid sweet spot that punishes anything short. For the batsman who plays with intent and clears the ropes.",
+      "clr": "white",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1200g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid"
+        },
+        {
+          "k": "Edge",
+          "v": "44mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Low-Mid"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 2 English"
+        },
+        {
+          "k": "Handle",
+          "v": "Oval Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 11000,
+      "image": "beast-grade-2",
+      "imgIdx": 39,
+      "slug": "beast-grade-2",
+      "seoTitle": "OneCurve Beast Grade 2 — Grade 2 English Willow Cricket Bat",
+      "seoDesc": "Unleash the Beast. Thick-edged Grade 2 English Willow engineered for raw power and big hitting, with a low-to-mid sweet spot that punishes anything — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 6,
+      "name": "Stallion",
+      "cat": "bats",
+      "grade": "3",
+      "mrp": 16999,
+      "price": 9999,
+      "badge": null,
+      "desc": "The Stallion is a robust Grade 3 English Willow bat for intermediate players stepping up their game. Great pickup, a generous middle and dependable power help you graduate from the nets to match-day with confidence.",
+      "clr": "blue2",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1180g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid"
+        },
+        {
+          "k": "Edge",
+          "v": "38mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Mid"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 3 English"
+        },
+        {
+          "k": "Handle",
+          "v": "Round Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 7000,
+      "image": "stallion",
+      "imgIdx": 40,
+      "slug": "stallion",
+      "seoTitle": "OneCurve Stallion — Grade 3 English Willow Cricket Bat",
+      "seoDesc": "The Stallion is a robust Grade 3 English Willow bat for intermediate players stepping up their game. Great pickup, a generous middle and dependable — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 7,
+      "name": "Black Edition",
+      "cat": "bats",
+      "grade": "4",
+      "mrp": 7000,
+      "price": 4999,
+      "badge": "Best Value",
+      "bCls": "badge-gold",
+      "desc": "Stealthy looks, honest performance. The Black Edition is the perfect entry-level bat for net sessions and weekend cricket — light, well balanced and ready to play straight out of the wrapper.",
+      "clr": "dark",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1170g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid"
+        },
+        {
+          "k": "Edge",
+          "v": "36mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Mid"
+        },
+        {
+          "k": "Willow",
+          "v": "Kashmir Willow"
+        },
+        {
+          "k": "Handle",
+          "v": "Round Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 3350,
+      "image": "black-edition",
+      "imgIdx": 5,
+      "slug": "black-edition",
+      "seoTitle": "OneCurve Black Edition — Grade 4 English Willow Cricket Bat",
+      "seoDesc": "Stealthy looks, honest performance. The Black Edition is the perfect entry-level bat for net sessions and weekend cricket — light, well balanced and — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 8,
+      "name": "Hulk & County Edition",
+      "cat": "bats",
+      "grade": "4",
+      "mrp": 12999,
+      "price": 8999,
+      "badge": null,
+      "desc": "A true workhorse for club and academy players. The Hulk & County Edition is strong, balanced and built to take a beating session after session, giving developing batsmen a dependable bat at outstanding value.",
+      "clr": "teal",
+      "img": "",
+      "specs": [
+        {
+          "k": "Weight",
+          "v": "1190g"
+        },
+        {
+          "k": "Pickup",
+          "v": "Mid"
+        },
+        {
+          "k": "Edge",
+          "v": "38mm"
+        },
+        {
+          "k": "Sweet Spot",
+          "v": "Mid-Low"
+        },
+        {
+          "k": "Willow",
+          "v": "Grade 4 / Kashmir"
+        },
+        {
+          "k": "Handle",
+          "v": "Oval Cane"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 6000,
+      "image": "hulk-county-edition",
+      "imgIdx": 23,
+      "slug": "hulk-county-edition",
+      "seoTitle": "OneCurve Hulk & County Edition — Grade 4 English Willow Cricket Bat",
+      "seoDesc": "A true workhorse for club and academy players. The Hulk & County Edition is strong, balanced and built to take a beating session after session, — buy online at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 9,
+      "name": "Players Edition Pads",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 5999,
+      "price": 2999,
+      "badge": "Bestseller",
+      "bCls": "badge-blue",
+      "desc": "Players Edition batting pads with lightweight, high-density foam protection and a flexible instep for quick running between the wickets. Premium PU facing and a three-strap velcro fit keep you protected and comfortable all innings. Available in Blue, Black, White and Gold.",
+      "clr": "white",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Youth / Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "720g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "High-density foam"
+        },
+        {
+          "k": "Colour",
+          "v": "Blue / Black / White / Gold"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2050,
+      "image": "players-edition-pads",
+      "imgIdx": 9,
+      "slug": "players-edition-pads",
+      "seoTitle": "OneCurve Players Edition Pads — Cricket Batting Pads",
+      "seoDesc": "Players Edition batting pads with lightweight, high-density foam protection and a flexible instep for quick running between the wickets. Premium PU — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 10,
+      "name": "Academy Pads",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 3999,
+      "price": 1999,
+      "badge": null,
+      "desc": "Academy batting pads built for everyday training and net sessions. Comfortable, durable and well padded, they deliver excellent protection and value for developing cricketers putting in the hard yards.",
+      "clr": "silver",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Youth / Full"
+        },
+        {
+          "k": "Material",
+          "v": "PU Synthetic"
+        },
+        {
+          "k": "Weight",
+          "v": "740g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap"
+        },
+        {
+          "k": "Protection",
+          "v": "Foam padding"
+        },
+        {
+          "k": "Colour",
+          "v": "White"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 1450,
+      "image": "academy-pads",
+      "imgIdx": 3,
+      "slug": "academy-pads",
+      "seoTitle": "OneCurve Academy Pads — Cricket Batting Pads",
+      "seoDesc": "Academy batting pads built for everyday training and net sessions. Comfortable, durable and well padded, they deliver excellent protection and value — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 11,
+      "name": "Limited Edition Pads - Black",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": "Limited",
+      "bCls": "badge-purple",
+      "desc": "Blacked-out Limited Edition batting pads with dual-layer foam protection and premium strapping in a clean stealth finish. Lightweight, comfortable and built to stand out at the crease.",
+      "clr": "dark",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "710g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "Dual-layer"
+        },
+        {
+          "k": "Colour",
+          "v": "Black"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2160,
+      "image": "limited-edition-pads-black",
+      "imgIdx": 0,
+      "slug": "limited-edition-pads-black",
+      "seoTitle": "OneCurve Limited Edition Pads - Black — Cricket Batting Pads",
+      "seoDesc": "Blacked-out Limited Edition batting pads with dual-layer foam protection and premium strapping in a clean stealth finish. Lightweight, comfortable — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 12,
+      "name": "Limited Edition Pads - Navy Blue",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": "Limited",
+      "bCls": "badge-purple",
+      "desc": "Deep navy Limited Edition batting pads with dual-layer foam protection and a sharp, modern look. Lightweight construction and a secure three-strap fit for confident running and reliable protection.",
+      "clr": "navy",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "710g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "Dual-layer"
+        },
+        {
+          "k": "Colour",
+          "v": "Navy Blue"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2160,
+      "image": "limited-edition-pads-navy-blue",
+      "imgIdx": 10,
+      "slug": "limited-edition-pads-navy-blue",
+      "seoTitle": "OneCurve Limited Edition Pads - Navy Blue — Cricket Batting Pads",
+      "seoDesc": "Deep navy Limited Edition batting pads with dual-layer foam protection and a sharp, modern look. Lightweight construction and a secure three-strap — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 13,
+      "name": "Limited Edition Pads - Royal Blue",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": "Limited",
+      "bCls": "badge-purple",
+      "desc": "Striking royal blue Limited Edition batting pads that stand out at the crease. Dual-layer foam, premium PU facing and a comfortable three-strap fit combine protection with a bold look.",
+      "clr": "royal",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "710g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "Dual-layer"
+        },
+        {
+          "k": "Colour",
+          "v": "Royal Blue"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2160,
+      "image": "limited-edition-pads-royal-blue",
+      "imgIdx": 19,
+      "slug": "limited-edition-pads-royal-blue",
+      "seoTitle": "OneCurve Limited Edition Pads - Royal Blue — Cricket Batting Pads",
+      "seoDesc": "Striking royal blue Limited Edition batting pads that stand out at the crease. Dual-layer foam, premium PU facing and a comfortable three-strap fit — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 14,
+      "name": "Limited Edition Pads - Black & Gold",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": "Limited",
+      "bCls": "badge-purple",
+      "desc": "Ultimate luxury — black PU with gold accents in a strictly Limited Edition run. Dual-layer protection and premium strapping for the batsman who wants performance and presence.",
+      "clr": "dark-gold",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "700g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "Dual-layer"
+        },
+        {
+          "k": "Colour",
+          "v": "Black / Gold"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2160,
+      "image": "limited-edition-pads-black-gold",
+      "imgIdx": 21,
+      "slug": "limited-edition-pads-black-gold",
+      "seoTitle": "OneCurve Limited Edition Pads - Black & Gold — Cricket Batting Pads",
+      "seoDesc": "Ultimate luxury — black PU with gold accents in a strictly Limited Edition run. Dual-layer protection and premium strapping for the batsman who wants — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 15,
+      "name": "Limited Edition Pads - Blue & Gold",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": "Limited",
+      "bCls": "badge-purple",
+      "desc": "Bold blue and gold Limited Edition batting pads with dual-layer protection and statement styling. Lightweight, secure and made to be noticed.",
+      "clr": "blue-gold",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "705g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "Dual-layer"
+        },
+        {
+          "k": "Colour",
+          "v": "Blue / Gold"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2160,
+      "image": "limited-edition-pads-blue-gold",
+      "imgIdx": 11,
+      "slug": "limited-edition-pads-blue-gold",
+      "seoTitle": "OneCurve Limited Edition Pads - Blue & Gold — Cricket Batting Pads",
+      "seoDesc": "Bold blue and gold Limited Edition batting pads with dual-layer protection and statement styling. Lightweight, secure and made to be — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 16,
+      "name": "Limited Edition Pads - White & Gold",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": "Limited",
+      "bCls": "badge-purple",
+      "desc": "Classic white with gold detailing in a Limited Edition finish. Dual-layer foam protection and a premium three-strap fit make these a clean, stylish choice for the modern batsman.",
+      "clr": "white-gold",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Full"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Weight",
+          "v": "700g"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        },
+        {
+          "k": "Protection",
+          "v": "Dual-layer"
+        },
+        {
+          "k": "Colour",
+          "v": "White / Gold"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2160,
+      "image": "limited-edition-pads-white-gold",
+      "imgIdx": 2,
+      "slug": "limited-edition-pads-white-gold",
+      "seoTitle": "OneCurve Limited Edition Pads - White & Gold — Cricket Batting Pads",
+      "seoDesc": "Classic white with gold detailing in a Limited Edition finish. Dual-layer foam protection and a premium three-strap fit make these a clean, stylish — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 17,
+      "name": "Original Gloves - Yellow",
+      "cat": "gloves",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": null,
+      "desc": "Original batting gloves with a sweat-absorbent sheep-leather palm and high-density moulded finger protection. A pre-curved fit keeps your hands relaxed and ready. Bright yellow finish.",
+      "clr": "yellow",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Youth / Mens"
+        },
+        {
+          "k": "Material",
+          "v": "Sheep Leather Palm"
+        },
+        {
+          "k": "Protection",
+          "v": "Moulded foam"
+        },
+        {
+          "k": "Fit",
+          "v": "Pre-curved"
+        },
+        {
+          "k": "Colour",
+          "v": "Yellow"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2150,
+      "image": "original-gloves-yellow",
+      "imgIdx": 4,
+      "slug": "original-gloves-yellow",
+      "seoTitle": "OneCurve Original Gloves - Yellow — Cricket Gloves",
+      "seoDesc": "Original batting gloves with a sweat-absorbent sheep-leather palm and high-density moulded finger protection. A pre-curved fit keeps your hands — shop cricket gloves at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 18,
+      "name": "Original Gloves - Green",
+      "cat": "gloves",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": null,
+      "desc": "Original batting gloves with a sweat-absorbent sheep-leather palm and high-density moulded finger protection. Pre-curved for natural grip and comfort. Green finish.",
+      "clr": "green",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Youth / Mens"
+        },
+        {
+          "k": "Material",
+          "v": "Sheep Leather Palm"
+        },
+        {
+          "k": "Protection",
+          "v": "Moulded foam"
+        },
+        {
+          "k": "Fit",
+          "v": "Pre-curved"
+        },
+        {
+          "k": "Colour",
+          "v": "Green"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2150,
+      "image": "original-gloves-green",
+      "imgIdx": 14,
+      "slug": "original-gloves-green",
+      "seoTitle": "OneCurve Original Gloves - Green — Cricket Gloves",
+      "seoDesc": "Original batting gloves with a sweat-absorbent sheep-leather palm and high-density moulded finger protection. Pre-curved for natural grip and — shop cricket gloves at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 19,
+      "name": "Original Gloves - Blue",
+      "cat": "gloves",
+      "grade": null,
+      "mrp": 4999,
+      "price": 2999,
+      "badge": null,
+      "desc": "Original batting gloves with a sweat-absorbent sheep-leather palm and high-density moulded finger protection. Pre-curved for a relaxed, ready grip. Blue finish.",
+      "clr": "blue",
+      "img": "",
+      "specs": [
+        {
+          "k": "Size",
+          "v": "Youth / Mens"
+        },
+        {
+          "k": "Material",
+          "v": "Sheep Leather Palm"
+        },
+        {
+          "k": "Protection",
+          "v": "Moulded foam"
+        },
+        {
+          "k": "Fit",
+          "v": "Pre-curved"
+        },
+        {
+          "k": "Colour",
+          "v": "Blue"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "cost": 2150,
+      "image": "original-gloves-blue",
+      "imgIdx": 13,
+      "slug": "original-gloves-blue",
+      "seoTitle": "OneCurve Original Gloves - Blue — Cricket Gloves",
+      "seoDesc": "Original batting gloves with a sweat-absorbent sheep-leather palm and high-density moulded finger protection. Pre-curved for a relaxed, ready grip. — shop cricket gloves at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 20,
+      "name": "Keeping Gloves - Players Edition",
+      "cat": "gloves",
+      "grade": null,
+      "mrp": 4999,
+      "cost": 2350,
+      "price": 3299,
+      "badge": "Players Edition",
+      "bCls": "badge-blue",
+      "desc": "International Players Edition wicket-keeping gloves with a premium catching mesh, towelling cuff and reinforced finger protection. Supple, well-padded and built for long days behind the stumps.",
+      "clr": "white",
+      "specs": [
+        {
+          "k": "Type",
+          "v": "Wicket-keeping"
+        },
+        {
+          "k": "Size",
+          "v": "Mens"
+        },
+        {
+          "k": "Material",
+          "v": "Sheep Leather Palm"
+        },
+        {
+          "k": "Protection",
+          "v": "Reinforced fingers"
+        },
+        {
+          "k": "Cuff",
+          "v": "Towelling"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "imgIdx": 20,
+      "slug": "keeping-gloves-players-edition",
+      "image": "keeping-gloves-players-edition",
+      "seoTitle": "OneCurve Keeping Gloves - Players Edition — Cricket Gloves",
+      "seoDesc": "International Players Edition wicket-keeping gloves with a premium catching mesh, towelling cuff and reinforced finger protection. Supple, — shop cricket gloves at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 21,
+      "name": "Keeping Pads - International Players Edition",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 4999,
+      "cost": 2350,
+      "price": 3299,
+      "badge": "Players Edition",
+      "bCls": "badge-blue",
+      "desc": "International Players Edition wicket-keeping pads — lightweight with a flexible instep and high-density protection for comfort and confidence over after over. Premium PU facing and a secure three-strap fit.",
+      "clr": "navy",
+      "specs": [
+        {
+          "k": "Type",
+          "v": "Wicket-keeping"
+        },
+        {
+          "k": "Size",
+          "v": "Mens"
+        },
+        {
+          "k": "Material",
+          "v": "Premium PU"
+        },
+        {
+          "k": "Protection",
+          "v": "High-density foam"
+        },
+        {
+          "k": "Straps",
+          "v": "3-strap velcro"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "imgIdx": 26,
+      "slug": "keeping-pads-international-players-edition",
+      "image": "keeping-pads-international-players-edition",
+      "seoTitle": "OneCurve Keeping Pads - International Players Edition — Cricket Batting Pads",
+      "seoDesc": "International Players Edition wicket-keeping pads — lightweight with a flexible instep and high-density protection for comfort and confidence over — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    },
+    {
+      "id": 22,
+      "name": "Keeping Pads - Black & Blue",
+      "cat": "pads",
+      "grade": null,
+      "mrp": 3999,
+      "cost": 1750,
+      "price": 2499,
+      "badge": null,
+      "desc": "Durable wicket-keeping pads in black and blue. Comfortable, well-padded protection built for academy and club keepers who need reliable performance at great value.",
+      "clr": "dark",
+      "specs": [
+        {
+          "k": "Type",
+          "v": "Wicket-keeping"
+        },
+        {
+          "k": "Size",
+          "v": "Youth / Mens"
+        },
+        {
+          "k": "Material",
+          "v": "PU Synthetic"
+        },
+        {
+          "k": "Protection",
+          "v": "Foam padding"
+        },
+        {
+          "k": "Colour",
+          "v": "Black / Blue"
+        }
+      ],
+      "active": true,
+      "stock": 12,
+      "lowStockThreshold": 3,
+      "imgIdx": 1,
+      "slug": "keeping-pads-black-blue",
+      "image": "keeping-pads-black-blue",
+      "seoTitle": "OneCurve Keeping Pads - Black & Blue — Cricket Batting Pads",
+      "seoDesc": "Durable wicket-keeping pads in black and blue. Comfortable, well-padded protection built for academy and club keepers who need reliable performance — shop cricket pads at OneCurve. Free shipping over ₹2,999."
+    }
   ]
 }

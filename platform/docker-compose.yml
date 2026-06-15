@@ -1,0 +1,84 @@
+# OneCurve platform — production-style stack.
+# One command on any server (or locally with Docker installed):
+#   cp .env.example .env   (fill in secrets)
+#   docker compose up -d --build
+#
+# Services:
+#   postgres    — the single source of truth (catalog, ONE shared inventory, orders, customers)
+#   redis       — Medusa event bus / workflows / session cache
+#   backend     — Medusa v2 commerce API + admin UI  (http://localhost:9000, admin at /app)
+#   storefront  — Next.js SSR storefront             (http://localhost:8000)
+#
+# TLS in production is terminated by Caddy (see Caddyfile) or your host's
+# load balancer — see README.md "Deploying to a server".
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: medusa
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in .env}
+      POSTGRES_DB: medusa
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medusa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./apps/backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://medusa:${POSTGRES_PASSWORD}@postgres:5432/medusa
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:?set in .env}
+      COOKIE_SECRET: ${COOKIE_SECRET:?set in .env}
+      STORE_CORS: ${STORE_CORS:-http://localhost:8000}
+      ADMIN_CORS: ${ADMIN_CORS:-http://localhost:9000}
+      AUTH_CORS: ${AUTH_CORS:-http://localhost:8000,http://localhost:9000}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+      RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET:-}
+    ports:
+      - "9000:9000"
+
+  storefront:
+    build:
+      context: ./apps/storefront
+      args:
+        # Publishable API key — created in the Medusa admin (Settings →
+        # Publishable API Keys); safe to expose to browsers.
+        NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${MEDUSA_PUBLISHABLE_KEY:?set in .env}
+        MEDUSA_BACKEND_URL: http://backend:9000
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      MEDUSA_BACKEND_URL: http://backend:9000
+      NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${MEDUSA_PUBLISHABLE_KEY}
+      NEXT_PUBLIC_BASE_URL: ${STOREFRONT_URL:-http://localhost:8000}
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:
+  redisdata:

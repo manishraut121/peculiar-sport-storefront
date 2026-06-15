@@ -1,1 +1,15 @@
 .claude/
+
+# platform (Medusa + Next.js)
+node_modules/
+platform/**/.env
+platform/**/.env.local
+platform/**/.medusa/
+platform/**/.next/
+platform/**/dist/
+platform/**/build/
+*.log
+.claude-out.txt
+.DS_Store
+images/.DS_Store
+.commitmsg.txt
