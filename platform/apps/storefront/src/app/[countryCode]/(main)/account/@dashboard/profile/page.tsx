@@ -47,5 +47,5 @@ export default async function Profile() {
 }
 
 const Divider = () => {
-  return <div className="w-full h-px bg-cream/15" />
+  return <div className="w-full h-px bg-ui-bg-subtle" />
 }

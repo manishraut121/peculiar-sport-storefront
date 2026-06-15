@@ -142,9 +142,9 @@ function FreeShippingInline({
   }
 }) {
   return (
-    <div className="bg-cream/10 p-2 rounded-lg border">
+    <div className="bg-ui-bg-subtle p-2 rounded-lg border">
       <div className="space-y-1.5">
-        <div className="flex justify-between text-xs text-cream/70">
+        <div className="flex justify-between text-xs text-ui-fg-subtle">
           <div>
             {price.target_reached ? (
               <div className="flex items-center gap-1.5">
@@ -163,7 +163,7 @@ function FreeShippingInline({
             })}
           >
             Only{" "}
-            <span className="text-cream">
+            <span className="text-ui-fg-base">
               {convertToLocale({
                 amount: price.target_remaining,
                 currency_code: cart.currency_code,
@@ -182,7 +182,7 @@ function FreeShippingInline({
             )}
             style={{ width: `${price.remaining_percentage}%` }}
           ></div>
-          <div className="bg-cream/20 h-1 rounded-full w-fit flex-grow"></div>
+          <div className="bg-ui-bg-component-hover h-1 rounded-full w-fit flex-grow"></div>
         </div>
       </div>
     </div>
@@ -211,17 +211,17 @@ function FreeShippingPopup({
     >
       <div>
         <Button
-          className="rounded-full bg-ink-card border border-cream/15 shadow-none outline-none border-none text-[15px] p-2"
+          className="rounded-full bg-ui-bg-subtle border border-ui-border-base shadow-none outline-none border-none text-[15px] p-2"
           onClick={() => setIsClosed(true)}
         >
           <XMark />
         </Button>
       </div>
 
-      <div className="w-[400px] bg-ink-card border border-cream/15 text-cream p-6 rounded-lg ">
+      <div className="w-[400px] bg-ui-bg-subtle border border-ui-border-base text-ui-fg-base p-6 rounded-lg ">
         <div className="pb-4">
           <div className="space-y-3">
-            <div className="flex justify-between text-[15px] text-cream/50">
+            <div className="flex justify-between text-[15px] text-ui-fg-muted">
               <div>
                 {price.target_reached ? (
                   <div className="flex items-center gap-1.5">
@@ -272,7 +272,7 @@ function FreeShippingPopup({
           </LocalizedClientLink>
 
           <LocalizedClientLink
-            className="flex-grow rounded-2xl bg-ink-card text-cream shadow-none outline-none border-[1px] border-white text-[15px] py-2.5 px-4 text-center"
+            className="flex-grow rounded-2xl bg-ui-bg-subtle text-ui-fg-base shadow-none outline-none border-[1px] border-white text-[15px] py-2.5 px-4 text-center"
             href="/store"
           >
             View products

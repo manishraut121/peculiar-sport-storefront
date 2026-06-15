@@ -8,8 +8,8 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-full bg-ink-card relative small:min-h-screen">
-      <div className="h-16 bg-ink-card border-b ">
+    <div className="w-full bg-ui-bg-subtle relative small:min-h-screen">
+      <div className="h-16 bg-ui-bg-subtle border-b ">
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"

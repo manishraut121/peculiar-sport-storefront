@@ -19,24 +19,38 @@ const StoreTemplate = ({
   const sort = sortBy || "created_at"
 
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
-      data-testid="category-container"
-    >
-      <RefinementList sortBy={sort} />
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">All products</h1>
+    <>
+      {/* Page header */}
+      <div className="border-b border-ui-border-base bg-ui-bg-subtle">
+        <div className="content-container py-10">
+          <span className="text-xs uppercase tracking-[0.25em] text-ui-fg-muted">
+            OneCurve · Cricket equipment
+          </span>
+          <h1
+            className="font-display text-5xl small:text-6xl text-ui-fg-base mt-2"
+            data-testid="store-page-title"
+          >
+            All products
+          </h1>
         </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            countryCode={countryCode}
-          />
-        </Suspense>
       </div>
-    </div>
+
+      <div
+        className="flex flex-col small:flex-row small:items-start py-8 content-container gap-8"
+        data-testid="category-container"
+      >
+        <RefinementList sortBy={sort} />
+        <div className="w-full">
+          <Suspense fallback={<SkeletonProductGrid />}>
+            <PaginatedProducts
+              sortBy={sort}
+              page={pageNumber}
+              countryCode={countryCode}
+            />
+          </Suspense>
+        </div>
+      </div>
+    </>
   )
 }
 

@@ -1,4 +1,3 @@
-import { Text } from "@modules/common/components/ui"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -14,34 +13,43 @@ export default async function ProductPreview({
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
   const { cheapestPrice } = getProductPrice({
     product,
   })
 
+  const category = product.categories?.[0]?.name
+
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
+    <LocalizedClientLink
+      href={`/products/${product.handle}`}
+      className="group block"
+    >
       <div data-testid="product-wrapper">
         <Thumbnail
           thumbnail={product.thumbnail}
           images={product.images}
           size="full"
           isFeatured={isFeatured}
+          alt={`${product.title} — OneCurve cricket equipment`}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
-            {product.title}
-          </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+        <div className="mt-4 flex flex-col gap-1">
+          {category && (
+            <span className="text-[11px] uppercase tracking-[0.18em] text-ui-fg-muted">
+              {category}
+            </span>
+          )}
+          <div className="flex items-start justify-between gap-x-3">
+            <h3
+              className="text-sm font-medium text-ui-fg-base group-hover:text-gold transition-colors leading-snug"
+              data-testid="product-title"
+            >
+              {product.title}
+            </h3>
+            {cheapestPrice && (
+              <div className="shrink-0 text-sm font-semibold text-ui-fg-base">
+                <PreviewPrice price={cheapestPrice} />
+              </div>
+            )}
           </div>
         </div>
       </div>

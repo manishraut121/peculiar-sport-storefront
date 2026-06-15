@@ -3,19 +3,50 @@
 @import "tailwindcss/utilities";
 
 /* ===== OneCurve brand layer =====================================
-   Gold #C9A84C on near-black. Bebas Neue (display) / DM Sans (body).
-   Overrides the Medusa UI dark-mode tokens so every ui-* class
-   resolves to OneCurve ink + cream + gold. */
-:root[data-mode="dark"] {
+   HYBRID THEME (Decathlon clean + Rogue bold):
+   - Default site mode is LIGHT — clean white shop/PDP/cart/account.
+   - Homepage, footer and any "immersive" block opt into DARK explicitly
+     via the .oc-dark wrapper (always dark regardless of mode).
+   - Gold #C9A84C is the single accent in both modes.
+   Bebas Neue (display) / DM Sans (body). */
+
+/* Light mode (default): keep Medusa's clean light surfaces, swap the
+   accent / interactive tokens to OneCurve gold + ink. */
+:root,
+:root[data-mode="light"] {
+  --bg-base: #ffffff;
+  --bg-base-hover: #f7f6f3;
+  --bg-subtle: #f5f4f0;
+  --bg-subtle-hover: #efede7;
+  --bg-component: #ffffff;
+  --bg-component-hover: #f7f6f3;
+  --bg-field: #ffffff;
+  --bg-field-hover: #f7f6f3;
+  --bg-highlight: rgba(201, 168, 76, 0.12);
+  --bg-highlight-hover: rgba(201, 168, 76, 0.2);
+  --bg-interactive: #c9a84c;
+  --fg-base: #141312;
+  --fg-subtle: #4a463f;
+  --fg-muted: #6e6960;
+  --fg-disabled: #b0aaa0;
+  --fg-interactive: #9a7d2e;
+  --fg-interactive-hover: #c9a84c;
+  --fg-on-color: #ffffff;
+  --border-base: #e6e3dc;
+  --border-strong: #d3cfc5;
+  --border-interactive: #c9a84c;
+}
+
+/* Always-dark surface — used for the immersive homepage + footer.
+   Re-points the Medusa tokens to OneCurve ink/cream/gold inside the
+   wrapper, so ui-* components dropped in there also read correctly. */
+.oc-dark {
   --bg-base: #080808;
   --bg-base-hover: #121212;
-  --bg-base-pressed: #181818;
   --bg-subtle: #0f0f0f;
   --bg-subtle-hover: #161616;
-  --bg-subtle-pressed: #1c1c1c;
   --bg-component: #181818;
   --bg-component-hover: #202020;
-  --bg-component-pressed: #262626;
   --bg-field: #121212;
   --bg-field-hover: #181818;
   --bg-highlight: rgba(201, 168, 76, 0.12);
@@ -31,6 +62,8 @@
   --border-base: rgba(240, 238, 232, 0.12);
   --border-strong: rgba(240, 238, 232, 0.24);
   --border-interactive: #c9a84c;
+  background-color: #080808;
+  color: #f0eee8;
 }
 
 html {
@@ -38,8 +71,8 @@ html {
 }
 
 body {
-  background-color: #080808;
-  color: #f0eee8;
+  background-color: #ffffff;
+  color: #141312;
 }
 
 ::selection {

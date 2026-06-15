@@ -1,8 +1,6 @@
-import { Container, clx } from "@modules/common/components/ui"
+import { clx } from "@modules/common/components/ui"
 import Image from "next/image"
 import React from "react"
-
-import PlaceholderImage from "@modules/common/icons/placeholder-image"
 
 type ThumbnailProps = {
   thumbnail?: string | null
@@ -10,6 +8,7 @@ type ThumbnailProps = {
   size?: "small" | "medium" | "large" | "full" | "square"
   isFeatured?: boolean
   className?: string
+  alt?: string
   "data-testid"?: string
 }
 
@@ -19,18 +18,19 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   size = "small",
   isFeatured,
   className,
+  alt,
   "data-testid": dataTestid,
 }) => {
   const initialImage = thumbnail || images?.[0]?.url
 
   return (
-    <Container
+    <div
       className={clx(
-        "relative w-full overflow-hidden p-4 bg-ui-bg-subtle shadow-elevation-card-rest rounded-large group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
+        "relative w-full overflow-hidden bg-ui-bg-subtle border border-ui-border-base rounded-large transition-shadow ease-in-out duration-150 group-hover:border-ui-border-strong",
         className,
         {
           "aspect-[11/14]": isFeatured,
-          "aspect-[9/16]": !isFeatured && size !== "square",
+          "aspect-[4/5]": !isFeatured && size !== "square",
           "aspect-[1/1]": size === "square",
           "w-[180px]": size === "small",
           "w-[290px]": size === "medium",
@@ -40,28 +40,33 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       )}
       data-testid={dataTestid}
     >
-      <ImageOrPlaceholder image={initialImage} size={size} />
-    </Container>
+      <ImageOrPlaceholder image={initialImage} alt={alt} />
+    </div>
   )
 }
 
 const ImageOrPlaceholder = ({
   image,
-  size,
-}: Pick<ThumbnailProps, "size"> & { image?: string }) => {
+  alt,
+}: Pick<ThumbnailProps, "alt"> & { image?: string }) => {
   return image ? (
     <Image
       src={image}
-      alt="Thumbnail"
-      className="absolute inset-0 object-cover object-center"
+      alt={alt || "OneCurve cricket equipment"}
+      className="absolute inset-0 object-cover object-center transition-transform duration-500 group-hover:scale-105"
       draggable={false}
-      quality={50}
+      quality={70}
       sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
       fill
     />
   ) : (
-    <div className="w-full h-full absolute inset-0 flex items-center justify-center">
-      <PlaceholderImage size={size === "small" ? 16 : 24} />
+    <div className="w-full h-full absolute inset-0 flex flex-col items-center justify-center gap-2 text-center select-none">
+      <span className="font-display text-3xl tracking-wide text-ui-fg-base/80">
+        One<span className="text-gold">Curve</span>
+      </span>
+      <span className="text-[10px] uppercase tracking-[0.25em] text-ui-fg-muted">
+        Photo coming soon
+      </span>
     </div>
   )
 }

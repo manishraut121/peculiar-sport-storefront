@@ -30,7 +30,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      data-mode="dark"
+      data-mode="light"
       className={`${display.variable} ${body.variable}`}
     >
       <body className="font-body bg-ui-bg-base text-ui-fg-base antialiased">

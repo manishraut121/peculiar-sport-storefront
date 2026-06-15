@@ -85,8 +85,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-50",
           variant === "primary" && "bg-gold text-ink hover:bg-gold-hover",
           variant === "secondary" &&
-            "bg-ink-card text-cream border border-cream/15 hover:border-gold/60",
-          variant === "transparent" && "bg-transparent hover:bg-cream/5",
+            "bg-ui-bg-subtle text-ui-fg-base border border-ui-border-base hover:border-gold/60",
+          variant === "transparent" && "bg-transparent hover:bg-ui-bg-base-hover",
           size === "small" && "h-8 px-3 text-sm",
           size === "medium" && "h-10 px-4",
           size === "large" && "h-12 px-6 text-lg",
@@ -110,7 +110,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       <div
         ref={ref}
         className={clsx(
-          "bg-ink-card border border-cream/10 rounded-lg p-4",
+          "bg-ui-bg-subtle border border-ui-border-base rounded-lg p-4",
           className
         )}
         {...props}
@@ -138,7 +138,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
           color === "red" && "bg-red-500/15 text-red-400",
           color === "blue" && "bg-blue-500/15 text-blue-400",
           color === "orange" && "bg-orange-500/15 text-orange-400",
-          color === "grey" && "bg-cream/10 text-cream/80",
+          color === "grey" && "bg-ui-bg-subtle text-ui-fg-subtle",
           color === "purple" && "bg-purple-500/15 text-purple-400",
           className
         )}
@@ -160,7 +160,7 @@ export const IconBadge = forwardRef<HTMLSpanElement, IconBadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center rounded-full bg-cream/10 p-1",
+          "inline-flex items-center justify-center rounded-full bg-ui-bg-subtle p-1",
           className
         )}
         {...props}
@@ -181,7 +181,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center rounded-md p-2 hover:bg-cream/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60",
+          "inline-flex items-center justify-center rounded-md p-2 hover:bg-ui-bg-subtle transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60",
           className
         )}
         {...props}
@@ -224,7 +224,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={clsx(
-            "flex h-10 w-full rounded-md border border-cream/15 bg-ink-surface text-cream px-3 py-2 text-sm placeholder:text-cream/40 focus:outline-none focus:ring-2 focus:ring-gold/60 focus:border-gold/60 disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-10 w-full rounded-md border border-ui-border-base bg-ui-bg-base text-ui-fg-base px-3 py-2 text-sm placeholder:text-ui-fg-muted focus:outline-none focus:ring-2 focus:ring-gold/60 focus:border-gold/60 disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           {...props}
@@ -295,7 +295,7 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
       <tr
         ref={ref}
         className={clsx(
-          "border-b border-cream/10 transition-colors hover:bg-cream/5",
+          "border-b border-ui-border-base transition-colors hover:bg-ui-bg-base-hover",
           className
         )}
         {...props}
@@ -315,7 +315,7 @@ const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
       <th
         ref={ref}
         className={clsx(
-          "h-12 px-4 text-left align-middle font-medium text-cream/60 [&:has([role=checkbox])]:pr-0",
+          "h-12 px-4 text-left align-middle font-medium text-ui-fg-muted [&:has([role=checkbox])]:pr-0",
           className
         )}
         {...props}

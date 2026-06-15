@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 
+import { listCategories } from "@lib/data/categories"
 import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
@@ -9,46 +10,83 @@ import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
-  const [regions, locales, currentLocale] = await Promise.all([
+  const [regions, locales, currentLocale, categories] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
     listLocales(),
     getLocale(),
+    listCategories().catch(() => []),
   ])
+
+  const topCategories = (categories || [])
+    .filter((c: any) => !c.parent_category)
+    .slice(0, 4)
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-ink/80 backdrop-blur-md border-cream/10">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+      {/* Utility bar — brand pride strip (Rogue-style) */}
+      <div className="hidden small:block bg-ink">
+        <div className="content-container flex items-center justify-center h-8 text-[11px] tracking-[0.2em] uppercase text-cream/70">
+          Handcrafted in India · Free shipping over ₹2,999 · 3–5 day delivery
+        </div>
+      </div>
+
+      <header className="relative h-16 mx-auto border-b border-ui-border-base bg-ui-bg-base">
+        <nav className="content-container flex items-center justify-between w-full h-full">
+          {/* Left: mobile menu + desktop categories */}
+          <div className="flex items-center gap-x-8 flex-1 basis-0 h-full">
+            <div className="h-full flex items-center small:hidden">
+              <SideMenu
+                regions={regions}
+                locales={locales}
+                currentLocale={currentLocale}
+              />
             </div>
+            <ul className="hidden small:flex items-center gap-x-7 h-full text-sm font-medium uppercase tracking-wide">
+              {topCategories.map((c: any) => (
+                <li key={c.id} className="h-full flex items-center">
+                  <LocalizedClientLink
+                    href={`/categories/${c.handle}`}
+                    className="relative h-full flex items-center text-ui-fg-subtle hover:text-ui-fg-base after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gold hover:after:w-full after:transition-all"
+                    data-testid={`nav-category-${c.handle}`}
+                  >
+                    {c.name}
+                  </LocalizedClientLink>
+                </li>
+              ))}
+              <li className="h-full flex items-center">
+                <LocalizedClientLink
+                  href="/store"
+                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-ui-fg-base after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gold hover:after:w-full after:transition-all"
+                  data-testid="nav-store-link-all"
+                >
+                  All
+                </LocalizedClientLink>
+              </li>
+            </ul>
           </div>
 
-          <div className="flex items-center h-full">
+          {/* Center: wordmark */}
+          <LocalizedClientLink
+            href="/"
+            className="font-display text-3xl tracking-wide text-ui-fg-base hover:text-gold transition-colors uppercase"
+            data-testid="nav-store-link"
+          >
+            One<span className="text-gold">Curve</span>
+          </LocalizedClientLink>
+
+          {/* Right: account + cart */}
+          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end text-sm">
             <LocalizedClientLink
-              href="/"
-              className="font-display text-2xl tracking-wide text-cream hover:text-gold transition-colors uppercase"
-              data-testid="nav-store-link"
+              className="hidden small:block text-ui-fg-subtle hover:text-ui-fg-base uppercase tracking-wide font-medium"
+              href="/account"
+              data-testid="nav-account-link"
             >
-              One<span className="text-gold">Curve</span>
+              Account
             </LocalizedClientLink>
-          </div>
-
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-                data-testid="nav-account-link"
-              >
-                Account
-              </LocalizedClientLink>
-            </div>
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
+                  className="text-ui-fg-subtle hover:text-ui-fg-base uppercase tracking-wide font-medium flex gap-2"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

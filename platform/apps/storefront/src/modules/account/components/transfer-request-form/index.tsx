@@ -26,10 +26,10 @@ export default function TransferRequestForm() {
     <div className="flex flex-col gap-y-4 w-full">
       <div className="grid sm:grid-cols-2 items-center gap-x-8 gap-y-4 w-full">
         <div className="flex flex-col gap-y-1">
-          <Heading level="h3" className="!text-sm font-semibold text-cream">
+          <Heading level="h3" className="!text-sm font-semibold text-ui-fg-base">
             Order transfers
           </Heading>
-          <p className="text-small-regular text-cream/60">
+          <p className="text-small-regular text-ui-fg-muted">
             Can&apos;t find the order you are looking for?
             <br /> Connect an order to your account.
           </p>
@@ -56,14 +56,14 @@ export default function TransferRequestForm() {
         </Text>
       )}
       {showSuccess && (
-        <div className="flex justify-between p-4 bg-ink-card shadow-borders-base w-full self-stretch items-center">
+        <div className="flex justify-between p-4 bg-ui-bg-subtle shadow-borders-base w-full self-stretch items-center">
           <div className="flex gap-x-2 items-center">
             <CheckCircleMiniSolid className="w-4 h-4 text-emerald-500" />
             <div className="flex flex-col gap-y-1">
-              <Text className="text-medim-pl text-cream">
+              <Text className="text-medim-pl text-ui-fg-base">
                 Transfer for order {state.order?.id} requested
               </Text>
-              <Text className="text-base-regular text-cream/70">
+              <Text className="text-base-regular text-ui-fg-subtle">
                 Transfer request email sent to {state.order?.email}
               </Text>
             </div>
@@ -72,7 +72,7 @@ export default function TransferRequestForm() {
             className="h-fit"
             onClick={() => setShowSuccess(false)}
           >
-            <XCircleSolid className="w-4 h-4 text-cream/60" />
+            <XCircleSolid className="w-4 h-4 text-ui-fg-muted" />
           </IconButton>
         </div>
       )}

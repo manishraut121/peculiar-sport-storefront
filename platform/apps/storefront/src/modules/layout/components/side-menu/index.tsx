@@ -46,7 +46,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
 
               {open && (
                 <div
-                  className="fixed inset-0 z-[50] bg-ink/60 backdrop-blur-sm pointer-events-auto"
+                  className="fixed inset-0 z-[50] bg-black/50 backdrop-blur-sm pointer-events-auto"
                   onClick={close}
                   data-testid="side-menu-backdrop"
                 />
@@ -62,10 +62,10 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                 leaveFrom="opacity-100 backdrop-blur-2xl"
                 leaveTo="opacity-0"
               >
-                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 text-sm text-cream m-2">
+                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 text-sm text-ui-fg-base m-2">
                   <div
                     data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-ink-surface border border-cream/10 rounded-rounded justify-between p-6 shadow-2xl shadow-black/60"
+                    className="flex flex-col h-full bg-ui-bg-base border border-ui-border-base rounded-rounded justify-between p-6 shadow-2xl shadow-black/60"
                   >
                     <div className="flex justify-end" id="xmark">
                       <button data-testid="close-menu-button" onClick={close}>
@@ -78,7 +78,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                           <li key={name}>
                             <LocalizedClientLink
                               href={href}
-                              className="font-display text-4xl leading-10 text-cream hover:text-gold transition-colors"
+                              className="font-display text-4xl leading-10 text-ui-fg-base hover:text-gold transition-colors"
                               onClick={close}
                               data-testid={`${name.toLowerCase()}-link`}
                             >

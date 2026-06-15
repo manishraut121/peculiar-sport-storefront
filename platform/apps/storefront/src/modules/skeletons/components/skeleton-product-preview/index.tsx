@@ -3,10 +3,10 @@ import { Container } from "@modules/common/components/ui"
 const SkeletonProductPreview = () => {
   return (
     <div className="animate-pulse">
-      <Container className="aspect-[9/16] w-full bg-cream/10 bg-ui-bg-subtle" />
+      <Container className="aspect-[9/16] w-full bg-ui-bg-subtle bg-ui-bg-subtle" />
       <div className="flex justify-between text-base-regular mt-2">
-        <div className="w-2/5 h-6 bg-cream/10"></div>
-        <div className="w-1/5 h-6 bg-cream/10"></div>
+        <div className="w-2/5 h-6 bg-ui-bg-subtle"></div>
+        <div className="w-1/5 h-6 bg-ui-bg-subtle"></div>
       </div>
     </div>
   )
