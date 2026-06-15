@@ -32,6 +32,33 @@ port is Public.
 - Admin (manage products, prices, images, orders) → the **9000** URL + `/app`
   - login: `admin@onecurve.in` / `onecurve123` (change it in admin → Settings)
 
+## If it didn't start (or you created the Codespace before this fix)
+
+Earlier setup tried to install the database with `sudo`, which stalls in
+Codespaces. The fix (Postgres + Redis as containers, no sudo) is now in the
+repo. In your existing Codespace terminal:
+
+```bash
+git pull
+```
+
+Then **Cmd/Ctrl + Shift + P → "Codespaces: Rebuild Container"**. It re-runs
+setup cleanly (~5 min), seeds the catalog, and starts both servers. When you
+see `✅ Setup complete`, open the **port 8000** URL (first load compiles for
+~1–2 min).
+
+To watch progress or restart servers manually any time:
+
+```bash
+# see logs
+tail -f /tmp/oc-backend.log
+tail -f /tmp/oc-storefront.log
+# or start them yourself
+cd /workspaces/peculiar-sport-storefront/platform/apps/backend && npm run dev
+# (second terminal)
+cd /workspaces/peculiar-sport-storefront/platform/apps/storefront && npm run dev
+```
+
 ## Notes
 
 - The link works while the Codespace is **running**. It auto-suspends after
