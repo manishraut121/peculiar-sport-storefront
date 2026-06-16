@@ -216,7 +216,7 @@ export default async function initial_data_seed({
     entity: "shipping_profile",
     fields: ["id"],
   });
-  let shippingProfile = shippingProfileResult[0];
+  let shippingProfile: any = shippingProfileResult[0];
   if (!shippingProfile) {
     const { result } = await createShippingProfilesWorkflow(container).run({
       input: {
