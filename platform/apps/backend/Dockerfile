@@ -10,6 +10,9 @@ RUN npx medusa build
 FROM node:22-alpine
 WORKDIR /app
 COPY --from=build /app/.medusa/server ./
+# Bundle the seeded product images so they're served at /static on the host
+# (admin-uploaded images go to R2/S3 when S3_* env is set — see medusa-config).
+COPY --from=build /app/static ./static
 RUN npm install --omit=dev --no-audit --no-fund
 ENV NODE_ENV=production
 EXPOSE 9000
