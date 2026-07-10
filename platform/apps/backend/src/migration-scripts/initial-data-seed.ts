@@ -341,11 +341,12 @@ export default async function initial_data_seed({
           shipping_profile_id: shippingProfile.id,
           thumbnail: imageUrl,
           images: imageUrl ? [{ url: imageUrl }] : undefined,
+          // NOTE: metadata is publicly readable via the store API — never put
+          // wholesale cost or other private data here.
           metadata: {
             legacy_id: p.id,
             grade: p.grade,
             mrp: p.mrp,
-            cost: p.cost,
             badge: p.badge,
             low_stock_threshold: p.lowStockThreshold,
             specs: JSON.stringify(p.specs || []),
