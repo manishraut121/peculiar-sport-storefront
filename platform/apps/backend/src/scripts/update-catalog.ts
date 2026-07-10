@@ -48,7 +48,6 @@ export default async function updateCatalog({ container }: ExecArgs) {
         ...(prod.metadata || {}),
         grade: src.grade,
         mrp: src.mrp,
-        cost: src.cost,
         badge: src.badge,
         low_stock_threshold: src.lowStockThreshold,
         specs: JSON.stringify(src.specs || []),

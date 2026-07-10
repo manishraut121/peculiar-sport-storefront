@@ -36,18 +36,34 @@ deploys **from this GitHub repo** — no uploading files by hand.
    AUTH_CORS      = https://<your-vercel-app>.vercel.app,https://<your-railway-backend>.up.railway.app
    MEDUSA_BACKEND_URL      = https://<your-railway-backend>.up.railway.app
    MEDUSA_IMAGE_BASE_URL   = https://<your-railway-backend>.up.railway.app
+   MEDUSA_ADMIN_EMAIL      = admin@onecurve.in
+   MEDUSA_ADMIN_PASSWORD   = <choose a strong password>
    ```
-   (Fill the Vercel/Railway URLs after they exist; you can edit anytime — a
-   redeploy picks them up. The Dockerfile already runs migrations + seed on
-   first boot, so the catalog loads automatically.)
-6. **Settings → Networking → Generate Domain** to get the backend's public URL.
-7. After it deploys, create your admin login — in the service's **Shell** (or
-   `railway run`):
+   (Fill the Vercel/Railway URLs after they exist; edits redeploy
+   automatically. Boot runs migrations + seeds the catalog + creates the
+   admin user from MEDUSA_ADMIN_* — no shell needed. The server always
+   listens on port 9000, so the domain's target port must be 9000; a PORT
+   variable is not needed.)
+6. **Settings → Networking → Generate Domain** to get the backend's public
+   URL — set its target port to **9000**.
+7. Watch **Deployments → View Logs**. Boot prints clear markers:
+   `== OneCurve boot: STEP 1/4 ... STEP 4/4 ==` and
+   `== OC BOOT CHECK: products=22 publishable_key=pk_... ==` —
+   copy that `pk_...` for step 2 (Vercel).
+
+### AI customer care (optional but recommended)
+The storefront ships with a 24×7 assistant grounded in your catalog +
+policies. Without any key it answers from built-in rules. To power it with an
+open-source LLM, add ONE of these to the backend variables:
    ```
-   npx medusa user -e admin@onecurve.in -p <your-password>
+   GROQ_API_KEY    = gsk_...   # free at console.groq.com — open models
+   ASSISTANT_MODEL = gemma2-9b-it   # optional; default llama-3.1-8b-instant
    ```
-8. Grab the storefront key: the deploy logs print
-   `publishable key: pk_...` — copy it for step 2.
+   or self-hosted (e.g. a small VM running Ollama with Gemma):
+   ```
+   OLLAMA_URL      = https://your-ollama-host:11434
+   ASSISTANT_MODEL = gemma2:2b
+   ```
 
 ## 2. Vercel — storefront
 
