@@ -1,0 +1,44 @@
+name: CI
+
+# Builds both apps on every push/PR to the platform branches. This is exactly
+# the strict `medusa build` that catches TypeScript errors before they reach
+# Railway/Vercel (e.g. the ShippingProfile type error that failed a deploy).
+
+on:
+  push:
+    branches: [main, platform-phase-1]
+  pull_request:
+    branches: [main, platform-phase-1]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: platform
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build backend (strict — catches TS errors)
+        working-directory: platform/apps/backend
+        run: npx medusa build
+
+      - name: Build storefront
+        working-directory: platform/apps/storefront
+        env:
+          # Placeholder envs so the Next build runs in CI without a live
+          # backend; data fetches fall back gracefully (generateStaticParams
+          # is wrapped in try/catch).
+          NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
+          MEDUSA_BACKEND_URL: http://localhost:9000
+          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: pk_ci_placeholder
+          NEXT_PUBLIC_BASE_URL: https://onecurve.in
+          NEXT_PUBLIC_DEFAULT_REGION: in
+        run: npm run build
