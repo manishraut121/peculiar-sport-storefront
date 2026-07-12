@@ -1,16 +1,22 @@
-# OneCurve platform — production-style stack.
-# One command on any server (or locally with Docker installed):
-#   cp .env.example .env   (fill in secrets)
+# OneCurve platform — production stack for YOUR OWN SERVER (VPS).
+# This is the "real server" deploy: one Mumbai/Bangalore VPS runs everything.
+#
+#   cp .env.example .env    (fill in secrets)
 #   docker compose up -d --build
+#   docker compose logs -f backend    (watch STEP 1/4..4/4 + OC BOOT CHECK)
 #
 # Services:
-#   postgres    — the single source of truth (catalog, ONE shared inventory, orders, customers)
-#   redis       — Medusa event bus / workflows / session cache
-#   backend     — Medusa v2 commerce API + admin UI  (http://localhost:9000, admin at /app)
-#   storefront  — Next.js SSR storefront             (http://localhost:8000)
+#   postgres    — single source of truth (catalog, ONE inventory, orders, customers)
+#   redis       — Medusa event bus / jobs / cache
+#   backend     — Medusa v2 API + admin  (:9000, admin at /app). Boot runs
+#                 migrations, seeds the catalog, creates the admin user, then
+#                 serves on 0.0.0.0:9000 (see apps/backend/start.sh).
+#   storefront  — Next.js SSR shop      (:8000)
 #
-# TLS in production is terminated by Caddy (see Caddyfile) or your host's
-# load balancer — see README.md "Deploying to a server".
+# TLS: put Caddy/nginx (or Cloudflare proxy) in front of :8000 and :9000.
+# The storefront's PUBLIC backend URL must be browser-reachable (the chat
+# widget and cart call it from the customer's browser) — set BACKEND_URL in
+# .env to the https URL you give the backend (e.g. https://api.onecurve.in).
 
 services:
   postgres:
@@ -52,30 +58,62 @@ services:
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:?set in .env}
       COOKIE_SECRET: ${COOKIE_SECRET:?set in .env}
+      AUTH_MFA_ENCRYPTION_KEY: ${AUTH_MFA_ENCRYPTION_KEY:-}
       STORE_CORS: ${STORE_CORS:-http://localhost:8000}
       ADMIN_CORS: ${ADMIN_CORS:-http://localhost:9000}
       AUTH_CORS: ${AUTH_CORS:-http://localhost:8000,http://localhost:9000}
+      # Public URLs (used for seeded image links)
+      MEDUSA_BACKEND_URL: ${BACKEND_URL:-http://localhost:9000}
+      MEDUSA_IMAGE_BASE_URL: ${BACKEND_URL:-http://localhost:9000}
+      # Admin login auto-created on boot
+      MEDUSA_ADMIN_EMAIL: ${MEDUSA_ADMIN_EMAIL:-}
+      MEDUSA_ADMIN_PASSWORD: ${MEDUSA_ADMIN_PASSWORD:-}
+      # Payments (dormant until set)
       RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
       RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
       RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET:-}
+      # AI customer care (dormant until set) — open-source models
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      OLLAMA_URL: ${OLLAMA_URL:-}
+      ASSISTANT_MODEL: ${ASSISTANT_MODEL:-}
+      # Cloudflare R2 / S3 for admin-uploaded images (dormant until set)
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-}
+      S3_BUCKET: ${S3_BUCKET:-}
+      S3_ENDPOINT: ${S3_ENDPOINT:-}
+      S3_REGION: ${S3_REGION:-auto}
+      S3_FILE_URL: ${S3_FILE_URL:-}
     ports:
       - "9000:9000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 120s
 
   storefront:
     build:
       context: ./apps/storefront
       args:
-        # Publishable API key — created in the Medusa admin (Settings →
-        # Publishable API Keys); safe to expose to browsers.
+        # Publishable key (pk_…) — printed by the backend's OC BOOT CHECK log
+        # line; safe to expose to browsers.
         NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${MEDUSA_PUBLISHABLE_KEY:?set in .env}
+        # Build-time fetches run inside the compose network;
+        # browser-side calls use the public URL below.
         MEDUSA_BACKEND_URL: http://backend:9000
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     environment:
+      # Server-side (SSR) calls go over the private network…
       MEDUSA_BACKEND_URL: http://backend:9000
+      # …browser-side calls (cart, chat widget) need the PUBLIC backend URL.
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: ${BACKEND_URL:-http://localhost:9000}
       NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${MEDUSA_PUBLISHABLE_KEY}
       NEXT_PUBLIC_BASE_URL: ${STOREFRONT_URL:-http://localhost:8000}
+      NEXT_PUBLIC_DEFAULT_REGION: in
     ports:
       - "8000:8000"
 

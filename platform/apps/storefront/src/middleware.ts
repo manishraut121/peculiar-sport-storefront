@@ -3,59 +3,81 @@ import { NextRequest, NextResponse } from "next/server"
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
-const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "dk"
+const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "in"
 
 const regionMapCache = {
   regionMap: new Map<string, HttpTypes.StoreRegion>(),
   regionMapUpdated: Date.now(),
 }
 
+/* STABILITY: this runs on EVERY page request. It must never throw — a brief
+ * backend restart/outage would otherwise take the whole storefront down
+ * (hard "fetch failed" on every route). Rules:
+ *  - fetch has a 5s timeout so a hanging backend can't hang page loads
+ *  - on any failure, reuse the last-known (stale) region map
+ *  - with no cache at all, return an empty map — routing then falls back to
+ *    DEFAULT_REGION ("in") and pages degrade gracefully instead of crashing */
 async function getRegionMap(cacheId: string) {
   const { regionMap, regionMapUpdated } = regionMapCache
 
   if (!BACKEND_URL) {
-    throw new Error(
-      "Middleware.ts: Error fetching regions. Did you set up regions in your Medusa Admin and define a NEXT_PUBLIC_MEDUSA_BACKEND_URL environment variable."
+    console.error(
+      "middleware: NEXT_PUBLIC_MEDUSA_BACKEND_URL is not set — falling back to default region."
     )
+    return regionMap
   }
 
   if (
     !regionMap.keys().next().value ||
     regionMapUpdated < Date.now() - 3600 * 1000
   ) {
-    // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
-    const response = await fetch(`${BACKEND_URL}/store/regions`, {
-      method: "GET",
-      headers: {
-        "x-publishable-api-key": PUBLISHABLE_API_KEY!,
-      },
-      next: {
-        revalidate: 3600,
-        tags: [`regions-${cacheId}`],
-      },
-      cache: "force-cache",
-    })
-
-    if (!response.ok) {
-      throw new Error(`Backend returned ${response.status}`)
-    }
-
-    const json = await response.json()
-
-    const { regions } = json
-
-    if (!regions?.length) {
-      return new Map<string, HttpTypes.StoreRegion>()
-    }
-
-    // Create a map of country codes to regions.
-    regions.forEach((region: HttpTypes.StoreRegion) => {
-      region.countries?.forEach((c) => {
-        regionMapCache.regionMap.set(c.iso_2 ?? "", region)
+    try {
+      // Fetch regions from Medusa. We can't use the JS client here because
+      // middleware runs on the Edge runtime.
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), 5000)
+      const response = await fetch(`${BACKEND_URL}/store/regions`, {
+        method: "GET",
+        headers: {
+          "x-publishable-api-key": PUBLISHABLE_API_KEY!,
+        },
+        next: {
+          revalidate: 3600,
+          tags: [`regions-${cacheId}`],
+        },
+        cache: "force-cache",
+        signal: controller.signal,
       })
-    })
+      clearTimeout(timer)
 
-    regionMapCache.regionMapUpdated = Date.now()
+      if (!response.ok) {
+        throw new Error(`Backend returned ${response.status}`)
+      }
+
+      const json = await response.json()
+      const { regions } = json
+
+      if (regions?.length) {
+        // Create a map of country codes to regions.
+        regions.forEach((region: HttpTypes.StoreRegion) => {
+          region.countries?.forEach((c) => {
+            regionMapCache.regionMap.set(c.iso_2 ?? "", region)
+          })
+        })
+        regionMapCache.regionMapUpdated = Date.now()
+      }
+    } catch (e) {
+      // Backend unreachable: keep serving with the stale/empty map. Pages
+      // degrade gracefully; next request retries the fetch.
+      console.error(
+        `middleware: region fetch failed (${(e as Error).message}) — using ${
+          regionMap.size ? "stale cache" : "default region fallback"
+        }.`
+      )
+      // Reset the timestamp so we retry on the next request rather than
+      // hammering a down backend within the same millisecond.
+      regionMapCache.regionMapUpdated = Date.now() - 3600 * 1000 + 15_000
+    }
   }
 
   return regionMapCache.regionMap

@@ -1,4 +1,41 @@
-# Deploy OneCurve to the cloud (Vercel + Railway + Cloudflare R2)
+# Deploy OneCurve
+
+Two supported paths. **A** is your own server (recommended long-term — flat
+cost, full control, no platform surprises). **B** is the managed
+Vercel + Railway combo (fastest to stand up; currently running).
+
+---
+
+## Path A — Your own VPS (the "real server")
+
+One Mumbai/Bangalore VPS runs the whole stack via Docker Compose — database,
+backend, storefront. ~₹2,000/mo flat (e.g. DigitalOcean 4GB, Bangalore).
+
+1. Create the VPS: DigitalOcean → Droplet → **Bangalore** → the "Docker on
+   Ubuntu" marketplace image → 4 GB RAM. Add your SSH key.
+2. On the server:
+   ```bash
+   git clone https://github.com/manishraut121/peculiar-sport-storefront.git
+   cd peculiar-sport-storefront/platform
+   cp .env.example .env
+   nano .env        # fill: POSTGRES_PASSWORD, JWT/COOKIE/MFA secrets,
+                    # MEDUSA_ADMIN_EMAIL/PASSWORD, BACKEND_URL, STOREFRONT_URL,
+                    # MEDUSA_PUBLISHABLE_KEY (after first boot — see below)
+   docker compose up -d --build
+   docker compose logs -f backend   # watch STEP 1/4..4/4 + OC BOOT CHECK
+   ```
+3. First boot prints `OC BOOT CHECK: … publishable_key=pk_…` — put that in
+   `.env` as `MEDUSA_PUBLISHABLE_KEY`, then `docker compose up -d --build storefront`.
+4. TLS + domains: point `onecurve.in` → server IP (storefront :8000) and
+   `api.onecurve.in` → server IP (backend :9000), then put Caddy or the
+   Cloudflare proxy in front for HTTPS. Update the CORS/URL vars in `.env`.
+5. Updates: `git pull && docker compose up -d --build`.
+   Backups: `docker compose exec postgres pg_dump -U medusa medusa > backup.sql`
+   (nightly cron + copy off-server recommended).
+
+---
+
+## Path B — Managed cloud (Vercel + Railway + Cloudflare R2)
 
 A permanent, public, 24/7 store — no Mac needed. This is also the foundation
 you launch on. ~₹0 to start; scales with traffic.
