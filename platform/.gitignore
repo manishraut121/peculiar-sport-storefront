@@ -57,3 +57,4 @@ Thumbs.db
 
 # Local-only initial admin credential note
 .admin-initial-password.txt
+.next-build
