@@ -21,7 +21,7 @@ transaction. Full architecture rationale: [PLATFORM.md](PLATFORM.md).
 
 | Piece | Status |
 |---|---|
-| Backend (Medusa) on Railway | ✅ **LIVE** — https://peculiar-sport-storefront-staging.up.railway.app |
+| Backend (Medusa) on Railway | ✅ **LIVE** — https://peculiar-sport-storefront-staging.up.railway.app — note: the ROOT url shows "Cannot GET /", that is normal; use `/app` (admin) or `/health` |
 | Admin UI | ✅ live at `…railway.app/app` |
 | PostgreSQL + Redis (Railway) | ✅ live |
 | Catalog (22 products, images, pricing) | ✅ seeded on the live DB |
@@ -104,8 +104,10 @@ data/products.json      catalog source of truth
 | **Local** (your Mac) | localhost:8000 | localhost:9000 | Homebrew Postgres `onecurve` |
 | **Cloud** | Vercel (pending) | Railway (live) | Railway Postgres |
 
-- Git branch with all platform code: **`platform-phase-1`**. PR #1 is open to
-  `main`. Railway + Vercel deploy from `platform-phase-1`.
+- Git branches: **`dev`** = daily work (your local machine tracks this),
+  **`platform-phase-1`** = deploy branch (Railway/Vercel build from it; merge
+  dev → platform-phase-1 to release), **`main`** = stable (merge PR #1 when
+  ready to crown it).
 - **CD:** every push to `platform-phase-1` auto-redeploys Railway (and Vercel
   once connected). CI runs first and fails the build on TS/compile errors.
 - To promote to `main`: merge PR #1 (main becomes the source of truth; repoint
@@ -259,5 +261,8 @@ restore test, a WAF/rate-limit in front of `/store` if abuse appears.
 - **Phase 5:** recommendations (related / frequently-bought), abandoned-cart +
   back-in-stock emails, admin CMS for blog/pages, real product photos,
   hardening + onecurve.in cutover with 301s.
-- **Scale option:** consolidate onto a single Mumbai VPS (`docker-compose.yml`)
-  for lowest flat cost + full control when traffic justifies it.
+- **Real-server option (recommended over Railway long-term):** a single
+  Mumbai/Bangalore VPS running `platform/docker-compose.yml` — flat ~₹2,000/mo,
+  full control, no trial-credit surprises. It is deploy-ready today:
+  `cp .env.example .env`, fill secrets, `docker compose up -d --build`.
+  See DEPLOY.md "Your own VPS".
