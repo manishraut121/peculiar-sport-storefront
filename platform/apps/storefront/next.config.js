@@ -12,6 +12,11 @@ const S3_PATHNAME = process.env.MEDUSA_CLOUD_S3_PATHNAME
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  // STABILITY: `next build` and `next dev` share .next by default and corrupt
+  // each other when run at the same time (ENOENT _buildManifest.js.tmp → 500s).
+  // Verification/CI builds should set NEXT_DIST_DIR=.next-build so the dev
+  // server is never clobbered. Deploys (Vercel/Docker) leave this unset.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   reactStrictMode: true,
   logging: {
     fetches: {
