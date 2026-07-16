@@ -37,15 +37,34 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "OneCurve Sports",
-              url: getBaseURL(),
-              description:
-                "Premium handcrafted cricket equipment — English Willow bats, pads and gloves. Made in India.",
-              areaServed: "IN",
-            }),
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "OneCurve Sports",
+                url: getBaseURL(),
+                logo: `${getBaseURL()}/opengraph-image.jpg`,
+                description:
+                  "Premium handcrafted cricket equipment — English Willow bats, pads and gloves. Made in India.",
+                areaServed: "IN",
+                email: "support@onecurve.in",
+              },
+              {
+                // Enables Google's sitelinks search box.
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "OneCurve Sports",
+                url: getBaseURL(),
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: `${getBaseURL()}/in/store?q={search_term_string}`,
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+            ]),
           }}
         />
         <main className="relative">{props.children}</main>
