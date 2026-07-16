@@ -1,11 +1,13 @@
 import { Metadata } from "next"
 
 import Hero from "@modules/home/components/hero"
+import Faq from "@modules/home/components/faq"
 import { listCategories } from "@lib/data/categories"
 import { listProducts } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ProductPreview from "@modules/products/components/product-preview"
+import Reveal from "@modules/common/components/reveal"
 
 export const metadata: Metadata = {
   title: "OneCurve Sports — Premium Handcrafted Cricket Equipment",
@@ -80,8 +82,8 @@ export default async function Home(props: {
           </div>
         </div>
         <ul className="grid grid-cols-1 small:grid-cols-3 gap-5">
-          {topCategories.map((category: any) => (
-            <li key={category.id}>
+          {topCategories.map((category: any, i: number) => (
+            <Reveal as="li" key={category.id} delay={i * 70}>
               <LocalizedClientLink
                 href={`/categories/${category.handle}`}
                 data-testid={`home-category-${category.handle}`}
@@ -105,7 +107,7 @@ export default async function Home(props: {
                   </span>
                 </div>
               </LocalizedClientLink>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>
@@ -129,10 +131,10 @@ export default async function Home(props: {
             className="grid grid-cols-2 small:grid-cols-4 gap-x-5 gap-y-10"
             data-testid="home-products-grid"
           >
-            {products.map((product) => (
-              <li key={product.id}>
+            {products.map((product, i) => (
+              <Reveal as="li" key={product.id} delay={(i % 4) * 70}>
                 <ProductPreview product={product} region={region} />
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>
@@ -141,7 +143,7 @@ export default async function Home(props: {
       {/* Brand story */}
       <section className="border-t border-ui-border-base">
         <div className="content-container py-24 small:py-32">
-          <div className="max-w-3xl mx-auto text-center flex flex-col gap-6">
+          <Reveal className="max-w-3xl mx-auto text-center flex flex-col gap-6">
             <span className="text-gold tracking-[0.3em] text-xs uppercase font-medium">
               The OneCurve difference
             </span>
@@ -161,9 +163,11 @@ export default async function Home(props: {
                 Shop the range
               </LocalizedClientLink>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
+
+      <Faq />
     </div>
   )
 }

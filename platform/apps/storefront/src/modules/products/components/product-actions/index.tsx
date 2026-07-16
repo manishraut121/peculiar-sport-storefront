@@ -10,6 +10,7 @@ import { isEqual } from "lodash"
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
+import ProductTrust from "../product-trust"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
 
@@ -182,6 +183,8 @@ export default function ProductActions({
             ? "Out of stock"
             : "Add to cart"}
         </Button>
+        <ProductTrust variant={selectedVariant} product={product} />
+
         <MobileActions
           product={product}
           variant={selectedVariant}
