@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { BLOG_POSTS, getPost } from "@lib/blog/posts"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { getBaseURL } from "@lib/util/env"
+import { jsonLd as toJsonLd } from "@lib/util/json-ld"
 
 type Props = { params: Promise<{ countryCode: string; slug: string }> }
 
@@ -63,7 +64,7 @@ export default async function BlogPost(props: Props) {
     <article className="content-container py-12 max-w-3xl mx-auto">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(jsonLd) }}
       />
       <LocalizedClientLink
         href="/blog"

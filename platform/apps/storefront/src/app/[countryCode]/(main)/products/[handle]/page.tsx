@@ -5,6 +5,7 @@ import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
 import { getBaseURL } from "@lib/util/env"
+import { jsonLd as ld } from "@lib/util/json-ld"
 import { getProductPrice } from "@lib/util/get-product-price"
 
 type Props = {
@@ -199,12 +200,25 @@ export default async function ProductPage(props: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: ld(jsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+        dangerouslySetInnerHTML={{ __html: ld(breadcrumb) }}
       />
+      {/* Product OG price tags → rich shares on WhatsApp/Facebook/Instagram
+          (React hoists meta tags into <head>) */}
+      {price && (
+        <>
+          <meta property="og:type" content="product" />
+          <meta property="product:price:amount" content={String(price)} />
+          <meta property="product:price:currency" content="INR" />
+          <meta
+            property="product:availability"
+            content={inStock ? "in stock" : "out of stock"}
+          />
+        </>
+      )}
       <ProductTemplate
         product={pricedProduct}
         region={region}

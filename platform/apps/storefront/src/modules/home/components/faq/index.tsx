@@ -1,3 +1,5 @@
+import { jsonLd as toJsonLd } from "@lib/util/json-ld"
+
 /* FAQ — answers buying objections AND earns Google rich results via FAQPage
  * JSON-LD ("SEO sticky"). Native <details> = accessible, works without JS,
  * content always in the crawlable DOM. */
@@ -40,7 +42,7 @@ export default function Faq() {
     <section className="border-t border-ui-border-base">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(jsonLd) }}
       />
       <div className="content-container py-20 small:py-28 max-w-3xl mx-auto">
         <div className="text-center mb-10">

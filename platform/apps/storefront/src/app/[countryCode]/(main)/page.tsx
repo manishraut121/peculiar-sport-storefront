@@ -1,6 +1,8 @@
 import { Metadata } from "next"
 
 import Hero from "@modules/home/components/hero"
+import Marquee from "@modules/home/components/marquee"
+import CraftProcess from "@modules/home/components/craft-process"
 import Faq from "@modules/home/components/faq"
 import { listCategories } from "@lib/data/categories"
 import { listProducts } from "@lib/data/products"
@@ -49,6 +51,8 @@ export default async function Home(props: {
   return (
     <div className="oc-dark">
       <Hero />
+
+      <Marquee />
 
       {/* Value-prop strip */}
       <section className="border-y border-ui-border-base">
@@ -139,6 +143,8 @@ export default async function Home(props: {
           </ul>
         </div>
       </section>
+
+      <CraftProcess />
 
       {/* Brand story */}
       <section className="border-t border-ui-border-base">

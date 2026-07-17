@@ -84,6 +84,127 @@ body {
   letter-spacing: 0.02em;
 }
 
+/* ===== OneCurve motion & modern-surface layer ======================
+   Brand-adapted from the "Aurora / Liquid Glass / Motion-Driven" premium
+   e-commerce direction: gold-toned aurora (gold is the ONLY accent), glass
+   used sparingly (backdrop-filter is expensive), all animation CSS-only and
+   disabled under prefers-reduced-motion. */
+
+/* Glass surface (use sparingly: nav chips, badges, floating panels) */
+.oc-glass {
+  background: rgba(240, 238, 232, 0.06);
+  border: 1px solid rgba(240, 238, 232, 0.14);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+/* Animated gold aurora backdrop for dark hero sections */
+.oc-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.oc-aurora::before,
+.oc-aurora::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(38% 30% at 28% 32%, rgba(201, 168, 76, 0.22), transparent 70%),
+    radial-gradient(30% 26% at 72% 24%, rgba(226, 184, 76, 0.12), transparent 70%),
+    radial-gradient(42% 34% at 55% 78%, rgba(120, 92, 30, 0.16), transparent 72%);
+  filter: blur(42px);
+}
+.oc-aurora::after {
+  background:
+    radial-gradient(30% 26% at 68% 62%, rgba(201, 168, 76, 0.1), transparent 70%),
+    radial-gradient(26% 22% at 18% 70%, rgba(226, 184, 76, 0.08), transparent 70%);
+}
+
+/* Gold shimmer sweep for display headlines */
+.oc-shimmer {
+  background: linear-gradient(
+    100deg,
+    #c9a84c 0%,
+    #c9a84c 42%,
+    #f4e3ae 50%,
+    #c9a84c 58%,
+    #c9a84c 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Marquee (duplicate content once; second copy aria-hidden) */
+.oc-marquee {
+  display: flex;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .oc-aurora::before {
+    animation: oc-drift 16s ease-in-out infinite alternate;
+  }
+  .oc-aurora::after {
+    animation: oc-drift 22s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes oc-drift {
+    0% {
+      transform: translate3d(-4%, -3%, 0) scale(1);
+    }
+    100% {
+      transform: translate3d(4%, 3%, 0) scale(1.08);
+    }
+  }
+
+  .oc-shimmer {
+    animation: oc-shimmer-sweep 6s ease-in-out infinite;
+  }
+  @keyframes oc-shimmer-sweep {
+    0%,
+    55% {
+      background-position: 120% 0;
+    }
+    85%,
+    100% {
+      background-position: -60% 0;
+    }
+  }
+
+  .oc-marquee {
+    animation: oc-marquee-scroll 28s linear infinite;
+  }
+  .oc-marquee:hover {
+    animation-play-state: paused;
+  }
+  @keyframes oc-marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Gentle lift for interactive cards */
+  .oc-lift {
+    transition: transform 250ms ease, box-shadow 250ms ease,
+      border-color 250ms ease;
+  }
+  .oc-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Tactile buttons */
+  button:active,
+  a[class*="rounded-full"]:active {
+    transform: scale(0.985);
+  }
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {

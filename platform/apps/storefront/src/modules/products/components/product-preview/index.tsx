@@ -39,9 +39,14 @@ export default async function ProductPreview({
   return (
     <LocalizedClientLink
       href={`/products/${product.handle}`}
-      className="group block"
+      className="group block oc-lift"
     >
-      <div data-testid="product-wrapper">
+      <div data-testid="product-wrapper" className="relative">
+        {discount > 0 && (
+          <span className="absolute top-3 left-3 z-10 oc-glass rounded-full px-3 py-1 text-[11px] font-semibold text-gold">
+            {discount}% off
+          </span>
+        )}
         <Thumbnail
           thumbnail={product.thumbnail}
           images={product.images}
