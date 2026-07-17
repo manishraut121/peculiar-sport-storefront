@@ -1,4 +1,5 @@
 import { getBaseURL } from "@lib/util/env"
+import { jsonLd } from "@lib/util/json-ld"
 import { Metadata } from "next"
 import { Bebas_Neue, DM_Sans } from "next/font/google"
 import "styles/globals.css"
@@ -24,6 +25,25 @@ export const metadata: Metadata = {
   },
   description:
     "Premium handcrafted English Willow cricket bats, pads and gloves. Made in India. Shop at onecurve.in.",
+  applicationName: "OneCurve Sports",
+  openGraph: {
+    siteName: "OneCurve Sports",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -34,10 +54,18 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       className={`${display.variable} ${body.variable}`}
     >
       <body className="font-body bg-ui-bg-base text-ui-fg-base antialiased">
+        {/* React hoists these into <head>: warm up the API origin early */}
+        <link
+          rel="preconnect"
+          href={
+            process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL ||
+            "http://localhost:9000"
+          }
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
+            __html: jsonLd([
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",

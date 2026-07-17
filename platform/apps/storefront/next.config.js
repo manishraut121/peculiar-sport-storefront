@@ -30,7 +30,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Optimized (WebP/AVIF, responsive sizes) — big LCP/bandwidth win.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "http",

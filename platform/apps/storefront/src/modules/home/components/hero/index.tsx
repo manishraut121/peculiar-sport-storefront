@@ -3,23 +3,31 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 const Hero = () => {
   return (
     <section className="relative w-full min-h-[88vh] flex items-center justify-center overflow-hidden bg-ink">
-      {/* soft gold glow behind the headline */}
+      {/* Animated gold aurora (CSS-only, reduced-motion safe) */}
+      <div className="oc-aurora" aria-hidden />
+      {/* Fine grid texture for depth */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-[0.05]"
         style={{
-          background:
-            "radial-gradient(ellipse 60% 45% at 50% 38%, rgba(201,168,76,0.14), transparent 70%)",
+          backgroundImage:
+            "linear-gradient(rgba(240,238,232,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(240,238,232,.6) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+          maskImage:
+            "radial-gradient(70% 60% at 50% 40%, black, transparent 80%)",
+          WebkitMaskImage:
+            "radial-gradient(70% 60% at 50% 40%, black, transparent 80%)",
         }}
       />
-      <div className="relative z-10 flex flex-col items-center text-center px-6 gap-8 max-w-4xl mx-auto">
-        <span className="text-gold tracking-[0.35em] text-xs uppercase font-medium">
+
+      <div className="relative z-10 flex flex-col items-center text-center px-6 gap-8 max-w-4xl mx-auto py-24">
+        <span className="oc-glass rounded-full px-5 py-2 text-gold tracking-[0.3em] text-xs uppercase font-medium">
           Handcrafted in India
         </span>
         <h1 className="font-display text-cream leading-[0.95] text-6xl small:text-8xl">
           The perfect curve.
           <br />
-          <span className="text-gold">Engineered for runs.</span>
+          <span className="oc-shimmer">Engineered for runs.</span>
         </h1>
         <p className="text-cream-muted text-base small:text-lg max-w-xl leading-relaxed">
           Premium English Willow cricket bats, pads and gloves — hand-picked,
@@ -29,14 +37,14 @@ const Hero = () => {
           <LocalizedClientLink
             href="/store"
             data-testid="hero-shop-link"
-            className="px-10 py-4 rounded-full bg-gold text-ink font-medium text-base hover:bg-gold-hover transition-colors"
+            className="px-10 py-4 rounded-full bg-gold text-ink font-medium text-base hover:bg-gold-hover transition-all hover:shadow-[0_0_36px_rgba(201,168,76,0.35)]"
           >
             Shop the range
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/categories/bats"
             data-testid="hero-bats-link"
-            className="px-10 py-4 rounded-full border border-cream/20 text-cream font-medium text-base hover:border-gold hover:text-gold transition-colors"
+            className="oc-glass px-10 py-4 rounded-full text-cream font-medium text-base hover:border-gold hover:text-gold transition-colors"
           >
             Explore bats
           </LocalizedClientLink>
@@ -57,6 +65,14 @@ const Hero = () => {
             <span>India</span>
           </div>
         </div>
+      </div>
+
+      {/* Scroll hint */}
+      <div
+        aria-hidden
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-cream/30 text-xs tracking-[0.3em] uppercase"
+      >
+        Scroll
       </div>
     </section>
   )
