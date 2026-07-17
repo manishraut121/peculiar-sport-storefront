@@ -25,27 +25,24 @@ the stack with Meilisearch/Payload/POS until after first paid orders.
 
 ### Which cloud today? (Railway trial ended)
 
-**Recommended: DigitalOcean Droplet (Bangalore) + Docker Compose + Cloudflare**
+**⭐ DigitalOcean Droplet · Bangalore · 4 GB · Docker Compose** (~₹2,000/mo).  
+**Emergency same-day:** Railway paid if that account still exists.
+
+Full copy-paste for staff admin today: **[GO_LIVE_TODAY.md](GO_LIVE_TODAY.md)**.
 
 | Option | ~₹/mo | Verdict |
 |---|---|---|
-| **DO Bangalore 4GB Docker droplet** ⭐ | ~₹1,800–2,200 | Best: India latency, one box, exact `docker-compose.yml`, simple backups |
-| Hetzner CX32 (EU) | ~₹1,300 | Cheaper but ~140ms from India — worse storefront SSR |
-| Render / Fly.io split | ~₹2,000–4,000 | Fine, more moving parts |
-| Vercel storefront + Neon + Upstash | ~₹0–2,500 | OK short-term; two vendors; cold starts |
-| Railway (paid) | usage-based | Only if you already like it; trial ending is not a blocker to leave |
-
-**Stage + prod on one droplet** with two compose projects (or two droplets when
-revenue justifies). Cloudflare proxy for free TLS + DDoS. R2 for images (~₹0–100).
+| **DO Bangalore 4GB Docker droplet** ⭐ | ~₹1,800–2,200 | Best: India latency, one box, exact `docker-compose.yml` |
+| Railway paid | variable | Fastest if you already used it |
+| Hetzner CX32 (EU) | ~₹1,300 | Cheaper; slower for Indian staff |
+| Render multi-service | ~₹2,500–4,000+ | Works; easier to overspend |
+| Free tiers | ₹0 | Avoid for Medusa (sleep/OOM) |
 
 ```bash
-# On the droplet (after DNS)
-cd platform
-./scripts/flip-env.sh stage   # or prod --yes when ready
+cd platform && ./scripts/flip-env.sh stage
 docker compose --env-file .env up -d --build
+# Staff: http://DROPLET_IP:9000/app
 ```
-
-Full steps: [DEPLOY.md](DEPLOY.md) Path A.
 
 ---
 
