@@ -1,0 +1,28 @@
+id: shopper-journey
+name: Shopper browse → product → cart
+severity: critical
+tags: [regression, shopper]
+max_steps: 20
+start_path: /in
+
+goal: |
+  Act as a customer who wants to buy a cricket bat.
+  Browse products, open one product page, and add it to the cart if possible.
+  Do not complete payment.
+
+success_criteria:
+  - You reached a product detail page with a product name.
+  - Price is visible in Indian Rupees (₹ or Rs) OR the page explains sold out.
+  - Cart has the item OR you confirmed Add to cart was used and cart reflects it.
+
+steps:
+  - From home, go to the full store or bats category.
+  - Open any product that looks available.
+  - Read product title and price.
+  - Add to cart if the button is enabled; if sold out, note that and pass with explanation.
+  - Open the cart page and verify contents match expectation.
+
+fail_if:
+  - Product pages 404 for all products you try
+  - Add to cart always fails with an error toast/message
+  - Cart shows a crash or empty after a successful add

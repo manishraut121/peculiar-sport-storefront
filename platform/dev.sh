@@ -70,13 +70,24 @@ done
 [ -n "$BACKEND_UP" ] || { echo "✗ Backend did not become healthy — see /tmp/oc-backend.log"; exit 1; }
 echo "  ✓ backend healthy"
 
+# Always sync a REAL publishable key from the DB into storefront/.env.local
+# (flip-env templates use pk_dev_placeholder which causes runtime errors).
+echo "▶ Syncing publishable API key → storefront…"
+if ./scripts/sync-publishable-key.sh; then
+  echo "  ✓ publishable key synced"
+else
+  echo "  ⚠ could not sync key — storefront may show 'valid publishable key required'"
+  echo "    Fix: ./scripts/sync-publishable-key.sh   or Admin → Settings → Publishable API Keys"
+fi
+
 echo "▶ Starting storefront (:8000)…"
 (cd apps/storefront && npm run dev > /tmp/oc-storefront.log 2>&1) &
 
 echo ""
-echo "  ✅ Storefront : http://localhost:8000   (first load compiles ~30s)"
+echo "  ✅ Storefront : http://localhost:8000/in   (first load compiles ~30s)"
 echo "  ✅ Admin      : http://localhost:9000/app"
 echo "  Logs: tail -f /tmp/oc-backend.log /tmp/oc-storefront.log"
 echo "  Stop: Ctrl-C"
+echo "  Re-sync key anytime: ./scripts/sync-publishable-key.sh"
 echo ""
 wait

@@ -13,7 +13,20 @@
     "test": "turbo test",
     "backend:seed": "turbo seed --filter=@dtc/backend",
     "backend:dev": "turbo dev --filter=@dtc/backend",
-    "storefront:dev": "turbo dev --filter=@dtc/storefront"
+    "storefront:dev": "turbo dev --filter=@dtc/storefront",
+    "env:dev": "./scripts/flip-env.sh dev",
+    "env:stage": "./scripts/flip-env.sh stage",
+    "env:prod": "./scripts/flip-env.sh prod",
+    "env:status": "./scripts/flip-env.sh status",
+    "flags:validate": "./scripts/validate-flags.sh",
+    "test:e2e": "npm run test -w @dtc/e2e",
+    "test:e2e:smoke": "npm run test:smoke -w @dtc/e2e",
+    "test:e2e:regression": "npm run test:regression -w @dtc/e2e",
+    "test:e2e:usability": "npm run test:usability -w @dtc/e2e",
+    "test:agentic": "npm run test:agentic -w @dtc/e2e",
+    "test:agentic:smoke": "npm run test:agentic:smoke -w @dtc/e2e",
+    "test:agentic:all": "npm run test:agentic:all -w @dtc/e2e",
+    "sync:pk": "./scripts/sync-publishable-key.sh"
   },
   "pnpm": {
     "overrides": {

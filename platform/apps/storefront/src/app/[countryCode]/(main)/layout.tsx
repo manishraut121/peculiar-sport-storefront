@@ -2,8 +2,10 @@ import { Metadata } from "next"
 
 import { listCartOptions, retrieveCart } from "@lib/data/cart"
 import { retrieveCustomer } from "@lib/data/customer"
+import { isFeatureEnabled } from "@lib/flags"
 import { getBaseURL } from "@lib/util/env"
 import { StoreCartShippingOption } from "@medusajs/types"
+import EnvBadge from "@modules/common/components/env-badge"
 import CartMismatchBanner from "@modules/layout/components/cart-mismatch-banner"
 import ChatWidget from "@modules/layout/components/chat-widget"
 import TrustBar from "@modules/layout/components/trust-bar"
@@ -43,7 +45,8 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
       )}
       {props.children}
       <Footer />
-      <ChatWidget />
+      {isFeatureEnabled("ai_assistant") && <ChatWidget />}
+      <EnvBadge />
     </>
   )
 }

@@ -1,17 +1,17 @@
 import { loadEnv, defineConfig, Modules } from '@medusajs/framework/utils'
+import { shouldRegisterRazorpay, getOcEnv } from './src/utils/flags'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
-// Razorpay is wired but DORMANT until keys are present. Add to the backend
-// .env to go live (test or live keys):
-//   RAZORPAY_KEY_ID=rzp_test_xxx
-//   RAZORPAY_KEY_SECRET=xxx
-//   RAZORPAY_WEBHOOK_SECRET=xxx   (optional, for webhook verification)
-// Until then, Medusa's built-in manual payment handles checkout so the
-// store is fully testable.
-const razorpayEnabled = !!(
-  process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
-)
+// Razorpay registration is gated by feature flags (platform/config/flags/*.json)
+// + presence of keys. Live keys are refused outside OC_ENV=prod.
+// Flip env: platform/scripts/flip-env.sh <dev|stage|prod>
+const razorpayEnabled = shouldRegisterRazorpay()
+if (process.env.OC_ENV || process.env.OC_FEATURE_FLAGS) {
+  console.log(
+    `[OC] env=${getOcEnv()} razorpay_provider=${razorpayEnabled ? "on" : "off"}`
+  )
+}
 
 // Cloud image storage (Cloudflare R2 / any S3) — used for admin-uploaded
 // product photos so they survive container restarts on Railway/Vercel/etc.
@@ -23,7 +23,10 @@ const s3Enabled = !!(
   process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY
 )
 
-const modules: any[] = []
+const modules: any[] = [
+  // Owner/employee bookkeeping: expenses + P&L API + admin UI route
+  { resolve: "./src/modules/bookkeeping" },
+]
 
 if (s3Enabled) {
   modules.push({

@@ -1,0 +1,133 @@
+name: Agentic QA
+
+# Auto-runs on every push / PR — no manual script babysitting.
+# Uses natural-language missions (apps/e2e/agentic/missions/*.yaml).
+# Requires repo secrets (Settings → Secrets):
+#   E2E_BASE_URL   — stage storefront URL (e.g. https://stage.onecurve.in)
+#   XAI_API_KEY    — preferred (SpaceXAI / xAI)  OR  GROQ_API_KEY
+# Optional:
+#   AGENTIC_MODEL  — override model id
+#   E2E_API_URL    — for /health probe
+
+on:
+  push:
+    branches: [main, platform-phase-1, dev]
+  pull_request:
+    branches: [main, platform-phase-1]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Mission tag filter (smoke | regression | usability | empty=all)"
+        required: false
+        default: ""
+
+concurrency:
+  group: agentic-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Cheap always-on gate: no LLM, no browser
+  flags:
+    name: Flags + missions present
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate feature flags
+        working-directory: platform
+        run: ./scripts/validate-flags.sh
+      - name: Missions exist
+        run: |
+          ls platform/apps/e2e/agentic/missions/*.yaml
+          test -f platform/apps/e2e/agentic/run.ts
+
+  # Infra ping — fails if stage is configured but down
+  stage-health:
+    name: Stage health
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - id: check
+        env:
+          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
+          E2E_API_URL: ${{ secrets.E2E_API_URL }}
+        run: |
+          if [ -z "$E2E_BASE_URL" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::E2E_BASE_URL secret not set — agentic UI tests will skip. Add stage URL to run full QA on push."
+            exit 0
+          fi
+          code=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 "$E2E_BASE_URL" || echo "000")
+          echo "storefront HTTP $code"
+          if [ "$code" = "000" ] || [ "$code" -ge 500 ]; then
+            echo "::error::Stage storefront unreachable ($E2E_BASE_URL → $code)"
+            exit 1
+          fi
+          if [ -n "$E2E_API_URL" ]; then
+            h=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 15 "$E2E_API_URL/health" || echo "000")
+            echo "api /health HTTP $h"
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+  agentic:
+    name: Agentic missions
+    needs: [flags, stage-health]
+    if: needs.stage-health.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: platform
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Require LLM secret
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$XAI_API_KEY$GROQ_API_KEY$OPENAI_API_KEY" ]; then
+            echo "::error::Set XAI_API_KEY (preferred) or GROQ_API_KEY in repo secrets for agentic QA"
+            exit 1
+          fi
+
+      - name: Install workspace + e2e deps
+        run: npm install --no-audit --no-fund
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+        working-directory: platform/apps/e2e
+
+      - name: Run agentic QA
+        env:
+          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
+          E2E_API_URL: ${{ secrets.E2E_API_URL }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AGENTIC_MODEL: ${{ secrets.AGENTIC_MODEL }}
+          DISPATCH_TAG: ${{ github.event.inputs.tag }}
+        # push/PR → smoke only (cheap gate). Manual run → full suite or chosen tag.
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "$DISPATCH_TAG" ] && [ "$DISPATCH_TAG" != "all" ]; then
+              npm run test:agentic -w @dtc/e2e -- --tag "$DISPATCH_TAG"
+            else
+              npm run test:agentic -w @dtc/e2e
+            fi
+          else
+            npm run test:agentic -w @dtc/e2e -- --tag smoke
+          fi
+
+      - name: Upload agentic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentic-qa-report
+          path: platform/apps/e2e/test-results/agentic/
+          if-no-files-found: ignore

@@ -1,0 +1,26 @@
+id: usability
+name: Usability & trust signals
+severity: major
+tags: [usability]
+max_steps: 14
+start_path: /in
+
+goal: |
+  Quick usability review as a careful shopper on desktop.
+  Check that trust/legal links work and the site feels usable.
+
+success_criteria:
+  - Shipping & returns or Privacy or Terms is reachable and readable.
+  - Navigation does not trap the user (can return home).
+  - No obvious horizontal cut-off of primary content on first screenful.
+
+steps:
+  - Scan the home page for free-shipping / delivery messaging.
+  - Open Shipping & returns or Privacy from the footer.
+  - Return to home via logo or nav.
+  - Comment on any severe usability issues (tiny unreadable text, broken CTAs).
+
+fail_if:
+  - Legal/help pages missing or empty
+  - Primary CTAs do nothing
+  - Site is unusable without console knowledge

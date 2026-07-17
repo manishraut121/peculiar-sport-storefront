@@ -1,0 +1,36 @@
+{
+  "$schema": "./flags.schema.json",
+  "env": "stage",
+  "description": "Staging / partner preview — Razorpay TEST keys only",
+  "flags": {
+    "payments": {
+      "razorpay": true,
+      "razorpay_live_keys": false,
+      "manual_checkout": true,
+      "cod": false
+    },
+    "commerce": {
+      "free_shipping_threshold": 2999,
+      "shipping_flat_inr": 199,
+      "prices_tax_inclusive": true,
+      "gst_line_item": false
+    },
+    "features": {
+      "ai_assistant": true,
+      "smart_search": true,
+      "blog": true,
+      "customer_accounts": true,
+      "reviews": false,
+      "wishlist": false,
+      "pos": false,
+      "bookkeeping": true,
+      "maintenance_mode": false
+    },
+    "ops": {
+      "seed_on_boot": false,
+      "debug_logging": true,
+      "e2e_hooks": true,
+      "show_env_badge": true
+    }
+  }
+}

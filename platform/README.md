@@ -13,6 +13,19 @@ platform/                  (npm workspaces + turborepo)
 └── dev.sh        one-command local development
 ```
 
+## Environments (dev / stage / prod)
+
+Feature flags control payments, free-ship thresholds, bookkeeping, AI, etc.
+
+```bash
+./scripts/flip-env.sh dev      # local (manual payments)
+./scripts/flip-env.sh stage    # Razorpay TEST keys
+./scripts/flip-env.sh prod     # LIVE — type "prod" to confirm
+./scripts/flip-env.sh status
+```
+
+Full launch plan: [../LAUNCH.md](../LAUNCH.md).
+
 ## Run it locally (macOS, no Docker needed)
 
 One-time setup (already done on the dev machine):
@@ -28,7 +41,10 @@ Then, from the repo:
 
 ```bash
 cd platform
+./scripts/flip-env.sh dev
 ./dev.sh
+# If you ever see "valid publishable key is required":
+./scripts/sync-publishable-key.sh   # then restart storefront
 ```
 
 Open:
@@ -82,9 +98,21 @@ Nightly `pg_dump` to Cloudflare R2 (~₹100/mo) for off-site backups.
 - Products/orders/customers: CSV export buttons in the admin UI
 - Full database: `pg_dump onecurve > backup.sql` (everything, restorable anywhere)
 
-## Day-to-day (owner cheat-sheet)
+## Day-to-day (owner + employee cheat-sheet)
 
 - Add/edit products, prices, stock, images, categories: **admin → Products**
 - Orders (online + POS together, channel-tagged): **admin → Orders**
 - Discounts/coupons: **admin → Promotions**
 - Staff accounts: **admin → Settings → Users**
+- **Bookkeeping** (sales vs expenses, CSV for CA): **admin → Bookkeeping**
+
+## QA (agentic — auto on push)
+
+```bash
+# stack on :8000; needs XAI_API_KEY or GROQ_API_KEY
+export E2E_BASE_URL=http://localhost:8000
+npm run test:agentic:smoke
+```
+
+Missions (edit these, not selectors): `apps/e2e/agentic/missions/*.yaml`  
+CI: `.github/workflows/agentic-qa.yml` — set repo secrets `E2E_BASE_URL` + `XAI_API_KEY`.

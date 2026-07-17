@@ -1,0 +1,29 @@
+# Natural-language QA missions — edit these, not selectors.
+# The agent explores the live UI and decides how to click/assert.
+
+id: smoke
+name: Deploy smoke
+severity: critical
+tags: [smoke, deploy-gate]
+max_steps: 12
+start_path: /in
+
+goal: |
+  Confirm the OneCurve storefront is up and safe to share.
+  You are a shopper landing on the site for the first time.
+
+success_criteria:
+  - The page is clearly OneCurve Sports (cricket equipment brand).
+  - There is a way to shop / browse products (link or button).
+  - The page is not a blank screen, 500 error, or "application error".
+
+steps:
+  - Observe the home page and confirm branding and primary shop CTA.
+  - Open the main shop or store listing.
+  - Confirm at least one product or a clear empty-catalog message is visible (not a crash).
+  - From the footer or help links, open Privacy (or another legal page) and confirm readable policy text.
+
+fail_if:
+  - HTTP error page, Next.js error overlay, or backend 5xx message
+  - Infinite spinner with no content after waiting
+  - Broken layout that hides all navigation

@@ -93,9 +93,42 @@ export default async function Footer() {
                 Help
               </span>
               <ul className="flex flex-col gap-y-2">
-                <li className="text-ui-fg-subtle">Shipping &amp; returns</li>
-                <li className="text-ui-fg-subtle">Size guide</li>
-                <li className="text-ui-fg-subtle">Contact us</li>
+                <li>
+                  <LocalizedClientLink
+                    href="/legal/shipping-returns"
+                    className="text-ui-fg-subtle hover:text-gold transition-colors"
+                    data-testid="footer-shipping-returns"
+                  >
+                    Shipping &amp; returns
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
+                    href="/legal/privacy"
+                    className="text-ui-fg-subtle hover:text-gold transition-colors"
+                    data-testid="footer-privacy"
+                  >
+                    Privacy
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
+                    href="/legal/terms"
+                    className="text-ui-fg-subtle hover:text-gold transition-colors"
+                    data-testid="footer-terms"
+                  >
+                    Terms
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <a
+                    href="mailto:support@onecurve.in"
+                    className="text-ui-fg-subtle hover:text-gold transition-colors"
+                    data-testid="footer-contact"
+                  >
+                    Contact us
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

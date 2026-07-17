@@ -53,6 +53,9 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      # Feature-flag JSON files for runtime OC_FLAGS_FILE resolution
+      - ./config:/opt/onecurve/config:ro
     environment:
       DATABASE_URL: postgres://medusa:${POSTGRES_PASSWORD}@postgres:5432/medusa
       REDIS_URL: redis://redis:6379
@@ -83,6 +86,10 @@ services:
       S3_ENDPOINT: ${S3_ENDPOINT:-}
       S3_REGION: ${S3_REGION:-auto}
       S3_FILE_URL: ${S3_FILE_URL:-}
+      # Feature flags / env flip (./scripts/flip-env.sh)
+      OC_ENV: ${OC_ENV:-prod}
+      OC_FLAGS_FILE: ${OC_FLAGS_FILE:-/opt/onecurve/config/flags/prod.json}
+      OC_FEATURE_FLAGS: ${OC_FEATURE_FLAGS:-}
     ports:
       - "9000:9000"
     healthcheck:
@@ -102,6 +109,10 @@ services:
         # Build-time fetches run inside the compose network;
         # browser-side calls use the public URL below.
         MEDUSA_BACKEND_URL: http://backend:9000
+        # Baked at build time from flip-env.sh (rebuild storefront after flip)
+        NEXT_PUBLIC_OC_ENV: ${OC_ENV:-prod}
+        NEXT_PUBLIC_OC_FEATURE_FLAGS: ${OC_FEATURE_FLAGS:-}
+        NEXT_PUBLIC_BASE_URL: ${STOREFRONT_URL:-http://localhost:8000}
     restart: unless-stopped
     depends_on:
       backend:
@@ -114,6 +125,8 @@ services:
       NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${MEDUSA_PUBLISHABLE_KEY}
       NEXT_PUBLIC_BASE_URL: ${STOREFRONT_URL:-http://localhost:8000}
       NEXT_PUBLIC_DEFAULT_REGION: in
+      NEXT_PUBLIC_OC_ENV: ${OC_ENV:-prod}
+      NEXT_PUBLIC_OC_FEATURE_FLAGS: ${OC_FEATURE_FLAGS:-}
     ports:
       - "8000:8000"
 

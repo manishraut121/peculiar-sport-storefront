@@ -1,0 +1,26 @@
+{
+  "name": "@dtc/e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OneCurve QA — agentic (primary) + optional Playwright scripts",
+  "scripts": {
+    "test:agentic": "tsx agentic/run.ts",
+    "test:agentic:smoke": "tsx agentic/run.ts --tag smoke",
+    "test:agentic:all": "tsx agentic/run.ts",
+    "test:agentic:headed": "AGENTIC_HEADED=1 tsx agentic/run.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:usability": "playwright test --grep @usability",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2",
+    "yaml": "^2.6.0"
+  }
+}
