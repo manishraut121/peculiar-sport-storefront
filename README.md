@@ -7,6 +7,7 @@ Two things live in this repo:
 | `/` (root) | **Legacy vanilla site** — single-page storefront on Netlify with Razorpay serverless functions. The revenue **bridge** while the new platform is built. | Live-ready (needs Razorpay keys in Netlify env) |
 | [`platform/`](platform/) | **The new platform** — Medusa v2 + Next.js: admin CMS, ONE shared inventory for online + POS, SSR storefront. | In build — runs locally today |
 
+- **🎨 Brand identity (Night Pitch):** [BRAND.md](BRAND.md) + [design-system/onecurve](design-system/onecurve/)
 - **⚡ Go live TODAY (backend for staff):** [GO_LIVE_TODAY.md](GO_LIVE_TODAY.md) — DigitalOcean Bangalore pick + steps
 - **🚀 Launch plan:** [LAUNCH.md](LAUNCH.md) — env flags, e2e, bookkeeping, prod flip
 - **🧭 CTO Handbook:** [HANDBOOK.md](HANDBOOK.md) — architecture, secrets, DB, CI/CD

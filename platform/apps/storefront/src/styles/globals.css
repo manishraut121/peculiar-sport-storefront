@@ -2,68 +2,102 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* ===== OneCurve brand layer =====================================
-   HYBRID THEME (Decathlon clean + Rogue bold):
-   - Default site mode is LIGHT — clean white shop/PDP/cart/account.
-   - Homepage, footer and any "immersive" block opt into DARK explicitly
-     via the .oc-dark wrapper (always dark regardless of mode).
-   - Gold #C9A84C is the single accent in both modes.
-   Bebas Neue (display) / DM Sans (body). */
+/* ==========================================================================
+   OneCurve — Night Pitch design system
+   Brand: BRAND.md · Tokens below drive light shop + dark immersive blocks
+   ========================================================================== */
 
-/* Light mode (default): keep Medusa's clean light surfaces, swap the
-   accent / interactive tokens to OneCurve gold + ink. */
 :root,
 :root[data-mode="light"] {
-  --bg-base: #ffffff;
-  --bg-base-hover: #f7f6f3;
-  --bg-subtle: #f5f4f0;
-  --bg-subtle-hover: #efede7;
-  --bg-component: #ffffff;
-  --bg-component-hover: #f7f6f3;
-  --bg-field: #ffffff;
-  --bg-field-hover: #f7f6f3;
-  --bg-highlight: rgba(201, 168, 76, 0.12);
-  --bg-highlight-hover: rgba(201, 168, 76, 0.2);
-  --bg-interactive: #c9a84c;
-  --fg-base: #141312;
-  --fg-subtle: #4a463f;
-  --fg-muted: #6e6960;
-  --fg-disabled: #b0aaa0;
-  --fg-interactive: #9a7d2e;
-  --fg-interactive-hover: #c9a84c;
-  --fg-on-color: #ffffff;
-  --border-base: #e6e3dc;
-  --border-strong: #d3cfc5;
-  --border-interactive: #c9a84c;
+  /* Brand primitives */
+  --oc-pitch: #0b1210;
+  --oc-pitch-elevated: #121a17;
+  --oc-outfield: #1c3329;
+  --oc-boundary: #d4a017;
+  --oc-boundary-hover: #e8b84a;
+  --oc-willow: #f4f0e6;
+  --oc-willow-card: #ffffff;
+  --oc-crease: #ede8dc;
+  --oc-ink: #0c0f0d;
+  --oc-mist: #5e6b64;
+  --oc-line: #d9d3c6;
+
+  /* Map to Medusa ui-* surface tokens (light shop default) */
+  --bg-base: var(--oc-willow);
+  --bg-base-hover: #efe9dc;
+  --bg-subtle: var(--oc-crease);
+  --bg-subtle-hover: #e5dfd0;
+  --bg-component: var(--oc-willow-card);
+  --bg-component-hover: #faf8f3;
+  --bg-field: var(--oc-willow-card);
+  --bg-field-hover: #faf8f3;
+  --bg-highlight: rgba(212, 160, 23, 0.12);
+  --bg-highlight-hover: rgba(212, 160, 23, 0.2);
+  --bg-interactive: var(--oc-boundary);
+  --fg-base: var(--oc-ink);
+  --fg-subtle: #3d4540;
+  --fg-muted: var(--oc-mist);
+  --fg-disabled: #a8b0ab;
+  --fg-interactive: #9a7610;
+  --fg-interactive-hover: var(--oc-boundary);
+  --fg-on-color: var(--oc-pitch);
+  --border-base: var(--oc-line);
+  --border-strong: #c9c2b3;
+  --border-interactive: var(--oc-boundary);
 }
 
-/* Always-dark surface — used for the immersive homepage + footer.
-   Re-points the Medusa tokens to OneCurve ink/cream/gold inside the
-   wrapper, so ui-* components dropped in there also read correctly. */
+/* Immersive dark (hero, home sections, footer) */
 .oc-dark {
-  --bg-base: #080808;
-  --bg-base-hover: #121212;
-  --bg-subtle: #0f0f0f;
-  --bg-subtle-hover: #161616;
-  --bg-component: #181818;
-  --bg-component-hover: #202020;
-  --bg-field: #121212;
-  --bg-field-hover: #181818;
-  --bg-highlight: rgba(201, 168, 76, 0.12);
-  --bg-highlight-hover: rgba(201, 168, 76, 0.2);
-  --bg-interactive: #c9a84c;
-  --fg-base: #f0eee8;
-  --fg-subtle: rgba(240, 238, 232, 0.72);
-  --fg-muted: rgba(240, 238, 232, 0.52);
-  --fg-disabled: rgba(240, 238, 232, 0.32);
-  --fg-interactive: #c9a84c;
-  --fg-interactive-hover: #e2b84c;
-  --fg-on-color: #080808;
-  --border-base: rgba(240, 238, 232, 0.12);
-  --border-strong: rgba(240, 238, 232, 0.24);
-  --border-interactive: #c9a84c;
-  background-color: #080808;
-  color: #f0eee8;
+  --bg-base: var(--oc-pitch);
+  --bg-base-hover: #101815;
+  --bg-subtle: var(--oc-pitch-elevated);
+  --bg-subtle-hover: #18241f;
+  --bg-component: var(--oc-pitch-elevated);
+  --bg-component-hover: #1a2621;
+  --bg-field: #0e1613;
+  --bg-field-hover: #15201b;
+  --bg-highlight: rgba(212, 160, 23, 0.14);
+  --bg-highlight-hover: rgba(212, 160, 23, 0.22);
+  --bg-interactive: var(--oc-boundary);
+  --fg-base: var(--oc-willow);
+  --fg-subtle: rgba(244, 240, 230, 0.78);
+  --fg-muted: rgba(244, 240, 230, 0.55);
+  --fg-disabled: rgba(244, 240, 230, 0.32);
+  --fg-interactive: var(--oc-boundary);
+  --fg-interactive-hover: var(--oc-boundary-hover);
+  --fg-on-color: var(--oc-pitch);
+  --border-base: rgba(244, 240, 230, 0.12);
+  --border-strong: rgba(244, 240, 230, 0.22);
+  --border-interactive: var(--oc-boundary);
+  background-color: var(--oc-pitch);
+  color: var(--oc-willow);
+}
+
+/* Light band inside a dark page (featured products etc.) */
+.oc-light {
+  --bg-base: var(--oc-willow);
+  --bg-base-hover: #efe9dc;
+  --bg-subtle: var(--oc-crease);
+  --bg-subtle-hover: #e5dfd0;
+  --bg-component: var(--oc-willow-card);
+  --bg-component-hover: #faf8f3;
+  --bg-field: var(--oc-willow-card);
+  --bg-field-hover: #faf8f3;
+  --bg-highlight: rgba(212, 160, 23, 0.12);
+  --bg-highlight-hover: rgba(212, 160, 23, 0.2);
+  --bg-interactive: var(--oc-boundary);
+  --fg-base: var(--oc-ink);
+  --fg-subtle: #3d4540;
+  --fg-muted: var(--oc-mist);
+  --fg-disabled: #a8b0ab;
+  --fg-interactive: #9a7610;
+  --fg-interactive-hover: var(--oc-boundary);
+  --fg-on-color: var(--oc-pitch);
+  --border-base: var(--oc-line);
+  --border-strong: #c9c2b3;
+  --border-interactive: var(--oc-boundary);
+  background-color: var(--oc-willow);
+  color: var(--oc-ink);
 }
 
 html {
@@ -71,34 +105,90 @@ html {
 }
 
 body {
-  background-color: #ffffff;
-  color: #141312;
+  background-color: var(--oc-willow);
+  color: var(--oc-ink);
 }
 
 ::selection {
-  background: rgba(201, 168, 76, 0.35);
+  background: rgba(212, 160, 23, 0.35);
+  color: var(--oc-pitch);
 }
 
-/* Bebas Neue tracking is tight by design; open it up slightly */
 .font-display {
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* Brand mark: curve under wordmark */
+.oc-mark {
+  display: inline-block;
+  position: relative;
+}
+.oc-mark::after {
+  content: "";
+  position: absolute;
+  left: 0.05em;
+  right: 0.05em;
+  bottom: 0.08em;
+  height: 0.12em;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--oc-boundary) 12%,
+    var(--oc-boundary-hover) 50%,
+    var(--oc-boundary) 88%,
+    transparent 100%
+  );
+  opacity: 0.95;
+  transform: scaleY(0.7) translateY(0.15em);
+}
+
+/* Buttons */
+.oc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.9375rem;
   letter-spacing: 0.02em;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
+    box-shadow 200ms ease, transform 160ms ease;
+}
+.oc-btn-primary {
+  background: var(--oc-boundary);
+  color: var(--oc-pitch);
+}
+.oc-btn-primary:hover {
+  background: var(--oc-boundary-hover);
+  box-shadow: 0 0 32px rgba(212, 160, 23, 0.35);
+}
+.oc-btn-ghost {
+  border: 1px solid rgba(244, 240, 230, 0.22);
+  color: var(--oc-willow);
+  background: rgba(244, 240, 230, 0.04);
+}
+.oc-btn-ghost:hover {
+  border-color: var(--oc-boundary);
+  color: var(--oc-boundary);
+}
+.oc-btn-primary:active,
+.oc-btn-ghost:active {
+  transform: scale(0.985);
 }
 
-/* ===== OneCurve motion & modern-surface layer ======================
-   Brand-adapted from the "Aurora / Liquid Glass / Motion-Driven" premium
-   e-commerce direction: gold-toned aurora (gold is the ONLY accent), glass
-   used sparingly (backdrop-filter is expensive), all animation CSS-only and
-   disabled under prefers-reduced-motion. */
-
-/* Glass surface (use sparingly: nav chips, badges, floating panels) */
+/* Glass (dark only, sparingly) */
 .oc-glass {
-  background: rgba(240, 238, 232, 0.06);
-  border: 1px solid rgba(240, 238, 232, 0.14);
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  background: rgba(244, 240, 230, 0.06);
+  border: 1px solid rgba(244, 240, 230, 0.14);
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
 }
 
-/* Animated gold aurora backdrop for dark hero sections */
+/* Hero atmosphere */
 .oc-aurora {
   position: absolute;
   inset: 0;
@@ -109,28 +199,27 @@ body {
 .oc-aurora::after {
   content: "";
   position: absolute;
-  inset: -30%;
+  inset: -25%;
   background:
-    radial-gradient(38% 30% at 28% 32%, rgba(201, 168, 76, 0.22), transparent 70%),
-    radial-gradient(30% 26% at 72% 24%, rgba(226, 184, 76, 0.12), transparent 70%),
-    radial-gradient(42% 34% at 55% 78%, rgba(120, 92, 30, 0.16), transparent 72%);
-  filter: blur(42px);
+    radial-gradient(40% 32% at 30% 30%, rgba(212, 160, 23, 0.18), transparent 70%),
+    radial-gradient(34% 28% at 70% 20%, rgba(28, 51, 41, 0.55), transparent 70%),
+    radial-gradient(45% 36% at 50% 80%, rgba(212, 160, 23, 0.08), transparent 72%);
+  filter: blur(40px);
 }
 .oc-aurora::after {
   background:
-    radial-gradient(30% 26% at 68% 62%, rgba(201, 168, 76, 0.1), transparent 70%),
-    radial-gradient(26% 22% at 18% 70%, rgba(226, 184, 76, 0.08), transparent 70%);
+    radial-gradient(28% 24% at 65% 60%, rgba(212, 160, 23, 0.1), transparent 70%),
+    radial-gradient(24% 20% at 20% 65%, rgba(28, 51, 41, 0.4), transparent 70%);
 }
 
-/* Gold shimmer sweep for display headlines */
 .oc-shimmer {
   background: linear-gradient(
     100deg,
-    #c9a84c 0%,
-    #c9a84c 42%,
-    #f4e3ae 50%,
-    #c9a84c 58%,
-    #c9a84c 100%
+    #d4a017 0%,
+    #d4a017 40%,
+    #f0d78a 50%,
+    #d4a017 60%,
+    #d4a017 100%
   );
   background-size: 220% 100%;
   -webkit-background-clip: text;
@@ -138,7 +227,6 @@ body {
   color: transparent;
 }
 
-/* Marquee (duplicate content once; second copy aria-hidden) */
 .oc-marquee {
   display: flex;
   width: max-content;
@@ -146,36 +234,33 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .oc-aurora::before {
-    animation: oc-drift 16s ease-in-out infinite alternate;
+    animation: oc-drift 18s ease-in-out infinite alternate;
   }
   .oc-aurora::after {
-    animation: oc-drift 22s ease-in-out infinite alternate-reverse;
+    animation: oc-drift 24s ease-in-out infinite alternate-reverse;
   }
   @keyframes oc-drift {
     0% {
-      transform: translate3d(-4%, -3%, 0) scale(1);
+      transform: translate3d(-3%, -2%, 0) scale(1);
     }
     100% {
-      transform: translate3d(4%, 3%, 0) scale(1.08);
+      transform: translate3d(3%, 2%, 0) scale(1.06);
     }
   }
-
   .oc-shimmer {
-    animation: oc-shimmer-sweep 6s ease-in-out infinite;
+    animation: oc-shimmer-sweep 7s ease-in-out infinite;
   }
   @keyframes oc-shimmer-sweep {
     0%,
-    55% {
+    50% {
       background-position: 120% 0;
     }
-    85%,
     100% {
       background-position: -60% 0;
     }
   }
-
   .oc-marquee {
-    animation: oc-marquee-scroll 28s linear infinite;
+    animation: oc-marquee-scroll 30s linear infinite;
   }
   .oc-marquee:hover {
     animation-play-state: paused;
@@ -188,140 +273,87 @@ body {
       transform: translateX(-50%);
     }
   }
-
-  /* Gentle lift for interactive cards */
   .oc-lift {
-    transition: transform 250ms ease, box-shadow 250ms ease,
-      border-color 250ms ease;
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   }
   .oc-lift:hover {
-    transform: translateY(-4px);
-  }
-
-  /* Tactile buttons */
-  button:active,
-  a[class*="rounded-full"]:active {
-    transform: scale(0.985);
+    transform: translateY(-3px);
   }
 }
 
-/* Global focus ring — gold, keyboard only (sticky a11y) */
 :focus-visible {
-  outline: 2px solid #c9a84c;
+  outline: 2px solid var(--oc-boundary);
   outline-offset: 2px;
 }
 
-/* Ensure primary interactive controls hit ~44px on touch */
 .oc-tap {
   min-height: 44px;
   min-width: 44px;
 }
 
+/* Pitch stripe texture for dark sections */
+.oc-pitch-lines {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 47px,
+    rgba(244, 240, 230, 0.03) 47px,
+    rgba(244, 240, 230, 0.03) 48px
+  );
+}
+
 @layer utilities {
-  /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-
   .no-scrollbar::-webkit-scrollbar-track {
     background-color: transparent;
   }
-
   .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-
-  input:focus ~ label,
-  input:not(:placeholder-shown) ~ label {
-    @apply -translate-y-2 text-xsmall-regular;
+  /* Compat aliases used across components during migration */
+  .text-gold {
+    color: var(--oc-boundary);
   }
-
-  input:focus ~ label {
-    @apply left-0;
+  .text-gold-hover {
+    color: var(--oc-boundary-hover);
   }
-
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover,
-  textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    border: 1px solid #212121;
-    -webkit-text-fill-color: #212121;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
+  .bg-gold {
+    background-color: var(--oc-boundary);
   }
-
-  input[type="search"]::-webkit-search-decoration,
-  input[type="search"]::-webkit-search-cancel-button,
-  input[type="search"]::-webkit-search-results-button,
-  input[type="search"]::-webkit-search-results-decoration {
-    -webkit-appearance: none;
+  .bg-gold-hover {
+    background-color: var(--oc-boundary-hover);
   }
-}
-
-@layer components {
-  .content-container {
-    @apply max-w-[1440px] w-full mx-auto px-6;
+  .border-gold {
+    border-color: var(--oc-boundary);
   }
-
-  .contrast-btn {
-    @apply px-4 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors duration-200 ease-in;
+  .text-ink {
+    color: var(--oc-pitch);
   }
-
-  .text-xsmall-regular {
-    @apply text-[10px] leading-4 font-normal;
+  .bg-ink {
+    background-color: var(--oc-pitch);
   }
-
-  .text-small-regular {
-    @apply text-xs leading-5 font-normal;
+  .text-cream {
+    color: var(--oc-willow);
   }
-
-  .text-small-semi {
-    @apply text-xs leading-5 font-semibold;
+  .text-cream-muted {
+    color: rgba(244, 240, 230, 0.55);
   }
-
-  .text-base-regular {
-    @apply text-sm leading-6 font-normal;
+  .hover\:text-gold:hover {
+    color: var(--oc-boundary);
   }
-
-  .text-base-semi {
-    @apply text-sm leading-6 font-semibold;
+  .hover\:text-gold-hover:hover {
+    color: var(--oc-boundary-hover);
   }
-
-  .text-large-regular {
-    @apply text-base leading-6 font-normal;
+  .hover\:bg-gold-hover:hover {
+    background-color: var(--oc-boundary-hover);
   }
-
-  .text-large-semi {
-    @apply text-base leading-6 font-semibold;
+  .hover\:border-gold:hover {
+    border-color: var(--oc-boundary);
   }
-
-  .text-xl-regular {
-    @apply text-2xl leading-[36px] font-normal;
-  }
-
-  .text-xl-semi {
-    @apply text-2xl leading-[36px] font-semibold;
-  }
-
-  .text-2xl-regular {
-    @apply text-[30px] leading-[48px] font-normal;
-  }
-
-  .text-2xl-semi {
-    @apply text-[30px] leading-[48px] font-semibold;
-  }
-
-  .text-3xl-regular {
-    @apply text-[32px] leading-[44px] font-normal;
-  }
-
-  .text-3xl-semi {
-    @apply text-[32px] leading-[44px] font-semibold;
+  .group:hover .group-hover\:text-gold {
+    color: var(--oc-boundary);
   }
 }

@@ -5,6 +5,7 @@ import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
+import BrandMark from "@modules/common/components/brand-mark"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SearchOverlay from "@modules/layout/components/search-overlay"
@@ -23,27 +24,25 @@ export default async function Nav() {
     .slice(0, 4)
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      {/* Skip link — a11y / keyboard SEO-friendly entry */}
+    <div className="sticky top-0 inset-x-0 z-50">
       <a
         href="#main-content"
-        className="absolute left-[-9999px] top-auto focus:left-3 focus:top-3 focus:z-[60] focus:bg-gold focus:text-ink focus:px-4 focus:py-2.5 focus:rounded-md focus:text-sm focus:font-medium"
+        className="absolute left-[-9999px] focus:left-3 focus:top-3 focus:z-[60] focus:bg-boundary focus:text-pitch focus:px-4 focus:py-2.5 focus:rounded-md focus:text-sm focus:font-medium"
       >
         Skip to content
       </a>
-      {/* Utility bar — brand pride strip (Rogue-style) */}
-      <div className="hidden small:block bg-ink">
-        <div className="content-container flex items-center justify-center h-8 text-[11px] tracking-[0.2em] uppercase text-cream/70">
-          Handcrafted in India · Free shipping over ₹2,999 · 3–5 day delivery
+
+      <div className="hidden small:block bg-pitch text-willow/70">
+        <div className="content-container flex items-center justify-center h-8 text-[11px] tracking-[0.18em] uppercase">
+          Handcrafted in India · Free shipping ₹2,999+ · 3–5 day delivery
         </div>
       </div>
 
-      <header className="relative h-16 mx-auto border-b border-ui-border-base bg-ui-bg-base/95 backdrop-blur-md supports-[backdrop-filter]:bg-ui-bg-base/80">
+      <header className="h-16 border-b border-ui-border-base bg-willow/90 backdrop-blur-md supports-[backdrop-filter]:bg-willow/80">
         <nav
           className="content-container flex items-center justify-between w-full h-full"
           aria-label="Primary"
         >
-          {/* Left: mobile menu + desktop categories */}
           <div className="flex items-center gap-x-8 flex-1 basis-0 h-full">
             <div className="h-full flex items-center small:hidden">
               <SideMenu
@@ -52,12 +51,12 @@ export default async function Nav() {
                 currentLocale={currentLocale}
               />
             </div>
-            <ul className="hidden small:flex items-center gap-x-7 h-full text-sm font-medium uppercase tracking-wide">
+            <ul className="hidden small:flex items-center gap-x-7 h-full text-[13px] font-medium uppercase tracking-[0.08em]">
               {topCategories.map((c: any) => (
                 <li key={c.id} className="h-full flex items-center">
                   <LocalizedClientLink
                     href={`/categories/${c.handle}`}
-                    className="relative h-full flex items-center text-ui-fg-subtle hover:text-ui-fg-base after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gold hover:after:w-full after:transition-all"
+                    className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
                     data-testid={`nav-category-${c.handle}`}
                   >
                     {c.name}
@@ -67,7 +66,7 @@ export default async function Nav() {
               <li className="h-full flex items-center">
                 <LocalizedClientLink
                   href="/store"
-                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-ui-fg-base after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gold hover:after:w-full after:transition-all"
+                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
                   data-testid="nav-store-link-all"
                 >
                   All
@@ -76,29 +75,21 @@ export default async function Nav() {
               <li className="h-full flex items-center">
                 <LocalizedClientLink
                   href="/blog"
-                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-ui-fg-base after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gold hover:after:w-full after:transition-all"
+                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
                   data-testid="nav-blog-link"
                 >
-                  Blog
+                  Journal
                 </LocalizedClientLink>
               </li>
             </ul>
           </div>
 
-          {/* Center: wordmark */}
-          <LocalizedClientLink
-            href="/"
-            className="font-display text-3xl tracking-wide text-ui-fg-base hover:text-gold transition-colors uppercase"
-            data-testid="nav-store-link"
-          >
-            One<span className="text-gold">Curve</span>
-          </LocalizedClientLink>
+          <BrandMark size="md" />
 
-          {/* Right: search + account + cart */}
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end text-sm">
+          <div className="flex items-center gap-x-5 h-full flex-1 basis-0 justify-end text-[13px] font-medium uppercase tracking-[0.08em]">
             <SearchOverlay />
             <LocalizedClientLink
-              className="hidden small:block text-ui-fg-subtle hover:text-ui-fg-base uppercase tracking-wide font-medium"
+              className="hidden small:flex items-center min-h-[44px] text-ui-fg-subtle hover:text-pitch"
               href="/account"
               data-testid="nav-account-link"
             >
@@ -107,7 +98,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="text-ui-fg-subtle hover:text-ui-fg-base uppercase tracking-wide font-medium flex gap-2"
+                  className="text-ui-fg-subtle hover:text-pitch flex gap-2 min-h-[44px] items-center"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

@@ -1,17 +1,19 @@
 import { getBaseURL } from "@lib/util/env"
 import { jsonLd } from "@lib/util/json-ld"
 import { Metadata } from "next"
-import { Bebas_Neue, DM_Sans } from "next/font/google"
+import { Barlow, Barlow_Condensed } from "next/font/google"
 import "styles/globals.css"
 
-const display = Bebas_Neue({
-  weight: "400",
+/* Night Pitch brand type — athletic condensed display + clean body (BRAND.md) */
+const display = Barlow_Condensed({
+  weight: ["600", "700"],
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 })
 
-const body = DM_Sans({
+const body = Barlow({
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -21,11 +23,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
   title: {
     default:
-      "OneCurve Sports — Premium English Willow Cricket Bats & Gear | India",
+      "OneCurve Sports — Precision English Willow Cricket Bats | India",
     template: "%s | OneCurve Sports",
   },
   description:
-    "Buy handcrafted English Willow cricket bats, pads and gloves. Made in India, free shipping over ₹2,999. Shop onecurve.in.",
+    "The perfect curve. Handcrafted English Willow cricket bats, pads and gloves. Made in India. Free shipping over ₹2,999.",
   applicationName: "OneCurve Sports",
   keywords: [
     "English Willow cricket bat",

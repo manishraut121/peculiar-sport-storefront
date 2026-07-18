@@ -20,18 +20,40 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        // Night Pitch brand (BRAND.md)
+        boundary: {
+          DEFAULT: "#D4A017",
+          hover: "#E8B84A",
+        },
+        pitch: {
+          DEFAULT: "#0B1210",
+          elevated: "#121A17",
+          outfield: "#1C3329",
+        },
+        willow: {
+          DEFAULT: "#F4F0E6",
+          card: "#FFFFFF",
+          crease: "#EDE8DC",
+        },
+        // Back-compat aliases (map old gold/ink/cream → new system)
         gold: {
-          DEFAULT: "#C9A84C",
-          hover: "#E2B84C",
+          DEFAULT: "#D4A017",
+          hover: "#E8B84A",
         },
         ink: {
-          DEFAULT: "#080808",
-          surface: "#0F0F0F",
-          card: "#181818",
+          DEFAULT: "#0B1210",
+          surface: "#121A17",
+          card: "#121A17",
         },
         cream: {
-          DEFAULT: "#F0EEE8",
-          muted: "rgba(240,238,232,0.52)",
+          DEFAULT: "#F4F0E6",
+          muted: "rgba(244,240,230,0.55)",
+        },
+        mist: {
+          DEFAULT: "#5E6B64",
+        },
+        crease: {
+          DEFAULT: "#EDE8DC",
         },
         grey: {
           0: "#FFFFFF",
