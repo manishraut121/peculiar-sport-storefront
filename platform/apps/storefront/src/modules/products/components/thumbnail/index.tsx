@@ -26,7 +26,8 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   return (
     <div
       className={clx(
-        "relative w-full overflow-hidden bg-ui-bg-subtle border border-ui-border-base rounded-large transition-shadow ease-in-out duration-150 group-hover:border-ui-border-strong",
+        /* Aspect ratio reserved → CLS < 0.1 (Pro Max / Next.js image guidance) */
+        "relative w-full overflow-hidden bg-crease border border-ui-border-base rounded-xl transition-colors duration-200 group-hover:border-boundary/50",
         className,
         {
           "aspect-[11/14]": isFeatured,
@@ -53,18 +54,19 @@ const ImageOrPlaceholder = ({
     <Image
       src={image}
       alt={alt || "OneCurve cricket equipment"}
-      className="absolute inset-0 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+      /* transform-only hover, ≤300ms — no layout thrash */
+      className="absolute inset-0 object-cover object-center transition-transform duration-300 ease-out motion-safe:group-hover:scale-[1.03]"
       draggable={false}
-      quality={70}
-      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+      quality={75}
+      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
       fill
     />
   ) : (
-    <div className="w-full h-full absolute inset-0 flex flex-col items-center justify-center gap-2 text-center select-none">
-      <span className="font-display text-3xl tracking-wide text-ui-fg-base/80">
-        One<span className="text-gold">Curve</span>
+    <div className="w-full h-full absolute inset-0 flex flex-col items-center justify-center gap-2 text-center select-none bg-crease">
+      <span className="font-display font-bold text-2xl tracking-wide text-pitch/70 uppercase">
+        One<span className="text-boundary">Curve</span>
       </span>
-      <span className="text-[10px] uppercase tracking-[0.25em] text-ui-fg-muted">
+      <span className="text-[10px] uppercase tracking-[0.2em] text-mist">
         Photo coming soon
       </span>
     </div>

@@ -194,6 +194,29 @@ export default async function Home(props: Props) {
         aria-labelledby="range-h"
       >
         <div className="content-container py-16 small:py-24">
+          {/* Trust & Authority strip (Pro Max conversion pattern) */}
+          <ul
+            className="grid grid-cols-2 small:grid-cols-4 gap-3 small:gap-4 mb-12 list-none m-0 p-0"
+            aria-label="Shopping guarantees"
+          >
+            {[
+              { t: "Free ship ₹2,999+", d: "Pan-India standard rates below" },
+              { t: "Secure checkout", d: "UPI, cards, net-banking" },
+              { t: "7-day returns", d: "Unused gear, original pack" },
+              { t: "Workshop graded", d: "Willow picked in-house" },
+            ].map((x) => (
+              <li
+                key={x.t}
+                className="rounded-xl border border-ui-border-base bg-willow-card px-4 py-3 small:px-5 small:py-4"
+              >
+                <p className="font-display font-semibold text-sm small:text-base text-pitch uppercase tracking-tight m-0">
+                  {x.t}
+                </p>
+                <p className="text-xs text-mist mt-1 m-0 leading-snug">{x.d}</p>
+              </li>
+            ))}
+          </ul>
+
           <header className="flex items-end justify-between mb-10 gap-4">
             <div>
               <p className="text-boundary text-[11px] uppercase tracking-[0.28em] font-medium m-0">
@@ -209,7 +232,7 @@ export default async function Home(props: Props) {
             <LocalizedClientLink
               href="/store"
               data-testid="home-view-all-link"
-              className="text-boundary text-sm font-medium uppercase tracking-wide min-h-[44px] inline-flex items-center"
+              className="text-boundary text-sm font-medium uppercase tracking-wide min-h-[44px] min-w-[44px] inline-flex items-center"
             >
               View all →
             </LocalizedClientLink>

@@ -19,7 +19,8 @@
   --oc-willow-card: #ffffff;
   --oc-crease: #ede8dc;
   --oc-ink: #0c0f0d;
-  --oc-mist: #5e6b64;
+  /* Mist darkened for WCAG ~4.5:1 body-secondary on willow (Pro Max a11y) */
+  --oc-mist: #4a564f;
   --oc-line: #d9d3c6;
 
   /* Map to Medusa ui-* surface tokens (light shop default) */
@@ -35,7 +36,7 @@
   --bg-highlight-hover: rgba(212, 160, 23, 0.2);
   --bg-interactive: var(--oc-boundary);
   --fg-base: var(--oc-ink);
-  --fg-subtle: #3d4540;
+  --fg-subtle: #2f3833;
   --fg-muted: var(--oc-mist);
   --fg-disabled: #a8b0ab;
   --fg-interactive: #9a7610;
@@ -144,17 +145,19 @@ body {
   transform: scaleY(0.7) translateY(0.15em);
 }
 
-/* Buttons */
+/* Buttons — Pro Max: ≥48px touch, cursor-pointer, 150–300ms feedback */
 .oc-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 48px;
+  min-width: 48px;
   padding: 0.75rem 1.75rem;
   border-radius: 9999px;
   font-weight: 500;
   font-size: 0.9375rem;
   letter-spacing: 0.02em;
+  cursor: pointer;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
     box-shadow 200ms ease, transform 160ms ease;
 }
@@ -286,9 +289,22 @@ body {
   outline-offset: 2px;
 }
 
+/* Interactive affordance (Pro Max checklist: cursor-pointer on clickables) */
+a,
+button,
+summary,
+[role="button"] {
+  cursor: pointer;
+}
+
 .oc-tap {
   min-height: 44px;
   min-width: 44px;
+}
+
+/* Prefer contain overscroll on shop lists (accidental pull-to-refresh) */
+.oc-scroll-contain {
+  overscroll-behavior: contain;
 }
 
 /* Pitch stripe texture for dark sections */
