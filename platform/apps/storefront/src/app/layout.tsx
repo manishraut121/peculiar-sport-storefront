@@ -20,12 +20,19 @@ const body = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
   title: {
-    default: "OneCurve Sports — Premium Handcrafted Cricket Equipment",
+    default:
+      "OneCurve Sports — Premium English Willow Cricket Bats & Gear | India",
     template: "%s | OneCurve Sports",
   },
   description:
-    "Premium handcrafted English Willow cricket bats, pads and gloves. Made in India. Shop at onecurve.in.",
+    "Buy handcrafted English Willow cricket bats, pads and gloves. Made in India, free shipping over ₹2,999. Shop onecurve.in.",
   applicationName: "OneCurve Sports",
+  keywords: [
+    "English Willow cricket bat",
+    "cricket equipment India",
+    "OneCurve",
+    "handcrafted cricket bat",
+  ],
   openGraph: {
     siteName: "OneCurve Sports",
     locale: "en_IN",
@@ -42,19 +49,23 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-video-preview": -1,
     },
+  },
+  other: {
+    "geo.region": "IN",
   },
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
+  const base = getBaseURL()
   return (
     <html
-      lang="en"
+      lang="en-IN"
       data-mode="light"
       className={`${display.variable} ${body.variable}`}
     >
       <body className="font-body bg-ui-bg-base text-ui-fg-base antialiased">
-        {/* React hoists these into <head>: warm up the API origin early */}
         <link
           rel="preconnect"
           href={
@@ -70,32 +81,54 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "OneCurve Sports",
-                url: getBaseURL(),
-                logo: `${getBaseURL()}/opengraph-image.jpg`,
+                url: base,
+                logo: `${base}/opengraph-image.jpg`,
                 description:
                   "Premium handcrafted cricket equipment — English Willow bats, pads and gloves. Made in India.",
-                areaServed: "IN",
+                areaServed: { "@type": "Country", name: "India" },
                 email: "support@onecurve.in",
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  email: "support@onecurve.in",
+                  contactType: "customer service",
+                  areaServed: "IN",
+                  availableLanguage: ["English", "Hindi"],
+                },
               },
               {
-                // Enables Google's sitelinks search box.
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 name: "OneCurve Sports",
-                url: getBaseURL(),
+                url: base,
+                inLanguage: "en-IN",
                 potentialAction: {
                   "@type": "SearchAction",
                   target: {
                     "@type": "EntryPoint",
-                    urlTemplate: `${getBaseURL()}/in/store?q={search_term_string}`,
+                    urlTemplate: `${base}/in/store?q={search_term_string}`,
                   },
                   "query-input": "required name=search_term_string",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "Store",
+                name: "OneCurve Sports",
+                url: base,
+                priceRange: "₹₹₹",
+                currenciesAccepted: "INR",
+                paymentAccepted: "UPI, Credit Card, Debit Card, Net Banking",
+                address: {
+                  "@type": "PostalAddress",
+                  addressCountry: "IN",
                 },
               },
             ]),
           }}
         />
-        <main className="relative">{props.children}</main>
+        <main className="relative" id="main-content">
+          {props.children}
+        </main>
       </body>
     </html>
   )

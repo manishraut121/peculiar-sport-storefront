@@ -6,10 +6,21 @@ import { jsonLd } from "@lib/util/json-ld"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
 
-export const metadata: Metadata = {
-  title: "All Cricket Equipment — Bats, Pads & Gloves",
-  description:
-    "Shop the full OneCurve range: handcrafted English Willow cricket bats, batting pads, gloves and wicket-keeping gear. Free shipping over ₹2,999 across India.",
+export async function generateMetadata(props: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await props.params
+  const title = "Shop Cricket Bats, Pads & Gloves — OneCurve India"
+  const description =
+    "Browse handcrafted English Willow cricket bats, batting pads, gloves and keeping gear. Free shipping over ₹2,999. Made in India — onecurve.in."
+  const canonical = `${getBaseURL()}/${countryCode}/store`
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical, locale: "en_IN" },
+    robots: { index: true, follow: true },
+  }
 }
 
 type Params = {

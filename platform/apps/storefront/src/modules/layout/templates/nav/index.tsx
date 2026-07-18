@@ -24,6 +24,13 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
+      {/* Skip link — a11y / keyboard SEO-friendly entry */}
+      <a
+        href="#main-content"
+        className="absolute left-[-9999px] top-auto focus:left-3 focus:top-3 focus:z-[60] focus:bg-gold focus:text-ink focus:px-4 focus:py-2.5 focus:rounded-md focus:text-sm focus:font-medium"
+      >
+        Skip to content
+      </a>
       {/* Utility bar — brand pride strip (Rogue-style) */}
       <div className="hidden small:block bg-ink">
         <div className="content-container flex items-center justify-center h-8 text-[11px] tracking-[0.2em] uppercase text-cream/70">
@@ -31,8 +38,11 @@ export default async function Nav() {
         </div>
       </div>
 
-      <header className="relative h-16 mx-auto border-b border-ui-border-base bg-ui-bg-base">
-        <nav className="content-container flex items-center justify-between w-full h-full">
+      <header className="relative h-16 mx-auto border-b border-ui-border-base bg-ui-bg-base/95 backdrop-blur-md supports-[backdrop-filter]:bg-ui-bg-base/80">
+        <nav
+          className="content-container flex items-center justify-between w-full h-full"
+          aria-label="Primary"
+        >
           {/* Left: mobile menu + desktop categories */}
           <div className="flex items-center gap-x-8 flex-1 basis-0 h-full">
             <div className="h-full flex items-center small:hidden">
