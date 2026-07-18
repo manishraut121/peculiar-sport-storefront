@@ -1,26 +1,33 @@
 #!/bin/sh
 # OneCurve backend boot (Dockerfile CMD).
-# Self-diagnosing markers for cloud logs. Server pinned to 0.0.0.0:9000.
+# Server pinned to 0.0.0.0:9000.
 set -e
 
-# Quiet + non-interactive (first migrate on small VPS can take 10–30+ min)
 export MEDUSA_DISABLE_TELEMETRY="${MEDUSA_DISABLE_TELEMETRY:-1}"
-export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=1024}"
+# 768MB heap is safer on 2GB boxes (Postgres+Redis share RAM)
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=768}"
 
-echo "== OneCurve boot: env redis=${REDIS_URL:-MISSING} db=${DATABASE_URL:+set} =="
-echo "== OneCurve boot: NOTE first migrate is SLOW on 1–2GB — do not Ctrl-C; use tmux =="
+echo "== OneCurve boot: env redis=${REDIS_URL:-MISSING} db=${DATABASE_URL:+set} skip_migrate=${SKIP_DB_MIGRATE:-0} =="
 
-echo "== OneCurve boot: STEP 1/4 — database migrations =="
-echo "== $(date -u +%Y-%m-%dT%H:%MZ) migrate start =="
-if ! npx medusa db:migrate; then
-  echo "== FATAL: migrations failed at $(date -u +%Y-%m-%dT%H:%MZ) =="
-  echo "== Tip: on a broken half-migrated DB, reset volume once: =="
-  echo "==   docker compose down && docker volume rm platform_pgdata =="
-  echo "==   then: docker compose --env-file .env up -d postgres redis backend =="
-  sleep 30
-  exit 1
+if [ "${SKIP_DB_MIGRATE}" = "1" ] || [ "${SKIP_DB_MIGRATE}" = "true" ]; then
+  echo "== OneCurve boot: STEP 1/4 — SKIP migrations (SKIP_DB_MIGRATE=1) =="
+else
+  echo "== OneCurve boot: STEP 1/4 — database migrations =="
+  echo "== $(date -u +%Y-%m-%dT%H:%MZ) migrate start =="
+  # Capture full error (restart loops used to hide the real stack)
+  if ! npx medusa db:migrate 2>&1 | tee /tmp/oc-migrate.log; then
+    echo "== FATAL: migrations failed at $(date -u +%Y-%m-%dT%H:%MZ) =="
+    echo "== ---- last 80 lines of /tmp/oc-migrate.log ---- =="
+    tail -80 /tmp/oc-migrate.log || true
+    echo "== ---- end migrate log ---- =="
+    echo "== Fix: run one-shot migrate (no restart loop): =="
+    echo "==   bash scripts/droplet-fix-migrate.sh =="
+    # Don't tight-loop: long sleep so logs stay readable
+    sleep 120
+    exit 1
+  fi
+  echo "== $(date -u +%Y-%m-%dT%H:%MZ) migrations done =="
 fi
-echo "== $(date -u +%Y-%m-%dT%H:%MZ) migrations done =="
 
 echo "== OneCurve boot: STEP 2/4 — ensure admin user =="
 if [ -n "$MEDUSA_ADMIN_EMAIL" ] && [ -n "$MEDUSA_ADMIN_PASSWORD" ]; then
@@ -28,10 +35,10 @@ if [ -n "$MEDUSA_ADMIN_EMAIL" ] && [ -n "$MEDUSA_ADMIN_PASSWORD" ]; then
     && echo "== admin user ready: $MEDUSA_ADMIN_EMAIL ==" \
     || echo "== admin user already exists (ok) =="
 else
-  echo "== skipped (set MEDUSA_ADMIN_EMAIL + MEDUSA_ADMIN_PASSWORD to auto-create) =="
+  echo "== skipped (set MEDUSA_ADMIN_EMAIL + MEDUSA_ADMIN_PASSWORD) =="
 fi
 
-echo "== OneCurve boot: STEP 3/4 — boot check (products + publishable key) =="
+echo "== OneCurve boot: STEP 3/4 — boot check =="
 node ./boot-check.js || echo "== boot check failed (non-fatal) =="
 
 echo "== OneCurve boot: STEP 4/4 — starting server on 0.0.0.0:9000 =="
