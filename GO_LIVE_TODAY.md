@@ -190,6 +190,22 @@ Need public shop + payments this week?
 | Empty products | Boot seed; or Admin → create product |
 | SSH “Connection closed” mid-build | Normal if laptop sleeps; build may still run — re-SSH and check `docker ps` / logs |
 
+### Backend “migrations failed” / never gets job done (USE THIS)
+
+**Do not upgrade DigitalOcean.** Do not re-run migrate in a restart loop.
+
+Pre-migrated DB dump is in the repo. On the droplet:
+
+```bash
+cd ~/peculiar-sport-storefront/platform
+git pull origin main
+bash scripts/droplet-bootstrap-from-seed.sh
+```
+
+That **restores** schema + 22 products and starts Admin **without** `medusa db:migrate` on the server.
+
+Then open: `http://YOUR_IP:9000/app`
+
 ### 1GB droplet: medusa build failed (exit 1)
 
 SSH back in and run:

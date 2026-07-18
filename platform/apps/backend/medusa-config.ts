@@ -30,8 +30,14 @@ const s3Enabled = !!(
 
 const modules: any[] = []
 
-// Prefer real Redis for cache / events / workflows when URL is present
-if (redisUrl) {
+// Prefer real Redis for cache / events / workflows when URL is present.
+// Skip during migrate-only / seed restore boots if SKIP_REDIS_MODULES=1
+// (reduces RAM on tiny VPS; sessions still use projectConfig.redisUrl).
+const skipRedisModules =
+  process.env.SKIP_REDIS_MODULES === "1" ||
+  process.env.SKIP_REDIS_MODULES === "true"
+
+if (redisUrl && !skipRedisModules) {
   modules.push({
     resolve: "@medusajs/medusa/cache-redis",
     options: { redisUrl },
