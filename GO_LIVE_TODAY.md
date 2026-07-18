@@ -183,10 +183,38 @@ Need public shop + payments this week?
 
 | Symptom | Fix |
 |---|---|
-| Build OOM on droplet | Use **4 GB** not 1–2 GB |
+| `npx medusa build` exit code 1 on 1GB | **Almost always OOM.** Run low-mem prep (below), retry. Or resize droplet to **2 GB (~$12)**. |
 | `publishable key` on shop | After boot: copy `pk_…` from logs; storefront env |
 | Admin 502 | `docker compose logs backend` — wait for STEP 4/4 |
 | Can’t reach from phone | Open port 9000 / Cloudflare proxy |
 | Empty products | Boot seed; or Admin → create product |
+| SSH “Connection closed” mid-build | Normal if laptop sleeps; build may still run — re-SSH and check `docker ps` / logs |
+
+### 1GB droplet: medusa build failed (exit 1)
+
+SSH back in and run:
+
+```bash
+cd /root/peculiar-sport-storefront/platform
+git pull origin main
+bash scripts/droplet-lowmem.sh          # 4G swap + docker prune
+
+# rebuild with log file (so we can debug if it fails again)
+docker compose --env-file .env build backend 2>&1 | tee /tmp/backend-build.log
+
+# if build OK:
+docker compose --env-file .env up -d postgres redis backend
+docker compose logs -f backend
+# wait for: OC BOOT CHECK … publishable_key=pk_…
+```
+
+If build still dies after ~5–15 min with exit 1 and almost no error text → **resize droplet to 2 GB** in DO UI (power off → resize → power on), then rebuild. Medusa admin compile needs more RAM than $6 can comfortably give.
+
+To see the real error:
+
+```bash
+tail -100 /tmp/backend-build.log
+dmesg | tail -30 | grep -i -E 'kill|oom' || true
+```
 
 Local reference still works: `cd platform && ./dev.sh` → http://localhost:9000/app
