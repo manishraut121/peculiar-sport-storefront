@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Create or reset Medusa admin password on the droplet.
+# Create OR reset Medusa admin password (handles "user already exists").
+#
 #   bash scripts/droplet-set-admin.sh
-#   bash scripts/droplet-set-admin.sh you@email.com 'NewPassword123!'
+#   bash scripts/droplet-set-admin.sh admin@onecurve.in 'OneCurve2026!'
+#
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -13,67 +15,70 @@ if [ -f .env ]; then
 fi
 
 EMAIL="${1:-${MEDUSA_ADMIN_EMAIL:-admin@onecurve.in}}"
-PASS="${2:-}"
+PASS="${2:-${MEDUSA_ADMIN_PASSWORD:-}}"
 
 if [ -z "$PASS" ]; then
-  # generate if not provided and not in env
-  if [ -n "${MEDUSA_ADMIN_PASSWORD:-}" ]; then
-    PASS="$MEDUSA_ADMIN_PASSWORD"
-  else
-    PASS=$(openssl rand -base64 12 | tr -d '/+=' | head -c 16)
-  fi
+  PASS=$(openssl rand -base64 12 | tr -d '/+=' | head -c 16)
 fi
 
-echo "▶ Backend status…"
-docker compose --env-file .env ps backend
-
-if ! curl -sf --max-time 3 http://127.0.0.1:9000/health >/dev/null; then
-  echo "✗ Backend not healthy. Start it first:"
-  echo "  docker compose --env-file .env up -d backend"
+echo "▶ Health check…"
+if ! curl -sf --max-time 5 http://127.0.0.1:9000/health >/dev/null; then
+  echo "  starting backend…"
+  docker compose --env-file .env up -d backend
+  sleep 8
+fi
+curl -sf --max-time 5 http://127.0.0.1:9000/health >/dev/null || {
+  echo "✗ Backend not healthy: docker compose logs backend --tail 40"
   exit 1
-fi
+}
 
-echo "▶ Creating/updating admin user…"
-echo "  email: $EMAIL"
+echo "▶ Removing existing auth for: $EMAIL (so we can set a known password)…"
+# Medusa stores password in provider_identity.provider_metadata for emailpass.
+# Delete user + auth rows, then recreate with medusa user.
+docker compose --env-file .env exec -T postgres psql -U medusa -d medusa -v ON_ERROR_STOP=1 <<SQL
+-- auth first (provider_identity → auth_identity)
+DELETE FROM provider_identity
+ WHERE entity_id = '${EMAIL}' OR entity_id = lower('${EMAIL}');
 
-# Show full error (do not swallow stderr)
-set +e
+DELETE FROM auth_identity ai
+ WHERE ai.app_metadata->>'user_id' IN (
+   SELECT id FROM "user" WHERE email = '${EMAIL}' OR email = lower('${EMAIL}')
+ )
+ OR ai.id IN (
+   SELECT auth_identity_id FROM provider_identity WHERE false
+ );
+
+DELETE FROM "user"
+ WHERE email = '${EMAIL}' OR email = lower('${EMAIL}');
+SQL
+
+echo "▶ Creating admin with new password…"
 docker compose --env-file .env exec -T backend \
   npx medusa user -e "$EMAIL" -p "$PASS"
-RC=$?
-set -e
 
-if [ $RC -ne 0 ]; then
-  echo ""
-  echo "medusa user failed (exit $RC). Common causes:"
-  echo "  • user already exists with different auth — try a NEW email, e.g.:"
-  echo "    bash scripts/droplet-set-admin.sh owner@onecurve.in 'YourPass123'"
-  echo "  • container missing deps — rebuild: docker compose up -d --build backend"
-  exit $RC
-fi
+# Persist credentials
+grep -v '^MEDUSA_ADMIN_EMAIL=' .env 2>/dev/null | grep -v '^MEDUSA_ADMIN_PASSWORD=' > .env.tmp || true
+{
+  cat .env.tmp 2>/dev/null || true
+  echo "MEDUSA_ADMIN_EMAIL=$EMAIL"
+  # quote-free single line; avoid shell metachar issues in simple passwords
+  printf 'MEDUSA_ADMIN_PASSWORD=%s\n' "$PASS"
+} > .env.new
+mv .env.new .env
+rm -f .env.tmp
 
-# Persist into .env so bootstrap remembers
-if grep -q '^MEDUSA_ADMIN_EMAIL=' .env 2>/dev/null; then
-  sed -i "s|^MEDUSA_ADMIN_EMAIL=.*|MEDUSA_ADMIN_EMAIL=$EMAIL|" .env
-else
-  echo "MEDUSA_ADMIN_EMAIL=$EMAIL" >> .env
-fi
-# password may contain special chars — write carefully
-if grep -q '^MEDUSA_ADMIN_PASSWORD=' .env 2>/dev/null; then
-  # use a temp approach for special chars
-  grep -v '^MEDUSA_ADMIN_PASSWORD=' .env > .env.tmp
-  printf 'MEDUSA_ADMIN_PASSWORD=%s\n' "$PASS" >> .env.tmp
-  mv .env.tmp .env
-else
-  printf 'MEDUSA_ADMIN_PASSWORD=%s\n' "$PASS" >> .env
+IP4=$(curl -4 -s --max-time 5 ifconfig.me 2>/dev/null || true)
+if [ -z "$IP4" ]; then
+  IP4=$(curl -s --max-time 5 icanhazip.com 2>/dev/null || echo "YOUR_DROPLET_IPV4")
 fi
 
 echo ""
 echo "════════════════════════════════════════"
-echo "  ✓ Admin ready — use these exactly:"
-echo "  URL:   http://159.89.173.5:9000/app"
-echo "         (use IPv4 from DO dashboard if different)"
-echo "  Email: $EMAIL"
-echo "  Pass:  $PASS"
+echo "  ✓ LOGIN WITH THESE (copy carefully)"
 echo "════════════════════════════════════════"
-echo "  (also saved into platform/.env)"
+echo "  URL:      http://${IP4}:9000/app"
+echo "  Email:    $EMAIL"
+echo "  Password: $PASS"
+echo "════════════════════════════════════════"
+echo "  Tip: hard-refresh the login page (Cmd+Shift+R)."
+echo "  If page blank: open TCP 9000 in DO Cloud Firewall."
