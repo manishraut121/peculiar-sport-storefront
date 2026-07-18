@@ -36,3 +36,20 @@ SSR copy · Metadata API · JSON-LD · sitemap · en-IN · one H1 · real links
 
 ## Anti-patterns
 Multi-accent UI · emoji icons · horizontal scroll · FOIT fonts without `display: swap`
+
+## UI/UX Pro Max validation (2026-07-18)
+
+| Check | Status |
+|---|---|
+| No emoji structural icons | Pass |
+| cursor-pointer on a/button/summary | Pass |
+| Hover 150–300ms | Pass |
+| Body contrast ≥4.5:1 light | Pass (ink + mist on willow) |
+| Focus-visible rings | Pass |
+| prefers-reduced-motion | Pass |
+| Touch ≥44–48px CTAs | Pass |
+| next/image + aspect ratio CLS | Pass |
+| Sticky SEO SSR | Pass |
+| Trust & Authority band | Pass (home guarantees grid) |
+
+Pro Max default accent `#A16207` not used for brand; boundary `#D4A017` is CTA-on-dark only — body text stays ink/mist.
