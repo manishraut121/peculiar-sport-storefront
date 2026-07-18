@@ -67,9 +67,14 @@ grep -v '^MEDUSA_ADMIN_EMAIL=' .env 2>/dev/null | grep -v '^MEDUSA_ADMIN_PASSWOR
 mv .env.new .env
 rm -f .env.tmp
 
+# Fix CORS for public IP (login "succeeds" but stays on screen without this)
+if [ -x scripts/droplet-fix-admin-cors.sh ]; then
+  bash scripts/droplet-fix-admin-cors.sh || true
+fi
+
 IP4=$(curl -4 -s --max-time 5 ifconfig.me 2>/dev/null || true)
 if [ -z "$IP4" ]; then
-  IP4=$(curl -s --max-time 5 icanhazip.com 2>/dev/null || echo "YOUR_DROPLET_IPV4")
+  IP4=$(curl -4 -s --max-time 5 icanhazip.com 2>/dev/null || echo "YOUR_DROPLET_IPV4")
 fi
 
 echo ""
@@ -80,5 +85,6 @@ echo "  URL:      http://${IP4}:9000/app"
 echo "  Email:    $EMAIL"
 echo "  Password: $PASS"
 echo "════════════════════════════════════════"
-echo "  Tip: hard-refresh the login page (Cmd+Shift+R)."
-echo "  If page blank: open TCP 9000 in DO Cloud Firewall."
+echo "  MUST use that exact URL (IPv4 + http, not https)."
+echo "  Use a private/incognito window after CORS fix."
+echo "  If still stuck: bash scripts/droplet-fix-admin-cors.sh"
