@@ -3,19 +3,24 @@
 # Self-diagnosing markers for cloud logs. Server pinned to 0.0.0.0:9000.
 set -e
 
+# Quiet + non-interactive (first migrate on small VPS can take 10–30+ min)
+export MEDUSA_DISABLE_TELEMETRY="${MEDUSA_DISABLE_TELEMETRY:-1}"
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=1024}"
+
 echo "== OneCurve boot: env redis=${REDIS_URL:-MISSING} db=${DATABASE_URL:+set} =="
+echo "== OneCurve boot: NOTE first migrate is SLOW on 1–2GB — do not Ctrl-C; use tmux =="
 
 echo "== OneCurve boot: STEP 1/4 — database migrations =="
+echo "== $(date -u +%Y-%m-%dT%H:%MZ) migrate start =="
 if ! npx medusa db:migrate; then
-  echo "== FATAL: migrations failed =="
+  echo "== FATAL: migrations failed at $(date -u +%Y-%m-%dT%H:%MZ) =="
   echo "== Tip: on a broken half-migrated DB, reset volume once: =="
   echo "==   docker compose down && docker volume rm platform_pgdata =="
   echo "==   then: docker compose --env-file .env up -d postgres redis backend =="
-  # Stay up long enough for logs to flush / operator to read (restart loop)
   sleep 30
   exit 1
 fi
-echo "== migrations done =="
+echo "== $(date -u +%Y-%m-%dT%H:%MZ) migrations done =="
 
 echo "== OneCurve boot: STEP 2/4 — ensure admin user =="
 if [ -n "$MEDUSA_ADMIN_EMAIL" ] && [ -n "$MEDUSA_ADMIN_PASSWORD" ]; then

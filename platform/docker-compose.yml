@@ -92,14 +92,18 @@ services:
       OC_FEATURE_FLAGS: ${OC_FEATURE_FLAGS:-}
       # Custom bookkeeping module (off until migrations generated)
       BOOKKEEPING_MODULE: ${BOOKKEEPING_MODULE:-0}
+      # Non-interactive boot on small VPS (migrate can take 10–30+ min)
+      MEDUSA_DISABLE_TELEMETRY: "1"
+      NODE_OPTIONS: ${NODE_OPTIONS:---max-old-space-size=1024}
     ports:
       - "9000:9000"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:9000/health || exit 1"]
       interval: 15s
       timeout: 5s
-      retries: 20
-      start_period: 120s
+      # First boot: migrations only — allow long start before health must pass
+      retries: 40
+      start_period: 900s
 
   storefront:
     build:
