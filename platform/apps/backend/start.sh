@@ -1,13 +1,20 @@
 #!/bin/sh
-# OneCurve backend boot (used by the Dockerfile CMD).
-# Self-diagnosing: each step prints a clear marker so cloud deploy logs show
-# exactly how far boot got. The server is pinned to 0.0.0.0:9000 — point your
-# host's public domain at port 9000. (Cloud platforms inject a random PORT
-# env; medusa start would silently obey it, so we pin instead.)
+# OneCurve backend boot (Dockerfile CMD).
+# Self-diagnosing markers for cloud logs. Server pinned to 0.0.0.0:9000.
 set -e
 
+echo "== OneCurve boot: env redis=${REDIS_URL:-MISSING} db=${DATABASE_URL:+set} =="
+
 echo "== OneCurve boot: STEP 1/4 — database migrations =="
-npx medusa db:migrate
+if ! npx medusa db:migrate; then
+  echo "== FATAL: migrations failed =="
+  echo "== Tip: on a broken half-migrated DB, reset volume once: =="
+  echo "==   docker compose down && docker volume rm platform_pgdata =="
+  echo "==   then: docker compose --env-file .env up -d postgres redis backend =="
+  # Stay up long enough for logs to flush / operator to read (restart loop)
+  sleep 30
+  exit 1
+fi
 echo "== migrations done =="
 
 echo "== OneCurve boot: STEP 2/4 — ensure admin user =="

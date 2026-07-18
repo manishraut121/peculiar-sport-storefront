@@ -90,6 +90,8 @@ services:
       OC_ENV: ${OC_ENV:-prod}
       OC_FLAGS_FILE: ${OC_FLAGS_FILE:-/opt/onecurve/config/flags/prod.json}
       OC_FEATURE_FLAGS: ${OC_FEATURE_FLAGS:-}
+      # Custom bookkeeping module (off until migrations generated)
+      BOOKKEEPING_MODULE: ${BOOKKEEPING_MODULE:-0}
     ports:
       - "9000:9000"
     healthcheck:
