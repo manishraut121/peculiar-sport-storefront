@@ -15,11 +15,11 @@ export default async function Footer() {
           <div className="max-w-sm flex flex-col gap-4">
             <BrandMark size="lg" light />
             <p className="text-ui-fg-muted text-sm leading-relaxed m-0">
-              Precision cricket equipment. English Willow graded and pressed for
-              the perfect pickup curve. Handcrafted in India.
+              Performance equipment for India — cricket live now; training, gym
+              and nutrition next. One inventory. The perfect curve.
             </p>
             <p className="text-boundary text-xs uppercase tracking-[0.2em] m-0">
-              The perfect curve.
+              Gear for every discipline.
             </p>
           </div>
 

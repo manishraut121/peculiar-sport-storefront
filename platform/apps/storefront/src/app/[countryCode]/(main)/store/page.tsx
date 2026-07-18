@@ -10,9 +10,9 @@ export async function generateMetadata(props: {
   params: Promise<{ countryCode: string }>
 }): Promise<Metadata> {
   const { countryCode } = await props.params
-  const title = "Shop Cricket Bats, Pads & Gloves — OneCurve India"
+  const title = "Shop Sports Equipment — Cricket & More | OneCurve India"
   const description =
-    "Browse handcrafted English Willow cricket bats, batting pads, gloves and keeping gear. Free shipping over ₹2,999. Made in India — onecurve.in."
+    "Shop OneCurve performance gear. Cricket bats, pads and gloves live now; training and nutrition next. Free shipping over ₹2,999 pan-India."
   const canonical = `${getBaseURL()}/${countryCode}/store`
   return {
     title,

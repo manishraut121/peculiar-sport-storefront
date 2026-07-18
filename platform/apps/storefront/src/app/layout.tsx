@@ -86,7 +86,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                 url: base,
                 logo: `${base}/opengraph-image.jpg`,
                 description:
-                  "Premium handcrafted cricket equipment — English Willow bats, pads and gloves. Made in India.",
+                  "Performance sports equipment for India — cricket, training and more. One inventory, pan-India delivery.",
                 areaServed: { "@type": "Country", name: "India" },
                 email: "support@onecurve.in",
                 contactPoint: {

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 
 import { getCategoryByHandle, listCategories } from "@lib/data/categories"
 import { listRegions } from "@lib/data/regions"
+import { getBaseURL } from "@lib/util/env"
 import { HttpTypes, StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -46,17 +47,24 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   try {
     const productCategory = await getCategoryByHandle(params.category)
-
-    const title = productCategory.name + " | OneCurve Sports"
-
-    const description = productCategory.description ?? `${title} category.`
+    const name = productCategory.name
+    const title = `${name} — Shop OneCurve Sports Equipment | India`
+    const description =
+      productCategory.description ||
+      `Shop ${name} at OneCurve Sports. Performance equipment for India — free shipping over ₹2,999.`
+    const canonical = `${getBaseURL()}/${params.countryCode}/categories/${params.category.join("/")}`
 
     return {
-      title: `${title} | OneCurve Sports`,
+      title: { absolute: title },
       description,
-      alternates: {
-        canonical: `${params.category.join("/")}`,
+      alternates: { canonical },
+      openGraph: {
+        title,
+        description,
+        url: canonical,
+        locale: "en_IN",
       },
+      robots: { index: true, follow: true },
     }
   } catch {
     notFound()

@@ -19,7 +19,11 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Are OneCurve products handcrafted in India?",
-    a: "Yes. We grade willow, press for rebound and balance pickup by hand in our workshop — that is the curve in OneCurve.",
+    a: "Our cricket line is graded and pressed in our workshop in India. As we add training and nutrition, we keep the same standard: honest specs, clear origin, one inventory.",
+  },
+  {
+    q: "Will you sell gym gear and supplements too?",
+    a: "Yes — OneCurve is built as a multi-discipline performance store. Cricket is live first; training, gym and nutrition launch on the same site and cart.",
   },
 ]
 

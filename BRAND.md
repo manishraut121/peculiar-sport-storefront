@@ -1,131 +1,112 @@
-# OneCurve — Brand Identity v1
+# OneCurve — Brand Identity v2 (Multi-sport platform)
 
-**Status:** Canonical · defined 2026-07-18  
-**Use:** All customer-facing UI (storefront). Admin can stay neutral Medusa chrome.
+**Status:** Canonical · 2026-07-18  
+**Scope:** Customer storefront + marketing. Commerce ops → [OPS_CMS.md](OPS_CMS.md).
 
 ---
 
-## 1. Positioning
+## 1. Strategic positioning (marketer view)
 
 | | |
 |---|---|
 | **Name** | OneCurve Sports |
-| **One-liner** | Precision cricket equipment, handcrafted in India. |
-| **Promise** | Willow graded and pressed for the perfect pickup curve — match-ready gear without the import markup. |
-| **Audience** | Serious club & school cricketers, parents buying gear, coaches (India-first, mobile-first). |
-| **Category** | Athletic-luxury retail (not toy-shop bright, not fashion-only minimal). |
-| **Enemy** | Generic marketplace listings, vague “pro quality” claims, heavy imported brands with no workshop story. |
+| **Platform idea** | India’s performance equipment house — **one trusted inventory**, many sports. |
+| **Flagship today** | Cricket (bats, pads, gloves, keeping). |
+| **Roadmap verticals** | Training & gym · Nutrition · Team sports · Recovery. |
+| **One-liner** | **Performance gear with a perfect curve — built for India.** |
+| **Promise** | Spec-honest products, fair pricing, pan-India delivery, workshop-grade quality where we manufacture. |
+| **Audience** | Athletes, club players, parents, coaches, gym-goers (India, mobile-first). |
+| **Enemy** | Marketplace noise, fake “pro” claims, stockouts, confusing returns. |
+
+### Why “curve”
+- Cricket: the pickup curve of a bat.  
+- Training: the progress curve.  
+- Brand: continuous improvement — not a one-sport dead end.
+
+### Taglines
+- Primary: **The perfect curve.**  
+- Platform: **Gear for every discipline.**  
+- Support: *Engineered for performance.*
 
 ---
 
-## 2. Personality
+## 2. Category architecture (IA)
+
+Home and nav sell **verticals**. Catalog is **Medusa categories**.
+
+```text
+Shop
+├── Cricket          ← LIVE
+│   ├── Bats
+│   ├── Pads
+│   ├── Gloves
+│   └── Keeping
+├── Training & Gym   ← coming soon (empty state OK)
+├── Nutrition        ← coming soon (claims compliance later)
+└── Recovery         ← coming soon
+```
+
+**SEO silos:** one URL tree per vertical → categories → products.  
+Never hardcode “cricket only” in global chrome (nav/footer/store H1).
+
+---
+
+## 3. Personality & voice
 
 | We are | We are not |
 |---|---|
-| Precise, calm, confident | Loud, meme-y, festival-sale chaos |
-| Technical when it helps | Jargon for jargon’s sake |
-| Proudly Made in India | Patriotic cliché or cheap “desi” pastiche |
-| Workshop-real | Influencer-fake |
+| Precise, calm, performance-led | Loud discount circus |
+| Spec-first when it helps | Supplement bro-science |
+| India-made pride (where true) | Fake “import only” prestige |
+| Expandable platform | One-product gimmick brand |
 
-**Voice:** Short sentences. Specs when useful. Never all-caps paragraphs. Prefer “hand-pressed” over “legendary”.
-
-**Tagline options (use one consistently):**
-- Primary: **The perfect curve.**
-- Support: *Engineered for runs.*
+**Voice:** Short. Technical when useful. No all-caps paragraphs.  
+Cricket copy can stay workshop-specific; platform copy stays open.
 
 ---
 
-## 3. Logo system
-
-### Wordmark
-- **ONE** + **CURVE** as one word: `ONECURVE` in display font (Barlow Condensed Bold, tracking slightly open).
-- Accent: a single **curve stroke** under / through the “C” (SVG path = bat face arc). Never a cricket ball emoji.
-
-### Lockups
-| Context | Treatment |
-|---|---|
-| Nav | Compact: `ONECURVE` + thin curve mark |
-| Footer / hero | Large display + tagline under |
-| Favicon | Curve mark alone on pitch black |
-
-### Clear space
-Min height 24px digital. Don’t outline, don’t add drop shadows, don’t put on busy photo without scrim.
-
----
-
-## 4. Color system — “Night Pitch”
-
-Named for a floodlit ground: deep pitch, boundary rope, willow face.
+## 4. Visual system — Night Pitch (unchanged tokens)
 
 | Token | Hex | Role |
 |---|---|---|
-| `pitch` | `#0B1210` | Dark surfaces, hero, footer |
-| `pitch-elevated` | `#121A17` | Cards on dark |
-| `outfield` | `#1C3329` | Secondary dark / badges |
-| `boundary` | `#D4A017` | **Primary CTA / accent** |
-| `boundary-hover` | `#E8B84A` | Hover / focus |
-| `willow` | `#F4F0E6` | Light page background |
-| `willow-card` | `#FFFFFF` | Light cards |
-| `crease` | `#EDE8DC` | Muted light surface |
-| `ink` | `#0C0F0D` | Body text on light |
-| `mist` | `#5E6B64` | Muted text |
-| `line` | `#D9D3C6` | Borders on light |
-| `line-dark` | `rgba(244,240,230,0.12)` | Borders on dark |
+| Pitch | `#0B1210` | Dark immersive |
+| Boundary | `#D4A017` | Sole accent / CTA |
+| Willow | `#F4F0E6` | Light commerce surfaces |
+| Ink | `#0C0F0D` | Body text on light |
+| Display | Barlow Condensed | Headings, prices, brand |
+| Body | Barlow | UI copy |
 
-**Rule:** `boundary` is the **only** chromatic accent in UI. No blue links, no green success bars in customer UI (use boundary/ink states).
-
-**Contrast:** Boundary on pitch ≥ large text; on light use `ink` for body, `boundary` for CTAs on dark buttons only (button fill boundary + text pitch).
+Logo: wordmark **OneCurve** + curve stroke. See v1 logo rules.
 
 ---
 
-## 5. Typography
+## 5. Homepage job-to-be-done
 
-| Role | Family | Weight | Use |
-|---|---|---|---|
-| Display | **Barlow Condensed** | 600–700 | H1–H3, prices, nav brand, stats |
-| Body | **Barlow** | 400–500 | UI, paragraphs, forms |
-| Optional mono | system ui-monospace | — | SKUs only |
-
-**Scale (mobile → desktop):**  
-H1 2.75rem / 4.5rem · H2 2rem / 3rem · Body 1rem · Small 0.8125rem  
-Line-height body 1.55 · Display 0.95–1.05  
+1. **Position** multi-sport performance brand (not “only bats”).  
+2. **Route** shoppers into a live vertical (Cricket) or waitlist-style coming soon.  
+3. **Convert** featured products + trust (ship, pay, returns).  
+4. **Rank** for cricket commercial terms today + brand terms always.
 
 ---
 
-## 6. Shape & motion
+## 6. What staff maintain vs what code owns
 
-- **Radius:** 4px controls · 12px cards · 999px pills/CTAs  
-- **Shadow:** Soft only on light cards (`0 8px 30px rgba(11,18,16,0.06)`); dark uses border not heavy shadow  
-- **Motion:** 180–280ms, ease-out; transform + opacity only; honor `prefers-reduced-motion`  
-- **Glass:** Optional on dark nav only; keep light UI flat for performance/SEO LCP  
-
----
-
-## 7. Imagery
-
-- Neutral / workshop / outfield dusk. Prefer real product on clean ground.  
-- Alt text: `{name} cricket {category} — OneCurve`.  
-- No stock “cheering stadium” as primary product hero until we own rights.
+| Marketing need | Owner |
+|---|---|
+| Price, stock, SEO title/desc, images | **Medusa Admin** ([OPS_CMS.md](OPS_CMS.md)) |
+| Promotions | **Medusa Promotions** |
+| Home vertical order / brand story | Code (rare) |
+| Product truth | Admin only — never duplicate in a page builder |
 
 ---
 
-## 8. SEO brand phrases (sticky)
+## 7. Don’ts
 
-Use naturally in H1/meta (not stuffed):
-- English Willow cricket bat  
-- Handcrafted in India  
-- Free shipping over ₹2,999  
-- OneCurve Sports  
-
----
-
-## 9. Don’ts
-
-- Rainbow gradients, neon, purple tech aesthetic  
-- Comic fonts, Bebas-only nostalgia if we’re on Barlow system  
-- Multiple accent colors  
-- Client-only critical text (breaks SEO)  
+- Second product database in WordPress/Shopify “just for content”  
+- Multiple accent colors per vertical (one brand, one boundary gold)  
+- Client-only H1 or prices (breaks sticky SEO)  
+- Launch nutrition without legal review of claims  
 
 ---
 
-*Implementation: CSS vars in `globals.css`, Tailwind tokens, Next fonts in `layout.tsx`.*
+*Implementation: storefront verticals module + Night Pitch UI. Expand categories in Admin as SKUs land.*

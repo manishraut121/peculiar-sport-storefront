@@ -51,8 +51,17 @@ export default async function Nav() {
                 currentLocale={currentLocale}
               />
             </div>
-            <ul className="hidden small:flex items-center gap-x-7 h-full text-[13px] font-medium uppercase tracking-[0.08em]">
-              {topCategories.map((c: any) => (
+            <ul className="hidden small:flex items-center gap-x-6 h-full text-[13px] font-medium uppercase tracking-[0.08em]">
+              <li className="h-full flex items-center">
+                <LocalizedClientLink
+                  href="/store"
+                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
+                  data-testid="nav-store-link-all"
+                >
+                  Shop
+                </LocalizedClientLink>
+              </li>
+              {topCategories.slice(0, 3).map((c: any) => (
                 <li key={c.id} className="h-full flex items-center">
                   <LocalizedClientLink
                     href={`/categories/${c.handle}`}
@@ -65,20 +74,11 @@ export default async function Nav() {
               ))}
               <li className="h-full flex items-center">
                 <LocalizedClientLink
-                  href="/store"
-                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
-                  data-testid="nav-store-link-all"
-                >
-                  All
-                </LocalizedClientLink>
-              </li>
-              <li className="h-full flex items-center">
-                <LocalizedClientLink
                   href="/blog"
                   className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
                   data-testid="nav-blog-link"
                 >
-                  Journal
+                  Guides
                 </LocalizedClientLink>
               </li>
             </ul>

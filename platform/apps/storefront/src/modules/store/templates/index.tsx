@@ -20,27 +20,30 @@ const StoreTemplate = ({
 
   return (
     <>
-      {/* Page header */}
-      <div className="border-b border-ui-border-base bg-ui-bg-subtle">
-        <div className="content-container py-10">
-          <span className="text-xs uppercase tracking-[0.25em] text-ui-fg-muted">
-            OneCurve · Cricket equipment
-          </span>
+      <div className="border-b border-ui-border-base bg-crease">
+        <div className="content-container py-10 small:py-12">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-mist m-0">
+            OneCurve · All disciplines
+          </p>
           <h1
-            className="font-display text-5xl small:text-6xl text-ui-fg-base mt-2"
+            className="font-display font-bold text-4xl small:text-6xl text-pitch mt-2 m-0 tracking-tight uppercase"
             data-testid="store-page-title"
           >
             All products
           </h1>
+          <p className="text-mist text-sm mt-3 max-w-xl m-0 leading-relaxed">
+            Everything in stock across OneCurve — cricket live now; gym,
+            nutrition and recovery join the same catalogue as we launch.
+          </p>
         </div>
       </div>
 
       <div
-        className="flex flex-col small:flex-row small:items-start py-8 content-container gap-8"
+        className="flex flex-col small:flex-row small:items-start py-8 content-container gap-8 oc-scroll-contain"
         data-testid="category-container"
       >
         <RefinementList sortBy={sort} />
-        <div className="w-full">
+        <div className="w-full min-w-0">
           <Suspense fallback={<SkeletonProductGrid />}>
             <PaginatedProducts
               sortBy={sort}
