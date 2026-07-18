@@ -31,11 +31,16 @@ fi
 
 echo "== OneCurve boot: STEP 2/4 — ensure admin user =="
 if [ -n "$MEDUSA_ADMIN_EMAIL" ] && [ -n "$MEDUSA_ADMIN_PASSWORD" ]; then
-  npx medusa user -e "$MEDUSA_ADMIN_EMAIL" -p "$MEDUSA_ADMIN_PASSWORD" 2>/dev/null \
-    && echo "== admin user ready: $MEDUSA_ADMIN_EMAIL ==" \
-    || echo "== admin user already exists (ok) =="
+  # Do not hide errors — silent failure left people unable to log in after seed restore
+  if npx medusa user -e "$MEDUSA_ADMIN_EMAIL" -p "$MEDUSA_ADMIN_PASSWORD"; then
+    echo "== admin user ready: $MEDUSA_ADMIN_EMAIL =="
+  else
+    echo "== admin user create returned non-zero (may already exist) =="
+    echo "== if login fails, run: bash scripts/droplet-set-admin.sh =="
+  fi
 else
   echo "== skipped (set MEDUSA_ADMIN_EMAIL + MEDUSA_ADMIN_PASSWORD) =="
+  echo "== or run: bash scripts/droplet-set-admin.sh your@email.com 'YourPassword' =="
 fi
 
 echo "== OneCurve boot: STEP 3/4 — boot check =="
