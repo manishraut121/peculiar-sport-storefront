@@ -190,6 +190,37 @@ Need public shop + payments this week?
 | Empty products | Boot seed; or Admin → create product |
 | SSH “Connection closed” mid-build | Normal if laptop sleeps; build may still run — re-SSH and check `docker ps` / logs |
 
+### Stage hostname: `stage.onecurve.in` (instead of raw IP)
+
+**Recommended:** use a real name for stage (keeps cookies/CORS clean).
+
+1. **DNS** (Cloudflare / GoDaddy / wherever `onecurve.in` is managed):
+
+   | Type | Name | Value | Notes |
+   |---|---|---|---|
+   | **A** | `stage` | `159.89.173.5` (your droplet IPv4) | Points `stage.onecurve.in` → server |
+
+   - If you keep **port 9000** in the URL → set Cloudflare proxy to **DNS only** (grey cloud). Orange proxy only works well for 80/443.
+   - Wait 1–5 minutes; check: `dig +short stage.onecurve.in`
+
+2. **On the droplet** (after DNS resolves to this server):
+
+   ```bash
+   cd ~/peculiar-sport-storefront/platform
+   git pull origin main
+   # With port (simplest, no Caddy yet):
+   bash scripts/droplet-set-stage-domain.sh stage.onecurve.in --port 9000
+   ```
+
+3. Open: **http://stage.onecurve.in:9000/app**  
+   (same admin email/password as before)
+
+**Optional later (no port, HTTPS):** install Caddy on the droplet to reverse-proxy `https://stage.onecurve.in` → `localhost:9000`, then:
+
+```bash
+bash scripts/droplet-set-stage-domain.sh stage.onecurve.in --https
+```
+
 ### Backend “migrations failed” / never gets job done (USE THIS)
 
 **Do not upgrade DigitalOcean.** Do not re-run migrate in a restart loop.
