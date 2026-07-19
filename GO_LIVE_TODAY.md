@@ -190,36 +190,44 @@ Need public shop + payments this week?
 | Empty products | Boot seed; or Admin → create product |
 | SSH “Connection closed” mid-build | Normal if laptop sleeps; build may still run — re-SSH and check `docker ps` / logs |
 
-### Stage hostname: `stage.onecurve.in` (instead of raw IP)
+### CMS hostname: `cms.onecurve.in` (Medusa Admin — not the shop)
 
-**Recommended:** use a real name for stage (keeps cookies/CORS clean).
+Medusa **Admin = your commerce CMS** (products, prices, SEO metadata, orders, promos).  
+Staff should bookmark **`/app`**, not the bare API root.
 
-1. **DNS** (Cloudflare / GoDaddy / wherever `onecurve.in` is managed):
+1. **DNS** (wherever `onecurve.in` is managed):
 
    | Type | Name | Value | Notes |
    |---|---|---|---|
-   | **A** | `stage` | `159.89.173.5` (your droplet IPv4) | Points `stage.onecurve.in` → server |
+   | **A** | `cms` | `159.89.173.5` (droplet IPv4) | → `cms.onecurve.in` |
 
-   - If you keep **port 9000** in the URL → set Cloudflare proxy to **DNS only** (grey cloud). Orange proxy only works well for 80/443.
-   - Wait 1–5 minutes; check: `dig +short stage.onecurve.in`
+   - Keep Cloudflare **DNS only** (grey cloud) while using **:9000**.
+   - Check: `dig +short cms.onecurve.in`
 
-2. **On the droplet** (after DNS resolves to this server):
+2. **On the droplet** (after DNS points here):
 
    ```bash
    cd ~/peculiar-sport-storefront/platform
    git pull origin main
-   # With port (simplest, no Caddy yet):
-   bash scripts/droplet-set-stage-domain.sh stage.onecurve.in --port 9000
+   bash scripts/droplet-set-stage-domain.sh cms.onecurve.in --port 9000
    ```
 
-3. Open: **http://stage.onecurve.in:9000/app**  
-   (same admin email/password as before)
+3. **CMS login (staff):**  
+   **http://cms.onecurve.in:9000/app**
 
-**Optional later (no port, HTTPS):** install Caddy on the droplet to reverse-proxy `https://stage.onecurve.in` → `localhost:9000`, then:
+   - `http://cms.onecurve.in:9000/` alone may say `Cannot GET /` — **normal** (API has no homepage; CMS is **`/app`**).
+
+**Optional later:** Caddy on 80/443 → `https://cms.onecurve.in/app` without port:
 
 ```bash
-bash scripts/droplet-set-stage-domain.sh stage.onecurve.in --https
+bash scripts/droplet-set-stage-domain.sh cms.onecurve.in --https
 ```
+
+| Hostname (suggested) | Role |
+|---|---|
+| `cms.onecurve.in` | **CMS / Admin** (now) |
+| `stage.onecurve.in` or `shop-stage…` | Customer storefront later |
+| `api.onecurve.in` | Production API later |
 
 ### Backend “migrations failed” / never gets job done (USE THIS)
 

@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
-# Point Medusa stage env at a hostname (after DNS A record exists).
+# Point Medusa (commerce CMS / Admin) at a public hostname after DNS exists.
 #
-#   bash scripts/droplet-set-stage-domain.sh stage.onecurve.in
-#   bash scripts/droplet-set-stage-domain.sh stage.onecurve.in --https   # after Caddy/TLS
-#   bash scripts/droplet-set-stage-domain.sh stage.onecurve.in --port 9000
+# Recommended for staff CMS (Admin UI at /app):
+#   bash scripts/droplet-set-stage-domain.sh cms.onecurve.in --port 9000
+#
+# Then open:  http://cms.onecurve.in:9000/app
+#
+# Also works for:
+#   bash scripts/droplet-set-stage-domain.sh cms-stage.onecurve.in --port 9000
+#   bash scripts/droplet-set-stage-domain.sh cms.onecurve.in --https   # after Caddy/TLS
 #
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-HOST="${1:-stage.onecurve.in}"
+HOST="${1:-cms.onecurve.in}"
 shift || true
 SCHEME="http"
 PORT="9000"
@@ -82,13 +87,19 @@ done
 curl -s http://127.0.0.1:9000/health || true
 echo ""
 
+# subdomain label for DNS tip (cms.onecurve.in → cms)
+DNS_NAME="${HOST%%.*}"
+
 echo "════════════════════════════════════════════"
-echo "  Admin URL:  ${ORIGIN}/app"
-echo "  Health:     ${ORIGIN}/health"
+echo "  OneCurve CMS (Medusa Admin)"
+echo "  Login URL:  ${ORIGIN}/app"
+echo "  API root:   ${ORIGIN}/   (health: ${ORIGIN}/health)"
 echo "  COOKIE_SECURE=$COOKIE_SECURE_VAL"
 echo ""
-echo "  DNS checklist (at your domain registrar / Cloudflare):"
-echo "    Type A | Name: stage | Value: ${IP4:-YOUR_DROPLET_IPV4} | Proxy: DNS only (grey cloud) for :9000"
+echo "  DNS (at registrar / Cloudflare for onecurve.in):"
+echo "    Type A | Name: ${DNS_NAME} | Value: ${IP4:-YOUR_DROPLET_IPV4}"
+echo "    Proxy: DNS only (grey cloud) while using port ${PORT}"
 echo ""
-echo "  Then open a private window → ${ORIGIN}/app"
+echo "  Staff bookmark: ${ORIGIN}/app"
+echo "  (root ${ORIGIN}/ may show 'Cannot GET /' — that is normal; CMS is /app)"
 echo "════════════════════════════════════════════"
