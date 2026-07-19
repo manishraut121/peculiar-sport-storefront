@@ -10,6 +10,8 @@ const display = Barlow_Condensed({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  adjustFontFallback: true,
+  preload: true,
 })
 
 const body = Barlow({
@@ -17,6 +19,8 @@ const body = Barlow({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  adjustFontFallback: true,
+  preload: true,
 })
 
 export const metadata: Metadata = {

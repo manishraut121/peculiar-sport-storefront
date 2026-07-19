@@ -114,12 +114,14 @@ export default async function Home(props: Props) {
       <div className="oc-dark">
         <Hero />
         <Marquee />
-        <Verticals />
+        <div className="oc-section">
+          <Verticals />
+        </div>
 
         {/* Cricket deep-dive when categories exist */}
         {topCategories.length > 0 && (
           <section
-            className="content-container pb-16 small:pb-24"
+            className="content-container pb-16 small:pb-24 oc-section"
             aria-labelledby="cricket-cats-h"
           >
             <header className="mb-8 flex flex-col small:flex-row small:items-end justify-between gap-3">

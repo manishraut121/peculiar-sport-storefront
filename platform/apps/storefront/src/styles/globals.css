@@ -183,36 +183,52 @@ body {
   transform: scale(0.985);
 }
 
-/* Glass (dark only, sparingly) */
+/* Glass — light blur on mobile (perf); fuller on desktop */
 .oc-glass {
   background: rgba(244, 240, 230, 0.06);
   border: 1px solid rgba(244, 240, 230, 0.14);
-  backdrop-filter: blur(12px) saturate(1.15);
-  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+}
+@media (min-width: 1024px) {
+  .oc-glass {
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  }
 }
 
-/* Hero atmosphere */
+/* Hero atmosphere — single layer, no dual filter (LCP-friendly) */
 .oc-aurora {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
+  background:
+    radial-gradient(50% 40% at 25% 30%, rgba(212, 160, 23, 0.16), transparent 70%),
+    radial-gradient(45% 35% at 78% 22%, rgba(28, 51, 41, 0.5), transparent 68%),
+    radial-gradient(55% 40% at 55% 85%, rgba(212, 160, 23, 0.07), transparent 70%);
+  will-change: transform;
 }
 .oc-aurora::before,
 .oc-aurora::after {
-  content: "";
-  position: absolute;
-  inset: -25%;
-  background:
-    radial-gradient(40% 32% at 30% 30%, rgba(212, 160, 23, 0.18), transparent 70%),
-    radial-gradient(34% 28% at 70% 20%, rgba(28, 51, 41, 0.55), transparent 70%),
-    radial-gradient(45% 36% at 50% 80%, rgba(212, 160, 23, 0.08), transparent 72%);
-  filter: blur(40px);
+  display: none;
 }
-.oc-aurora::after {
-  background:
-    radial-gradient(28% 24% at 65% 60%, rgba(212, 160, 23, 0.1), transparent 70%),
-    radial-gradient(24% 20% at 20% 65%, rgba(28, 51, 41, 0.4), transparent 70%);
+
+/* Commerce card surface (light shop) */
+.oc-card {
+  background: var(--oc-willow-card);
+  border: 1px solid var(--oc-line);
+  border-radius: 1rem;
+  box-shadow: 0 1px 0 rgba(12, 15, 13, 0.04);
+  transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+.oc-card:hover {
+  border-color: rgba(212, 160, 23, 0.45);
+  box-shadow: 0 12px 40px rgba(11, 18, 16, 0.08);
+}
+
+/* Below-fold sections: browser may skip layout/paint until near viewport */
+.oc-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 
 .oc-shimmer {
@@ -235,19 +251,50 @@ body {
   width: max-content;
 }
 
+/* Hero enter — CSS only, SEO text always in DOM */
+.oc-hero-enter > * {
+  opacity: 1;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .oc-aurora::before {
-    animation: oc-drift 18s ease-in-out infinite alternate;
+  .oc-hero-enter > * {
+    animation: oc-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  .oc-aurora::after {
-    animation: oc-drift 24s ease-in-out infinite alternate-reverse;
+  .oc-hero-enter > *:nth-child(1) {
+    animation-delay: 40ms;
+  }
+  .oc-hero-enter > *:nth-child(2) {
+    animation-delay: 120ms;
+  }
+  .oc-hero-enter > *:nth-child(3) {
+    animation-delay: 200ms;
+  }
+  .oc-hero-enter > *:nth-child(4) {
+    animation-delay: 280ms;
+  }
+  .oc-hero-enter > *:nth-child(5) {
+    animation-delay: 360ms;
+  }
+  @keyframes oc-rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Subtle aurora drift — transform only, one layer */
+  .oc-aurora {
+    animation: oc-drift 22s ease-in-out infinite alternate;
   }
   @keyframes oc-drift {
     0% {
-      transform: translate3d(-3%, -2%, 0) scale(1);
+      transform: translate3d(-2%, -1%, 0) scale(1);
     }
     100% {
-      transform: translate3d(3%, 2%, 0) scale(1.06);
+      transform: translate3d(2%, 1.5%, 0) scale(1.04);
     }
   }
   .oc-shimmer {
@@ -263,7 +310,7 @@ body {
     }
   }
   .oc-marquee {
-    animation: oc-marquee-scroll 30s linear infinite;
+    animation: oc-marquee-scroll 32s linear infinite;
   }
   .oc-marquee:hover {
     animation-play-state: paused;
@@ -277,10 +324,33 @@ body {
     }
   }
   .oc-lift {
-    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 220ms ease, border-color 220ms ease;
   }
   .oc-lift:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+  }
+  .oc-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-aurora {
+    animation: none !important;
+  }
+  .oc-shimmer {
+    animation: none !important;
+    background: var(--oc-boundary);
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--oc-boundary);
+  }
+  .oc-marquee {
+    animation: none !important;
+  }
+  .oc-hero-enter > * {
+    animation: none !important;
   }
 }
 

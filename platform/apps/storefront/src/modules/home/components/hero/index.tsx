@@ -2,19 +2,24 @@ import { BRAND } from "@lib/brand/verticals"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 /**
- * Platform hero — multi-sport ready, cricket as flagship proof.
- * All copy SSR for sticky SEO.
+ * Cinematic hero — all copy SSR (SEO sticky).
+ * Motion is CSS-only (oc-hero-enter / oc-aurora); disabled under reduced-motion.
  */
 const Hero = () => {
   return (
     <section
-      className="relative w-full min-h-[min(92vh,880px)] flex items-center overflow-hidden bg-pitch oc-pitch-lines"
+      className="relative w-full min-h-[min(92vh,900px)] flex items-center overflow-hidden bg-pitch oc-pitch-lines"
       aria-labelledby="hero-heading"
     >
       <div className="oc-aurora" aria-hidden />
+      {/* Soft vignette for text contrast without extra paint layers */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none bg-gradient-to-r from-pitch via-pitch/80 to-transparent"
+      />
 
       <div className="relative z-10 content-container w-full py-28 small:py-36">
-        <div className="max-w-3xl flex flex-col items-start text-left gap-6 small:gap-8">
+        <div className="oc-hero-enter max-w-3xl flex flex-col items-start text-left gap-6 small:gap-7">
           <p className="oc-glass rounded-full px-4 py-2 text-boundary tracking-[0.2em] text-[11px] uppercase font-medium min-h-[40px] inline-flex items-center">
             {BRAND.name} · Performance equipment · India
           </p>
@@ -26,16 +31,15 @@ const Hero = () => {
             {BRAND.tagline.replace(/\.$/, "")}
             <span className="text-boundary">.</span>
             <br />
-            <span className="oc-shimmer text-[0.85em] normal-case tracking-normal">
+            <span className="oc-shimmer text-[0.82em] normal-case tracking-normal font-semibold">
               Gear for every discipline
             </span>
           </h1>
 
-          <p className="text-willow/70 text-base small:text-lg max-w-xl leading-relaxed m-0 font-normal normal-case tracking-normal">
-            Start with handcrafted cricket — English Willow bats, pads and
-            gloves. Expanding into training, gym and nutrition on the{" "}
-            <strong className="text-willow font-medium">same inventory</strong>,
-            one cart, free shipping over ₹2,999.
+          <p className="text-willow/75 text-base small:text-lg max-w-xl leading-relaxed m-0 font-normal normal-case tracking-normal">
+            Cricket is live — English Willow bats, pads and gloves. Training,
+            gym and nutrition join the same inventory next. One cart, free
+            shipping over ₹2,999, pan-India delivery.
           </p>
 
           <div className="flex flex-col xsmall:flex-row gap-3 w-full xsmall:w-auto pt-1">
