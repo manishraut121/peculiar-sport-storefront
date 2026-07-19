@@ -22,9 +22,11 @@ Marketing pages (about, long guides) can later sit in a light content CMS — pr
 | Legal pages | Code: `/legal/*` routes | Dev (rarely change) |
 | Bookkeeping expenses | Admin → **Bookkeeping** (when enabled) | You |
 
-Staff CMS login: **`http://cms.onecurve.in:9000/app`** (or your droplet URL + `/app`).  
+Staff CMS login (current): **`http://159.89.173.5:9000/app`** (API host; domain later).  
 Bookmark **`/app`** — that is the CMS. Root `/` is not a website homepage.  
 Never give staff SSH/root for daily ops.
+
+**Shop wiring (Admin → storefront WYSIWYG):** see [WIRE_CMS_STOREFRONT.md](WIRE_CMS_STOREFRONT.md).
 
 ---
 

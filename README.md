@@ -9,6 +9,7 @@ Two things live in this repo:
 
 - **🎨 Brand (multi-sport Night Pitch):** [BRAND.md](BRAND.md) + [design-system/onecurve](design-system/onecurve/)
 - **🧰 CMS & daily ops (prices, SEO, promos):** [OPS_CMS.md](OPS_CMS.md) — Medusa Admin is the CMS
+- **🔗 Wire CMS → storefront (live catalog):** [WIRE_CMS_STOREFRONT.md](WIRE_CMS_STOREFRONT.md)
 - **⚡ Go live TODAY (backend for staff):** [GO_LIVE_TODAY.md](GO_LIVE_TODAY.md) — DigitalOcean Bangalore pick + steps
 - **🚀 Launch plan:** [LAUNCH.md](LAUNCH.md) — env flags, e2e, bookkeeping, prod flip
 - **🧭 CTO Handbook:** [HANDBOOK.md](HANDBOOK.md) — architecture, secrets, DB, CI/CD
