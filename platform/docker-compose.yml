@@ -97,6 +97,8 @@ services:
       NODE_OPTIONS: ${NODE_OPTIONS:---max-old-space-size=768}
       # Set to 1 after one-shot migrate (scripts/droplet-fix-migrate.sh)
       SKIP_DB_MIGRATE: ${SKIP_DB_MIGRATE:-0}
+      # false for http://IP:9000 admin; true only behind HTTPS
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
     ports:
       - "9000:9000"
     # Don't thrash on migrate failure (was hiding errors)

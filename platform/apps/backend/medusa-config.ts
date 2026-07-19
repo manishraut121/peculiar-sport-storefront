@@ -100,6 +100,17 @@ if (razorpayEnabled) {
   })
 }
 
+// Session cookies: Medusa defaults to Secure+SameSite=None when NODE_ENV=production.
+// That BREAKS Admin login over plain HTTP (http://DROPLET_IP:9000/app) — login
+// "succeeds" but the browser never stores the cookie → infinite login loop.
+// Override: secure only when COOKIE_SECURE=1 or BACKEND_URL is https://
+const backendPublic =
+  process.env.BACKEND_URL || process.env.MEDUSA_BACKEND_URL || ""
+const cookieSecure =
+  process.env.COOKIE_SECURE === "1" ||
+  process.env.COOKIE_SECURE === "true" ||
+  backendPublic.startsWith("https://")
+
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
@@ -113,6 +124,14 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
+    cookieOptions: {
+      secure: cookieSecure,
+      // "none" requires Secure; use "lax" for HTTP IP admin access
+      sameSite: cookieSecure ? "none" : "lax",
+      httpOnly: true,
+      path: "/",
+    },
   },
   modules,
 })
+

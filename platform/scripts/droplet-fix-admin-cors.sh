@@ -55,9 +55,12 @@ if ! grep -q '^STORE_CORS=' .env; then
 fi
 upsert MEDUSA_BACKEND_URL "$ORIGIN"
 upsert MEDUSA_IMAGE_BASE_URL "$ORIGIN"
+# CRITICAL: HTTP admin cannot use Secure cookies (Medusa prod default)
+upsert COOKIE_SECURE "false"
 
-echo "▶ Restart backend to load new CORS…"
-docker compose --env-file .env up -d backend
+echo "▶ Rebuild + restart backend (cookie config is baked at runtime from env)…"
+# Runtime env is enough for COOKIE_SECURE; rebuild if image is old
+docker compose --env-file .env up -d --build backend
 
 echo "▶ Wait for health…"
 for i in $(seq 1 24); do
