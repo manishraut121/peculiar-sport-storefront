@@ -79,7 +79,7 @@ export default function SearchOverlay() {
         onClick={() => setOpen(true)}
         aria-label="Search products"
         data-testid="nav-search-button"
-        className="flex items-center gap-2 text-ui-fg-subtle hover:text-ui-fg-base uppercase tracking-wide font-medium text-sm"
+        className="inline-flex items-center justify-center gap-2 min-h-11 min-w-11 px-2 text-fog hover:text-ink tracking-wide font-semibold text-sm"
       >
         <svg
           width="16"

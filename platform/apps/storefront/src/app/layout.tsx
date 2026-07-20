@@ -61,7 +61,19 @@ export const metadata: Metadata = {
   },
   other: {
     "geo.region": "IN",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
   },
+}
+
+/** Viewport for latest iOS/Android — notch safe-area + no accidental zoom traps */
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover" as const,
+  themeColor: "#FAFAF8",
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -72,7 +84,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       data-mode="light"
       className={`${display.variable} ${body.variable}`}
     >
-      <body className="font-body bg-ui-bg-base text-ui-fg-base antialiased">
+      <body className="font-body bg-paper text-ink antialiased overflow-x-clip">
         <link
           rel="preconnect"
           href={
@@ -133,7 +145,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             ]),
           }}
         />
-        <main className="relative" id="main-content">
+        <main className="relative w-full min-w-0" id="main-content">
           {props.children}
         </main>
       </body>

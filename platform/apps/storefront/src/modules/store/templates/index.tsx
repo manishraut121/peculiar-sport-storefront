@@ -21,17 +21,17 @@ const StoreTemplate = ({
   return (
     <>
       <div className="border-b border-line bg-mute">
-        <div className="content-container py-12 small:py-16">
+        <div className="content-container py-10 small:py-16">
           <p className="text-xs uppercase tracking-[0.2em] text-signal font-bold m-0">
             Catalogue
           </p>
           <h1
-            className="font-display font-extrabold text-4xl small:text-6xl text-ink mt-2 m-0 tracking-tight"
+            className="font-display font-extrabold text-3xl xsmall:text-4xl small:text-6xl text-ink mt-2 m-0 tracking-tight"
             data-testid="store-page-title"
           >
             All products
           </h1>
-          <p className="text-fog text-base mt-3 max-w-xl m-0 leading-relaxed font-medium">
+          <p className="text-fog text-sm small:text-base mt-3 max-w-xl m-0 leading-relaxed font-medium">
             Cricket live now; training and nutrition next. Free shipping over
             ₹2,999 pan-India.
           </p>
@@ -39,7 +39,7 @@ const StoreTemplate = ({
       </div>
 
       <div
-        className="flex flex-col small:flex-row small:items-start py-8 content-container gap-8 oc-scroll-contain"
+        className="flex flex-col small:flex-row small:items-start py-6 small:py-8 content-container gap-6 small:gap-8 oc-scroll-contain"
         data-testid="category-container"
       >
         <RefinementList sortBy={sort} />

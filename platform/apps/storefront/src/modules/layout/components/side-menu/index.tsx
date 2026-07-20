@@ -12,13 +12,15 @@ import LanguageSelect from "../language-select"
 import { Locale } from "@lib/data/locales"
 
 
-const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Blog: "/blog",
-  Account: "/account",
-  Cart: "/cart",
-}
+const SideMenuItems: { name: string; href: string }[] = [
+  { name: "Home", href: "/" },
+  { name: "Store", href: "/store" },
+  { name: "Training", href: "/disciplines/training" },
+  { name: "Nutrition", href: "/disciplines/nutrition" },
+  { name: "Recovery", href: "/disciplines/recovery" },
+  { name: "Account", href: "/account" },
+  { name: "Bag", href: "/cart" },
+]
 
 type SideMenuProps = {
   regions: HttpTypes.StoreRegion[] | null
@@ -39,7 +41,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
-                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
+                  className="relative h-full inline-flex items-center min-h-11 min-w-11 px-1 text-sm font-semibold text-ink transition-colors focus:outline-none hover:text-signal"
                 >
                   Menu
                 </Popover.Button>
@@ -56,30 +58,35 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
               <Transition
                 show={open}
                 as={Fragment}
-                enter="transition ease-out duration-150"
-                enterFrom="opacity-0"
-                enterTo="opacity-100 backdrop-blur-2xl"
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
                 leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 backdrop-blur-2xl"
-                leaveTo="opacity-0"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
               >
-                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 text-sm text-ui-fg-base m-2">
+                <PopoverPanel className="flex flex-col fixed small:absolute left-2 right-2 top-[calc(env(safe-area-inset-top,0px)+0.5rem)] small:left-2 small:right-auto small:w-[min(100%,22rem)] h-[min(calc(100dvh-1rem),36rem)] z-[51] text-sm text-ui-fg-base">
                   <div
                     data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-ui-bg-base border border-ui-border-base rounded-rounded justify-between p-6 shadow-2xl shadow-black/60"
+                    className="flex flex-col h-full bg-paper border border-line rounded-2xl justify-between p-5 small:p-6 shadow-2xl shadow-black/20 overflow-y-auto overscroll-contain"
                   >
                     <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
+                      <button
+                        data-testid="close-menu-button"
+                        onClick={close}
+                        className="inline-flex items-center justify-center min-h-11 min-w-11 rounded-full hover:bg-mute"
+                        aria-label="Close menu"
+                      >
                         <XMark />
                       </button>
                     </div>
-                    <ul className="flex flex-col gap-6 items-start justify-start">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
+                    <ul className="flex flex-col gap-1 items-stretch justify-start list-none m-0 p-0">
+                      {SideMenuItems.map(({ name, href }) => {
                         return (
                           <li key={name}>
                             <LocalizedClientLink
                               href={href}
-                              className="font-display text-4xl leading-10 text-ui-fg-base hover:text-gold transition-colors"
+                              className="font-display font-extrabold text-2xl small:text-3xl leading-tight text-ink hover:text-signal transition-colors block py-2.5 min-h-11"
                               onClick={close}
                               data-testid={`${name.toLowerCase()}-link`}
                             >

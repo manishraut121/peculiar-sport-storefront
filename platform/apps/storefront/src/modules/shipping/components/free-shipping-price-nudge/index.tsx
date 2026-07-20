@@ -201,7 +201,7 @@ function FreeShippingPopup({
   return (
     <div
       className={clx(
-        "fixed bottom-5 right-5 flex flex-col items-end gap-2 transition-all duration-500 ease-in-out z-10",
+        "fixed bottom-4 right-4 left-4 xsmall:left-auto z-10 flex flex-col items-end gap-2 transition-all duration-500 ease-in-out pb-[env(safe-area-inset-bottom,0px)]",
         {
           "opacity-0 invisible delay-1000": price.target_reached,
           "opacity-0 invisible": isClosed,
@@ -211,14 +211,14 @@ function FreeShippingPopup({
     >
       <div>
         <Button
-          className="rounded-full bg-ui-bg-subtle border border-ui-border-base shadow-none outline-none border-none text-[15px] p-2"
+          className="rounded-full bg-ui-bg-subtle border border-ui-border-base shadow-none outline-none border-none text-[15px] p-2 min-h-11 min-w-11"
           onClick={() => setIsClosed(true)}
         >
           <XMark />
         </Button>
       </div>
 
-      <div className="w-[400px] bg-ui-bg-subtle border border-ui-border-base text-ui-fg-base p-6 rounded-lg ">
+      <div className="w-full xsmall:w-[min(400px,calc(100vw-2rem))] bg-ui-bg-subtle border border-ui-border-base text-ui-fg-base p-4 small:p-6 rounded-2xl shadow-lg">
         <div className="pb-4">
           <div className="space-y-3">
             <div className="flex justify-between text-[15px] text-ui-fg-muted">

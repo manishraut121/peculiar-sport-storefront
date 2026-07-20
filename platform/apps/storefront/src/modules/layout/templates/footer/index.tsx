@@ -9,21 +9,21 @@ export default async function Footer() {
   )
 
   return (
-    <footer className="oc-dark w-full border-t border-white/10">
+    <footer className="oc-dark w-full border-t border-white/10 pb-[env(safe-area-inset-bottom,0px)]">
       <div className="content-container flex flex-col w-full">
-        <div className="grid grid-cols-1 small:grid-cols-12 gap-12 pt-16 small:pt-20 pb-14">
-          <div className="small:col-span-5 flex flex-col gap-5 max-w-md">
+        <div className="grid grid-cols-1 small:grid-cols-12 gap-10 small:gap-12 pt-12 small:pt-20 pb-12 small:pb-14">
+          <div className="small:col-span-5 flex flex-col gap-4 small:gap-5 max-w-md">
             <BrandMark size="lg" light />
-            <p className="text-white/55 text-base leading-relaxed m-0 font-medium">
+            <p className="text-white/55 text-sm small:text-base leading-relaxed m-0 font-medium">
               Performance equipment for India. Cricket live — training and
               nutrition next. Spec-honest. One inventory.
             </p>
-            <p className="font-display font-bold text-signal text-lg m-0">
+            <p className="font-display font-bold text-signal text-base small:text-lg m-0">
               Move with the curve.
             </p>
           </div>
 
-          <div className="small:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10 text-sm">
+          <div className="small:col-span-7 grid grid-cols-2 xsmall:grid-cols-3 gap-8 small:gap-10 text-sm">
             {topCategories.length > 0 && (
               <div className="flex flex-col gap-3">
                 <span className="text-[11px] uppercase tracking-[0.2em] text-signal font-bold">

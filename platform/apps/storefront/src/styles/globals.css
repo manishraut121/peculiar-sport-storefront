@@ -94,6 +94,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent iOS Safari from inflating text inconsistently */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -106,6 +109,79 @@ body {
   background-color: var(--oc-paper);
   color: var(--oc-ink);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Kill horizontal scroll from full-bleed / transform edges */
+  overflow-x: clip;
+  min-height: 100dvh;
+}
+
+/* Shared page shell — used by nearly every route.
+   Was dropped during brand rewrites; without it content sits edge-to-edge
+   and looks misaligned on phone/tablet. Includes notch safe-area. */
+@layer components {
+  .content-container {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  }
+
+  @media (min-width: 512px) {
+    .content-container {
+      padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+      padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .content-container {
+      padding-left: max(2rem, env(safe-area-inset-left, 0px));
+      padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    }
+  }
+
+  /* Medusa starter type scale — still used across account/cart/PDP */
+  .text-xsmall-regular {
+    @apply text-[10px] leading-4 font-normal;
+  }
+  .text-small-regular {
+    @apply text-xs leading-5 font-normal;
+  }
+  .text-small-semi {
+    @apply text-xs leading-5 font-semibold;
+  }
+  .text-base-regular {
+    @apply text-sm leading-6 font-normal;
+  }
+  .text-base-semi {
+    @apply text-sm leading-6 font-semibold;
+  }
+  .text-large-regular {
+    @apply text-base leading-6 font-normal;
+  }
+  .text-large-semi {
+    @apply text-base leading-6 font-semibold;
+  }
+  .text-xl-regular {
+    @apply text-2xl leading-[36px] font-normal;
+  }
+  .text-xl-semi {
+    @apply text-2xl leading-[36px] font-semibold;
+  }
+  .text-2xl-regular {
+    @apply text-[30px] leading-[48px] font-normal;
+  }
+  .text-2xl-semi {
+    @apply text-[30px] leading-[48px] font-semibold;
+  }
+  .text-3xl-regular {
+    @apply text-[32px] leading-[44px] font-normal;
+  }
+  .text-3xl-semi {
+    @apply text-[32px] leading-[44px] font-semibold;
+  }
 }
 
 ::selection {
@@ -136,21 +212,31 @@ body {
   opacity: 0.9;
 }
 
-/* Buttons */
+/* Buttons — 44px+ touch targets for iOS / Android */
 .oc-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
-  min-width: 52px;
-  padding: 0.85rem 1.75rem;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
   font-size: 0.9375rem;
   letter-spacing: 0.01em;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
     box-shadow 200ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 512px) {
+  .oc-btn {
+    min-height: 52px;
+    padding: 0.85rem 1.75rem;
+  }
 }
 .oc-btn-primary {
   background: var(--oc-signal);
@@ -220,9 +306,17 @@ body {
   border-radius: 1.25rem;
   transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.oc-card:hover {
-  border-color: rgba(255, 107, 26, 0.4);
-  box-shadow: 0 16px 48px rgba(10, 10, 10, 0.08);
+/* Hover lift only when a real pointer exists (no sticky hover on mobile) */
+@media (hover: hover) and (pointer: fine) {
+  .oc-card:hover {
+    border-color: rgba(255, 107, 26, 0.4);
+    box-shadow: 0 16px 48px rgba(10, 10, 10, 0.08);
+  }
+}
+
+/* Sticky chrome respects home-indicator / notch */
+.oc-sticky-nav {
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .oc-section {
@@ -290,15 +384,17 @@ body {
     }
   }
 
-  .oc-lift {
-    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 240ms ease;
-  }
-  .oc-lift:hover {
-    transform: translateY(-5px);
-  }
-  .oc-card:hover {
-    transform: translateY(-3px);
+  @media (hover: hover) and (pointer: fine) {
+    .oc-lift {
+      transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 240ms ease;
+    }
+    .oc-lift:hover {
+      transform: translateY(-5px);
+    }
+    .oc-card:hover {
+      transform: translateY(-3px);
+    }
   }
 
   /* Grid children stagger helper (JS Reveal still used for SEO-safe reveal) */
@@ -356,6 +452,13 @@ summary,
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  /* Ensure title clamp works even if line-clamp plugin absent */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
   .text-gold,
   .text-boundary,

@@ -11,7 +11,7 @@ import CartButton from "@modules/layout/components/cart-button"
 import SearchOverlay from "@modules/layout/components/search-overlay"
 import SideMenu from "@modules/layout/components/side-menu"
 
-/** Minimal Apple/Google-like nav — few links, lots of air */
+/** Minimal Apple/Google-like nav — balanced 3-col on all viewports */
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
@@ -23,7 +23,7 @@ export default async function Nav() {
   await listCategories().catch(() => [])
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 bg-paper/80 backdrop-blur-xl border-b border-line/80">
+    <div className="sticky top-0 inset-x-0 z-50 bg-paper/90 backdrop-blur-xl border-b border-line/80 oc-sticky-nav supports-[backdrop-filter]:bg-paper/75">
       <a
         href="#main-content"
         className="absolute left-[-9999px] focus:left-3 focus:top-3 focus:z-[60] focus:bg-signal focus:text-white focus:px-4 focus:py-2 focus:rounded-full focus:text-sm"
@@ -31,12 +31,13 @@ export default async function Nav() {
         Skip to content
       </a>
 
-      <header className="h-12 small:h-14">
+      <header className="h-14 small:h-14">
         <nav
-          className="content-container flex items-center justify-between w-full h-full gap-3"
+          className="content-container grid grid-cols-[1fr_auto_1fr] items-center w-full h-full gap-2"
           aria-label="Primary"
         >
-          <div className="flex items-center gap-1 flex-1 min-w-0">
+          {/* Left: menu (mobile) / links (desktop) */}
+          <div className="flex items-center gap-1 min-w-0 justify-start">
             <div className="small:hidden">
               <SideMenu
                 regions={regions}
@@ -44,11 +45,11 @@ export default async function Nav() {
                 currentLocale={currentLocale}
               />
             </div>
-            <ul className="hidden small:flex items-center gap-1 text-[12px] font-semibold text-fog">
+            <ul className="hidden small:flex items-center gap-0.5 text-[12px] font-semibold text-fog">
               <li>
                 <LocalizedClientLink
                   href="/store"
-                  className="px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
+                  className="inline-flex items-center min-h-11 px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
                   data-testid="nav-store-link-all"
                 >
                   Store
@@ -57,7 +58,7 @@ export default async function Nav() {
               <li>
                 <LocalizedClientLink
                   href="/disciplines/training"
-                  className="px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
+                  className="inline-flex items-center min-h-11 px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
                 >
                   Training
                 </LocalizedClientLink>
@@ -65,7 +66,7 @@ export default async function Nav() {
               <li>
                 <LocalizedClientLink
                   href="/disciplines/nutrition"
-                  className="px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
+                  className="inline-flex items-center min-h-11 px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
                 >
                   Nutrition
                 </LocalizedClientLink>
@@ -73,7 +74,7 @@ export default async function Nav() {
               <li>
                 <LocalizedClientLink
                   href="/disciplines/recovery"
-                  className="px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
+                  className="inline-flex items-center min-h-11 px-2.5 py-1.5 rounded-md hover:text-ink transition-colors"
                 >
                   Recovery
                 </LocalizedClientLink>
@@ -81,13 +82,17 @@ export default async function Nav() {
             </ul>
           </div>
 
-          <BrandMark size="sm" />
+          {/* Center brand — always truly centered */}
+          <div className="flex justify-center shrink-0 px-1">
+            <BrandMark size="sm" />
+          </div>
 
-          <div className="flex items-center justify-end gap-1 flex-1 text-[12px] font-semibold">
+          {/* Right: search + bag (+ account desktop) */}
+          <div className="flex items-center justify-end gap-0.5 text-[12px] font-semibold min-w-0">
             <SearchOverlay />
             <LocalizedClientLink
               href="/account"
-              className="hidden small:inline-flex px-2.5 py-1.5 rounded-md text-fog hover:text-ink"
+              className="hidden small:inline-flex items-center min-h-11 px-2.5 py-1.5 rounded-md text-fog hover:text-ink"
               data-testid="nav-account-link"
             >
               Account
@@ -96,7 +101,7 @@ export default async function Nav() {
               fallback={
                 <LocalizedClientLink
                   href="/cart"
-                  className="px-2.5 py-1.5 text-ink"
+                  className="inline-flex items-center min-h-11 px-2.5 py-1.5 text-ink"
                   data-testid="nav-cart-link"
                 >
                   Bag

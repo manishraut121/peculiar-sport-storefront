@@ -10,7 +10,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   const category = product.categories?.[0]
 
   return (
-    <div id="product-info" className="flex flex-col gap-4">
+    <div id="product-info" className="flex flex-col gap-3 small:gap-4 min-w-0">
       {product.collection && (
         <LocalizedClientLink
           href={`/collections/${product.collection.handle}`}
@@ -26,7 +26,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       )}
 
       <h1
-        className="font-display font-extrabold text-3xl small:text-4xl leading-[1.08] text-ink tracking-tight m-0"
+        className="font-display font-extrabold text-2xl xsmall:text-3xl small:text-4xl leading-[1.1] text-ink tracking-tight m-0 break-words"
         data-testid="product-title"
       >
         {product.title}
@@ -34,7 +34,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
 
       {product.description && (
         <p
-          className="text-base text-ui-fg-subtle leading-relaxed whitespace-pre-line m-0"
+          className="text-sm small:text-base text-ui-fg-subtle leading-relaxed whitespace-pre-line m-0"
           data-testid="product-description"
         >
           {product.description}

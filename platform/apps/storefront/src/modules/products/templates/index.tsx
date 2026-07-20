@@ -82,7 +82,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
       </nav>
 
       <div
-        className="content-container grid grid-cols-1 small:grid-cols-12 gap-8 small:gap-10 py-6 small:py-10"
+        className="content-container grid grid-cols-1 small:grid-cols-12 gap-6 small:gap-10 py-4 small:py-10"
         data-testid="product-container"
       >
         {/* Gallery */}
@@ -91,10 +91,10 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         </div>
 
         {/* Sticky purchase column */}
-        <div className="small:col-span-5 flex flex-col gap-8 small:sticky small:top-28 small:self-start">
+        <div className="small:col-span-5 flex flex-col gap-6 small:gap-8 small:sticky small:top-28 small:self-start min-w-0">
           <ProductInfo product={product} />
 
-          <div className="oc-card p-5 small:p-6 flex flex-col gap-6">
+          <div className="oc-card p-4 small:p-6 flex flex-col gap-5 small:gap-6">
             <ProductOnboardingCta />
             <Suspense
               fallback={
