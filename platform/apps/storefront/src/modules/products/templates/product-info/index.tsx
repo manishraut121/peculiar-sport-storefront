@@ -26,7 +26,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       )}
 
       <h1
-        className="font-display font-bold text-3xl small:text-4xl leading-[1.05] text-pitch tracking-tight uppercase m-0"
+        className="font-display font-extrabold text-3xl small:text-4xl leading-[1.08] text-ink tracking-tight m-0"
         data-testid="product-title"
       >
         {product.title}

@@ -9,34 +9,34 @@ export default async function Footer() {
   )
 
   return (
-    <footer className="oc-dark w-full border-t border-ui-border-base">
+    <footer className="oc-dark w-full border-t border-white/10">
       <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-12 small:flex-row items-start justify-between pt-16 small:pt-20 pb-14">
-          <div className="max-w-sm flex flex-col gap-4">
+        <div className="grid grid-cols-1 small:grid-cols-12 gap-12 pt-16 small:pt-20 pb-14">
+          <div className="small:col-span-5 flex flex-col gap-5 max-w-md">
             <BrandMark size="lg" light />
-            <p className="text-ui-fg-muted text-sm leading-relaxed m-0">
-              Performance equipment for India — cricket live now; training, gym
-              and nutrition next. One inventory. The perfect curve.
+            <p className="text-white/55 text-base leading-relaxed m-0 font-medium">
+              Performance equipment for India. Cricket live — training and
+              nutrition next. Spec-honest. One inventory.
             </p>
-            <p className="text-boundary text-xs uppercase tracking-[0.2em] m-0">
-              Gear for every discipline.
+            <p className="font-display font-bold text-signal text-lg m-0">
+              Move with the curve.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 md:gap-x-16 text-sm">
+          <div className="small:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10 text-sm">
             {topCategories.length > 0 && (
-              <div className="flex flex-col gap-y-3">
-                <span className="text-[11px] uppercase tracking-[0.22em] text-boundary font-medium">
+              <div className="flex flex-col gap-3">
+                <span className="text-[11px] uppercase tracking-[0.2em] text-signal font-bold">
                   Shop
                 </span>
                 <ul
-                  className="flex flex-col gap-y-2 list-none m-0 p-0"
+                  className="flex flex-col gap-2.5 list-none m-0 p-0"
                   data-testid="footer-categories"
                 >
                   {topCategories.slice(0, 6).map((c: any) => (
                     <li key={c.id}>
                       <LocalizedClientLink
-                        className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                        className="text-white/60 hover:text-white transition-colors font-medium"
                         href={`/categories/${c.handle}`}
                         data-testid="category-link"
                       >
@@ -46,7 +46,7 @@ export default async function Footer() {
                   ))}
                   <li>
                     <LocalizedClientLink
-                      className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                      className="text-white/60 hover:text-white transition-colors font-medium"
                       href="/store"
                     >
                       All products
@@ -56,15 +56,15 @@ export default async function Footer() {
               </div>
             )}
 
-            <div className="flex flex-col gap-y-3">
-              <span className="text-[11px] uppercase tracking-[0.22em] text-boundary font-medium">
+            <div className="flex flex-col gap-3">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-signal font-bold">
                 Account
               </span>
-              <ul className="flex flex-col gap-y-2 list-none m-0 p-0">
+              <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
                 <li>
                   <LocalizedClientLink
                     href="/account"
-                    className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
                   >
                     My account
                   </LocalizedClientLink>
@@ -72,7 +72,7 @@ export default async function Footer() {
                 <li>
                   <LocalizedClientLink
                     href="/cart"
-                    className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
                   >
                     Cart
                   </LocalizedClientLink>
@@ -80,15 +80,15 @@ export default async function Footer() {
               </ul>
             </div>
 
-            <div className="flex flex-col gap-y-3">
-              <span className="text-[11px] uppercase tracking-[0.22em] text-boundary font-medium">
+            <div className="flex flex-col gap-3">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-signal font-bold">
                 Help
               </span>
-              <ul className="flex flex-col gap-y-2 list-none m-0 p-0">
+              <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
                 <li>
                   <LocalizedClientLink
                     href="/legal/shipping-returns"
-                    className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
                     data-testid="footer-shipping-returns"
                   >
                     Shipping &amp; returns
@@ -97,7 +97,7 @@ export default async function Footer() {
                 <li>
                   <LocalizedClientLink
                     href="/legal/privacy"
-                    className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
                     data-testid="footer-privacy"
                   >
                     Privacy
@@ -106,7 +106,7 @@ export default async function Footer() {
                 <li>
                   <LocalizedClientLink
                     href="/legal/terms"
-                    className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
                     data-testid="footer-terms"
                   >
                     Terms
@@ -115,7 +115,7 @@ export default async function Footer() {
                 <li>
                   <a
                     href="mailto:support@onecurve.in"
-                    className="text-ui-fg-subtle hover:text-boundary transition-colors"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
                     data-testid="footer-contact"
                   >
                     support@onecurve.in
@@ -126,13 +126,9 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col small:flex-row gap-2 w-full py-8 justify-between border-t border-ui-border-base text-ui-fg-muted text-xs">
-          <span>
-            © {new Date().getFullYear()} OneCurve Sports. All rights reserved.
-          </span>
-          <span className="uppercase tracking-[0.15em]">
-            Made in India <span className="text-boundary">●</span> onecurve.in
-          </span>
+        <div className="flex flex-col small:flex-row gap-2 w-full py-8 justify-between border-t border-white/10 text-white/40 text-xs font-medium">
+          <span>© {new Date().getFullYear()} OneCurve. All rights reserved.</span>
+          <span>India · Performance equipment</span>
         </div>
       </div>
     </footer>

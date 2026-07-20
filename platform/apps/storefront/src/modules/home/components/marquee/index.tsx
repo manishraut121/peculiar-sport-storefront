@@ -1,10 +1,10 @@
 const ITEMS = [
-  "Grade 1+ English Willow",
-  "Hand-pressed · Hand-balanced",
-  "Free shipping over ₹2,999",
-  "Made in India",
-  "3–5 day pan-India delivery",
+  "Free shipping ₹2,999+",
+  "Cricket live now",
   "UPI · Cards · Net-banking",
+  "3–5 day delivery",
+  "7-day returns",
+  "One inventory",
 ]
 
 function Row({ hidden = false }: { hidden?: boolean }) {
@@ -16,11 +16,11 @@ function Row({ hidden = false }: { hidden?: boolean }) {
       {ITEMS.map((t) => (
         <li
           key={t}
-          className="flex items-center gap-6 px-6 whitespace-nowrap font-display font-semibold text-xl small:text-2xl tracking-tight uppercase text-willow/65"
+          className="flex items-center gap-5 px-6 whitespace-nowrap font-display font-bold text-lg small:text-xl tracking-tight text-white/80"
         >
           {t}
           <span
-            className="block w-1.5 h-1.5 rounded-full bg-boundary shrink-0"
+            className="block w-2 h-2 rounded-full bg-signal shrink-0"
             aria-hidden
           />
         </li>
@@ -31,7 +31,7 @@ function Row({ hidden = false }: { hidden?: boolean }) {
 
 export default function Marquee() {
   return (
-    <div className="border-y border-ui-border-base bg-pitch-elevated overflow-hidden py-5">
+    <div className="bg-ink border-y border-white/10 overflow-hidden py-4">
       <div className="oc-marquee">
         <Row />
         <Row hidden />

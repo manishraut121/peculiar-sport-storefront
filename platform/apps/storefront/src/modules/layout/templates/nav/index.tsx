@@ -21,29 +21,29 @@ export default async function Nav() {
 
   const topCategories = (categories || [])
     .filter((c: any) => !c.parent_category)
-    .slice(0, 4)
+    .slice(0, 3)
 
   return (
     <div className="sticky top-0 inset-x-0 z-50">
       <a
         href="#main-content"
-        className="absolute left-[-9999px] focus:left-3 focus:top-3 focus:z-[60] focus:bg-boundary focus:text-pitch focus:px-4 focus:py-2.5 focus:rounded-md focus:text-sm focus:font-medium"
+        className="absolute left-[-9999px] focus:left-3 focus:top-3 focus:z-[60] focus:bg-signal focus:text-white focus:px-4 focus:py-2.5 focus:rounded-full focus:text-sm focus:font-semibold"
       >
         Skip to content
       </a>
 
-      <div className="hidden small:block bg-pitch text-willow/70">
-        <div className="content-container flex items-center justify-center h-8 text-[11px] tracking-[0.18em] uppercase">
-          Handcrafted in India · Free shipping ₹2,999+ · 3–5 day delivery
+      <div className="hidden small:block bg-ink text-white/60">
+        <div className="content-container flex items-center justify-center h-9 text-[11px] font-semibold tracking-[0.16em] uppercase">
+          Free shipping over ₹2,999 · 3–5 day pan-India · Secure UPI checkout
         </div>
       </div>
 
-      <header className="h-16 border-b border-ui-border-base bg-willow/90 backdrop-blur-md supports-[backdrop-filter]:bg-willow/80">
+      <header className="h-[4.25rem] border-b border-line bg-paper/90 backdrop-blur-lg supports-[backdrop-filter]:bg-paper/80">
         <nav
-          className="content-container flex items-center justify-between w-full h-full"
+          className="content-container flex items-center justify-between w-full h-full gap-4"
           aria-label="Primary"
         >
-          <div className="flex items-center gap-x-8 flex-1 basis-0 h-full">
+          <div className="flex items-center gap-x-6 flex-1 basis-0 h-full min-w-0">
             <div className="h-full flex items-center small:hidden">
               <SideMenu
                 regions={regions}
@@ -51,21 +51,21 @@ export default async function Nav() {
                 currentLocale={currentLocale}
               />
             </div>
-            <ul className="hidden small:flex items-center gap-x-6 h-full text-[13px] font-medium uppercase tracking-[0.08em]">
+            <ul className="hidden small:flex items-center gap-x-1 h-full text-[13px] font-semibold">
               <li className="h-full flex items-center">
                 <LocalizedClientLink
                   href="/store"
-                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
+                  className="px-3 h-10 inline-flex items-center rounded-full text-fog hover:text-ink hover:bg-mute transition-colors"
                   data-testid="nav-store-link-all"
                 >
                   Shop
                 </LocalizedClientLink>
               </li>
-              {topCategories.slice(0, 3).map((c: any) => (
+              {topCategories.map((c: any) => (
                 <li key={c.id} className="h-full flex items-center">
                   <LocalizedClientLink
                     href={`/categories/${c.handle}`}
-                    className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
+                    className="px-3 h-10 inline-flex items-center rounded-full text-fog hover:text-ink hover:bg-mute transition-colors"
                     data-testid={`nav-category-${c.handle}`}
                   >
                     {c.name}
@@ -75,7 +75,7 @@ export default async function Nav() {
               <li className="h-full flex items-center">
                 <LocalizedClientLink
                   href="/blog"
-                  className="relative h-full flex items-center text-ui-fg-subtle hover:text-pitch after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-boundary hover:after:w-full after:transition-all"
+                  className="px-3 h-10 inline-flex items-center rounded-full text-fog hover:text-ink hover:bg-mute transition-colors"
                   data-testid="nav-blog-link"
                 >
                   Guides
@@ -86,10 +86,10 @@ export default async function Nav() {
 
           <BrandMark size="md" />
 
-          <div className="flex items-center gap-x-5 h-full flex-1 basis-0 justify-end text-[13px] font-medium uppercase tracking-[0.08em]">
+          <div className="flex items-center gap-x-2 h-full flex-1 basis-0 justify-end text-[13px] font-semibold">
             <SearchOverlay />
             <LocalizedClientLink
-              className="hidden small:flex items-center min-h-[44px] text-ui-fg-subtle hover:text-pitch"
+              className="hidden small:inline-flex items-center h-10 px-3 rounded-full text-fog hover:text-ink hover:bg-mute transition-colors"
               href="/account"
               data-testid="nav-account-link"
             >
@@ -98,11 +98,11 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="text-ui-fg-subtle hover:text-pitch flex gap-2 min-h-[44px] items-center"
+                  className="inline-flex items-center h-10 px-3 rounded-full bg-ink text-white"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  Cart
                 </LocalizedClientLink>
               }
             >

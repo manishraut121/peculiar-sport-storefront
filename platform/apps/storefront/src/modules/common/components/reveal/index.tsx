@@ -48,9 +48,9 @@ export default function Reveal({
   const style = armed
     ? {
         opacity: shown ? 1 : 0,
-        transform: shown ? "none" : "translateY(12px)",
-        transition: `opacity 350ms ease-out ${delay}ms, transform 350ms ease-out ${delay}ms`,
-        willChange: "opacity, transform",
+        transform: shown ? "none" : "translateY(16px)",
+        transition: `opacity 480ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 480ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        willChange: shown ? "auto" : "opacity, transform",
       }
     : undefined
 

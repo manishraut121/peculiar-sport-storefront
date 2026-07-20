@@ -1,12 +1,12 @@
 import { getBaseURL } from "@lib/util/env"
 import { jsonLd } from "@lib/util/json-ld"
 import { Metadata } from "next"
-import { Barlow, Barlow_Condensed } from "next/font/google"
+import { Nunito_Sans, Rubik } from "next/font/google"
 import "styles/globals.css"
 
-/* Night Pitch brand type — athletic condensed display + clean body (BRAND.md) */
-const display = Barlow_Condensed({
-  weight: ["600", "700"],
+/* Studio Curve v3 — Rubik display + Nunito Sans body (retail / performance) */
+const display = Rubik({
+  weight: ["600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -14,8 +14,8 @@ const display = Barlow_Condensed({
   preload: true,
 })
 
-const body = Barlow({
-  weight: ["400", "500", "600"],
+const body = Nunito_Sans({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -27,17 +27,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
   title: {
     default:
-      "OneCurve Sports — Precision English Willow Cricket Bats | India",
-    template: "%s | OneCurve Sports",
+      "OneCurve — Performance Sports Equipment | Cricket, Training & More India",
+    template: "%s | OneCurve",
   },
   description:
-    "The perfect curve. Handcrafted English Willow cricket bats, pads and gloves. Made in India. Free shipping over ₹2,999.",
-  applicationName: "OneCurve Sports",
+    "Move with the curve. Performance sports gear for India — cricket live, training & nutrition next. Free shipping over ₹2,999.",
+  applicationName: "OneCurve",
   keywords: [
-    "English Willow cricket bat",
-    "cricket equipment India",
+    "sports equipment India",
+    "cricket bat online",
     "OneCurve",
-    "handcrafted cricket bat",
+    "performance gear",
+    "English Willow",
   ],
   openGraph: {
     siteName: "OneCurve Sports",

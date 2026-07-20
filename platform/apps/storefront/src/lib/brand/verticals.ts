@@ -1,34 +1,21 @@
-/**
- * Platform verticals — marketing IA for multi-sport OneCurve.
- * Live verticals link into Medusa categories/collections.
- * Future verticals show as "coming soon" until categories exist in Admin.
- */
-
 export type VerticalStatus = "live" | "soon"
 
 export type Vertical = {
   id: string
   name: string
-  /** Short line for cards */
   blurb: string
-  /** SEO / accessibility */
   description: string
   status: VerticalStatus
-  /** Primary shop path when live */
   href?: string
-  /** Optional secondary deep links */
   links?: { label: string; href: string }[]
-  /** Display index for grid */
-  accent?: string
 }
 
 export const VERTICALS: Vertical[] = [
   {
     id: "cricket",
     name: "Cricket",
-    blurb: "English Willow bats, pads, gloves & keeping.",
-    description:
-      "Handcrafted cricket equipment — Grade 1+ willow to academy pads.",
+    blurb: "Bats, pads, gloves & keeping — live now.",
+    description: "Performance cricket equipment for India.",
     status: "live",
     href: "/store",
     links: [
@@ -39,30 +26,30 @@ export const VERTICALS: Vertical[] = [
   },
   {
     id: "training",
-    name: "Training & gym",
-    blurb: "Strength, conditioning and training gear.",
-    description: "Gym and training equipment — launching next.",
+    name: "Training",
+    blurb: "Strength & conditioning gear — soon.",
+    description: "Gym and training equipment.",
     status: "soon",
   },
   {
     id: "nutrition",
     name: "Nutrition",
-    blurb: "Performance fuel — protein, hydration, recovery.",
-    description: "Athletic nutrition — coming soon with full compliance.",
+    blurb: "Fuel & recovery nutrition — soon.",
+    description: "Performance nutrition.",
     status: "soon",
   },
   {
     id: "recovery",
     name: "Recovery",
-    blurb: "Mobility, care and between-session essentials.",
-    description: "Recovery and care products — on the roadmap.",
+    blurb: "Mobility & care — soon.",
+    description: "Recovery essentials.",
     status: "soon",
   },
 ]
 
 export const BRAND = {
-  name: "OneCurve Sports",
-  tagline: "The perfect curve.",
+  name: "OneCurve",
+  tagline: "Move with the curve.",
   platformLine: "Performance gear for every discipline.",
-  supportLine: "Engineered for performance.",
+  supportLine: "Spec-honest. India-first. One inventory.",
 } as const

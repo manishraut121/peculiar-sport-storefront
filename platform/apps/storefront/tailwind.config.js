@@ -20,40 +20,48 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
-        // Night Pitch brand (BRAND.md)
+        // Studio Curve v3
+        signal: {
+          DEFAULT: "#FF6B1A",
+          deep: "#E85A0C",
+        },
+        paper: { DEFAULT: "#FAFAF8" },
+        mute: { DEFAULT: "#F0EFEC" },
+        fog: { DEFAULT: "#6B6B66" },
+        line: { DEFAULT: "#E6E4DF" },
+        // Compat aliases
         boundary: {
-          DEFAULT: "#D4A017",
-          hover: "#E8B84A",
+          DEFAULT: "#FF6B1A",
+          hover: "#E85A0C",
         },
         pitch: {
-          DEFAULT: "#0B1210",
-          elevated: "#121A17",
-          outfield: "#1C3329",
+          DEFAULT: "#0A0A0A",
+          elevated: "#141414",
+          outfield: "#1F1F1F",
         },
         willow: {
-          DEFAULT: "#F4F0E6",
+          DEFAULT: "#FAFAF8",
           card: "#FFFFFF",
-          crease: "#EDE8DC",
+          crease: "#F0EFEC",
         },
-        // Back-compat aliases (map old gold/ink/cream → new system)
         gold: {
-          DEFAULT: "#D4A017",
-          hover: "#E8B84A",
+          DEFAULT: "#FF6B1A",
+          hover: "#E85A0C",
         },
         ink: {
-          DEFAULT: "#0B1210",
-          surface: "#121A17",
-          card: "#121A17",
+          DEFAULT: "#0A0A0A",
+          surface: "#141414",
+          card: "#141414",
         },
         cream: {
-          DEFAULT: "#F4F0E6",
-          muted: "rgba(244,240,230,0.55)",
+          DEFAULT: "#FAFAF8",
+          muted: "rgba(250,250,248,0.55)",
         },
         mist: {
-          DEFAULT: "#5E6B64",
+          DEFAULT: "#6B6B66",
         },
         crease: {
-          DEFAULT: "#EDE8DC",
+          DEFAULT: "#F0EFEC",
         },
         grey: {
           0: "#FFFFFF",

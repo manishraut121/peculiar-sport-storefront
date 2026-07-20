@@ -3,101 +3,92 @@
 @import "tailwindcss/utilities";
 
 /* ==========================================================================
-   OneCurve — Night Pitch design system
-   Brand: BRAND.md · Tokens below drive light shop + dark immersive blocks
+   OneCurve v3 — Studio Curve
+   Clean light retail + charcoal drama + signal orange · BRAND.md
    ========================================================================== */
 
 :root,
 :root[data-mode="light"] {
-  /* Brand primitives */
-  --oc-pitch: #0b1210;
-  --oc-pitch-elevated: #121a17;
-  --oc-outfield: #1c3329;
-  --oc-boundary: #d4a017;
-  --oc-boundary-hover: #e8b84a;
-  --oc-willow: #f4f0e6;
-  --oc-willow-card: #ffffff;
-  --oc-crease: #ede8dc;
-  --oc-ink: #0c0f0d;
-  /* Mist darkened for WCAG ~4.5:1 body-secondary on willow (Pro Max a11y) */
-  --oc-mist: #4a564f;
-  --oc-line: #d9d3c6;
+  --oc-ink: #0a0a0a;
+  --oc-paper: #fafaf8;
+  --oc-surface: #ffffff;
+  --oc-mute: #f0efec;
+  --oc-fog: #6b6b66;
+  --oc-line: #e6e4df;
+  --oc-signal: #ff6b1a;
+  --oc-signal-deep: #e85a0c;
+  --oc-signal-soft: rgba(255, 107, 26, 0.12);
 
-  /* Map to Medusa ui-* surface tokens (light shop default) */
-  --bg-base: var(--oc-willow);
-  --bg-base-hover: #efe9dc;
-  --bg-subtle: var(--oc-crease);
-  --bg-subtle-hover: #e5dfd0;
-  --bg-component: var(--oc-willow-card);
-  --bg-component-hover: #faf8f3;
-  --bg-field: var(--oc-willow-card);
-  --bg-field-hover: #faf8f3;
-  --bg-highlight: rgba(212, 160, 23, 0.12);
-  --bg-highlight-hover: rgba(212, 160, 23, 0.2);
-  --bg-interactive: var(--oc-boundary);
+  /* Legacy aliases (pitch/boundary/willow) → Studio Curve */
+  --oc-pitch: var(--oc-ink);
+  --oc-pitch-elevated: #141414;
+  --oc-outfield: #1f1f1f;
+  --oc-boundary: var(--oc-signal);
+  --oc-boundary-hover: var(--oc-signal-deep);
+  --oc-willow: var(--oc-paper);
+  --oc-willow-card: var(--oc-surface);
+  --oc-crease: var(--oc-mute);
+  --oc-mist: var(--oc-fog);
+
+  --bg-base: var(--oc-paper);
+  --bg-base-hover: #f3f2ef;
+  --bg-subtle: var(--oc-mute);
+  --bg-subtle-hover: #e8e7e3;
+  --bg-component: var(--oc-surface);
+  --bg-component-hover: #f7f6f3;
+  --bg-field: var(--oc-surface);
+  --bg-field-hover: #f7f6f3;
+  --bg-highlight: var(--oc-signal-soft);
+  --bg-highlight-hover: rgba(255, 107, 26, 0.18);
+  --bg-interactive: var(--oc-signal);
   --fg-base: var(--oc-ink);
-  --fg-subtle: #2f3833;
-  --fg-muted: var(--oc-mist);
-  --fg-disabled: #a8b0ab;
-  --fg-interactive: #9a7610;
-  --fg-interactive-hover: var(--oc-boundary);
-  --fg-on-color: var(--oc-pitch);
+  --fg-subtle: #3d3d3a;
+  --fg-muted: var(--oc-fog);
+  --fg-disabled: #a8a8a3;
+  --fg-interactive: var(--oc-signal-deep);
+  --fg-interactive-hover: var(--oc-signal);
+  --fg-on-color: #ffffff;
   --border-base: var(--oc-line);
-  --border-strong: #c9c2b3;
-  --border-interactive: var(--oc-boundary);
+  --border-strong: #d4d2cc;
+  --border-interactive: var(--oc-signal);
 }
 
-/* Immersive dark (hero, home sections, footer) */
+/* Dark band */
 .oc-dark {
-  --bg-base: var(--oc-pitch);
-  --bg-base-hover: #101815;
-  --bg-subtle: var(--oc-pitch-elevated);
-  --bg-subtle-hover: #18241f;
-  --bg-component: var(--oc-pitch-elevated);
-  --bg-component-hover: #1a2621;
-  --bg-field: #0e1613;
-  --bg-field-hover: #15201b;
-  --bg-highlight: rgba(212, 160, 23, 0.14);
-  --bg-highlight-hover: rgba(212, 160, 23, 0.22);
-  --bg-interactive: var(--oc-boundary);
-  --fg-base: var(--oc-willow);
-  --fg-subtle: rgba(244, 240, 230, 0.78);
-  --fg-muted: rgba(244, 240, 230, 0.55);
-  --fg-disabled: rgba(244, 240, 230, 0.32);
-  --fg-interactive: var(--oc-boundary);
-  --fg-interactive-hover: var(--oc-boundary-hover);
-  --fg-on-color: var(--oc-pitch);
-  --border-base: rgba(244, 240, 230, 0.12);
-  --border-strong: rgba(244, 240, 230, 0.22);
-  --border-interactive: var(--oc-boundary);
-  background-color: var(--oc-pitch);
-  color: var(--oc-willow);
+  --bg-base: var(--oc-ink);
+  --bg-base-hover: #121212;
+  --bg-subtle: #141414;
+  --bg-subtle-hover: #1a1a1a;
+  --bg-component: #141414;
+  --bg-component-hover: #1c1c1c;
+  --bg-field: #121212;
+  --bg-field-hover: #1a1a1a;
+  --bg-highlight: var(--oc-signal-soft);
+  --bg-highlight-hover: rgba(255, 107, 26, 0.2);
+  --bg-interactive: var(--oc-signal);
+  --fg-base: #fafaf8;
+  --fg-subtle: rgba(250, 250, 248, 0.78);
+  --fg-muted: rgba(250, 250, 248, 0.55);
+  --fg-disabled: rgba(250, 250, 248, 0.32);
+  --fg-interactive: var(--oc-signal);
+  --fg-interactive-hover: #ff8a4c;
+  --fg-on-color: #0a0a0a;
+  --border-base: rgba(250, 250, 248, 0.1);
+  --border-strong: rgba(250, 250, 248, 0.18);
+  --border-interactive: var(--oc-signal);
+  background-color: var(--oc-ink);
+  color: #fafaf8;
 }
 
-/* Light band inside a dark page (featured products etc.) */
 .oc-light {
-  --bg-base: var(--oc-willow);
-  --bg-base-hover: #efe9dc;
-  --bg-subtle: var(--oc-crease);
-  --bg-subtle-hover: #e5dfd0;
-  --bg-component: var(--oc-willow-card);
-  --bg-component-hover: #faf8f3;
-  --bg-field: var(--oc-willow-card);
-  --bg-field-hover: #faf8f3;
-  --bg-highlight: rgba(212, 160, 23, 0.12);
-  --bg-highlight-hover: rgba(212, 160, 23, 0.2);
-  --bg-interactive: var(--oc-boundary);
+  --bg-base: var(--oc-paper);
+  --bg-subtle: var(--oc-mute);
+  --bg-component: var(--oc-surface);
   --fg-base: var(--oc-ink);
-  --fg-subtle: #3d4540;
-  --fg-muted: var(--oc-mist);
-  --fg-disabled: #a8b0ab;
-  --fg-interactive: #9a7610;
-  --fg-interactive-hover: var(--oc-boundary);
-  --fg-on-color: var(--oc-pitch);
+  --fg-subtle: #3d3d3a;
+  --fg-muted: var(--oc-fog);
   --border-base: var(--oc-line);
-  --border-strong: #c9c2b3;
-  --border-interactive: var(--oc-boundary);
-  background-color: var(--oc-willow);
+  background-color: var(--oc-paper);
   color: var(--oc-ink);
 }
 
@@ -105,22 +96,28 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
-  background-color: var(--oc-willow);
+  background-color: var(--oc-paper);
   color: var(--oc-ink);
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: rgba(212, 160, 23, 0.35);
-  color: var(--oc-pitch);
+  background: rgba(255, 107, 26, 0.25);
+  color: var(--oc-ink);
 }
 
 .font-display {
-  letter-spacing: 0.01em;
-  text-transform: none;
+  letter-spacing: -0.02em;
 }
 
-/* Brand mark: curve under wordmark */
+/* Wordmark accent underline */
 .oc-mark {
   display: inline-block;
   position: relative;
@@ -128,122 +125,88 @@ body {
 .oc-mark::after {
   content: "";
   position: absolute;
-  left: 0.05em;
-  right: 0.05em;
-  bottom: 0.08em;
-  height: 0.12em;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--oc-boundary) 12%,
-    var(--oc-boundary-hover) 50%,
-    var(--oc-boundary) 88%,
-    transparent 100%
-  );
-  opacity: 0.95;
-  transform: scaleY(0.7) translateY(0.15em);
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--oc-signal);
+  transform: scaleX(0.35) translateX(-15%);
+  transform-origin: left center;
+  opacity: 0.9;
 }
 
-/* Buttons — Pro Max: ≥48px touch, cursor-pointer, 150–300ms feedback */
+/* Buttons */
 .oc-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  min-width: 48px;
-  padding: 0.75rem 1.75rem;
+  min-height: 52px;
+  min-width: 52px;
+  padding: 0.85rem 1.75rem;
   border-radius: 9999px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9375rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
-    box-shadow 200ms ease, transform 160ms ease;
+    box-shadow 200ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .oc-btn-primary {
-  background: var(--oc-boundary);
-  color: var(--oc-pitch);
+  background: var(--oc-signal);
+  color: #fff;
 }
 .oc-btn-primary:hover {
-  background: var(--oc-boundary-hover);
-  box-shadow: 0 0 32px rgba(212, 160, 23, 0.35);
+  background: var(--oc-signal-deep);
+  box-shadow: 0 8px 28px rgba(255, 107, 26, 0.35);
 }
 .oc-btn-ghost {
-  border: 1px solid rgba(244, 240, 230, 0.22);
-  color: var(--oc-willow);
-  background: rgba(244, 240, 230, 0.04);
+  border: 1.5px solid rgba(250, 250, 248, 0.28);
+  color: #fafaf8;
+  background: transparent;
 }
 .oc-btn-ghost:hover {
-  border-color: var(--oc-boundary);
-  color: var(--oc-boundary);
+  border-color: var(--oc-signal);
+  color: var(--oc-signal);
+}
+.oc-btn-dark {
+  background: var(--oc-ink);
+  color: #fff;
+}
+.oc-btn-dark:hover {
+  background: #222;
 }
 .oc-btn-primary:active,
-.oc-btn-ghost:active {
-  transform: scale(0.985);
+.oc-btn-ghost:active,
+.oc-btn-dark:active {
+  transform: scale(0.98);
 }
 
-/* Glass — light blur on mobile (perf); fuller on desktop */
 .oc-glass {
-  background: rgba(244, 240, 230, 0.06);
-  border: 1px solid rgba(244, 240, 230, 0.14);
+  background: rgba(250, 250, 248, 0.08);
+  border: 1px solid rgba(250, 250, 248, 0.14);
 }
 @media (min-width: 1024px) {
   .oc-glass {
-    backdrop-filter: blur(10px) saturate(1.1);
-    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 
-/* Hero atmosphere — single layer, no dual filter (LCP-friendly) */
+/* Soft mesh for hero — no dual filters */
 .oc-aurora {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
   background:
-    radial-gradient(50% 40% at 25% 30%, rgba(212, 160, 23, 0.16), transparent 70%),
-    radial-gradient(45% 35% at 78% 22%, rgba(28, 51, 41, 0.5), transparent 68%),
-    radial-gradient(55% 40% at 55% 85%, rgba(212, 160, 23, 0.07), transparent 70%);
+    radial-gradient(60% 50% at 15% 20%, rgba(255, 107, 26, 0.22), transparent 60%),
+    radial-gradient(50% 45% at 85% 15%, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(70% 50% at 60% 90%, rgba(255, 107, 26, 0.08), transparent 60%);
   will-change: transform;
-}
-.oc-aurora::before,
-.oc-aurora::after {
-  display: none;
-}
-
-/* Commerce card surface (light shop) */
-.oc-card {
-  background: var(--oc-willow-card);
-  border: 1px solid var(--oc-line);
-  border-radius: 1rem;
-  box-shadow: 0 1px 0 rgba(12, 15, 13, 0.04);
-  transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
-}
-.oc-card:hover {
-  border-color: rgba(212, 160, 23, 0.45);
-  box-shadow: 0 12px 40px rgba(11, 18, 16, 0.08);
-}
-
-/* Below-fold sections: browser may skip layout/paint until near viewport */
-.oc-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 480px;
 }
 
 .oc-shimmer {
-  background: linear-gradient(
-    100deg,
-    #d4a017 0%,
-    #d4a017 40%,
-    #f0d78a 50%,
-    #d4a017 60%,
-    #d4a017 100%
-  );
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--oc-signal);
 }
 
 .oc-marquee {
@@ -251,115 +214,117 @@ body {
   width: max-content;
 }
 
-/* Hero enter — CSS only, SEO text always in DOM */
+.oc-card {
+  background: var(--oc-surface);
+  border: 1px solid var(--oc-line);
+  border-radius: 1.25rem;
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.oc-card:hover {
+  border-color: rgba(255, 107, 26, 0.4);
+  box-shadow: 0 16px 48px rgba(10, 10, 10, 0.08);
+}
+
+.oc-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+}
+
+/* Hero stagger */
 .oc-hero-enter > * {
   opacity: 1;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .oc-hero-enter > * {
-    animation: oc-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: oc-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .oc-hero-enter > *:nth-child(1) {
-    animation-delay: 40ms;
+    animation-delay: 0.05s;
   }
   .oc-hero-enter > *:nth-child(2) {
-    animation-delay: 120ms;
+    animation-delay: 0.12s;
   }
   .oc-hero-enter > *:nth-child(3) {
-    animation-delay: 200ms;
+    animation-delay: 0.2s;
   }
   .oc-hero-enter > *:nth-child(4) {
-    animation-delay: 280ms;
+    animation-delay: 0.28s;
   }
   .oc-hero-enter > *:nth-child(5) {
-    animation-delay: 360ms;
+    animation-delay: 0.36s;
   }
+
   @keyframes oc-rise {
     from {
       opacity: 0;
-      transform: translate3d(0, 18px, 0);
+      transform: translate3d(0, 22px, 0);
     }
     to {
       opacity: 1;
-      transform: translate3d(0, 0, 0);
+      transform: none;
     }
   }
 
-  /* Subtle aurora drift — transform only, one layer */
   .oc-aurora {
-    animation: oc-drift 22s ease-in-out infinite alternate;
+    animation: oc-mesh 20s ease-in-out infinite alternate;
   }
-  @keyframes oc-drift {
-    0% {
-      transform: translate3d(-2%, -1%, 0) scale(1);
+  @keyframes oc-mesh {
+    from {
+      transform: translate3d(-1.5%, 0, 0) scale(1);
     }
-    100% {
-      transform: translate3d(2%, 1.5%, 0) scale(1.04);
-    }
-  }
-  .oc-shimmer {
-    animation: oc-shimmer-sweep 7s ease-in-out infinite;
-  }
-  @keyframes oc-shimmer-sweep {
-    0%,
-    50% {
-      background-position: 120% 0;
-    }
-    100% {
-      background-position: -60% 0;
+    to {
+      transform: translate3d(1.5%, -1%, 0) scale(1.05);
     }
   }
+
   .oc-marquee {
-    animation: oc-marquee-scroll 32s linear infinite;
+    animation: oc-marquee-scroll 28s linear infinite;
   }
   .oc-marquee:hover {
     animation-play-state: paused;
   }
   @keyframes oc-marquee-scroll {
-    from {
-      transform: translateX(0);
-    }
     to {
       transform: translateX(-50%);
     }
   }
+
   .oc-lift {
-    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 220ms ease, border-color 220ms ease;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 240ms ease;
   }
   .oc-lift:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
   }
   .oc-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+  }
+
+  /* Grid children stagger helper (JS Reveal still used for SEO-safe reveal) */
+  .oc-stagger > * {
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .oc-aurora {
-    animation: none !important;
-  }
-  .oc-shimmer {
-    animation: none !important;
-    background: var(--oc-boundary);
-    -webkit-background-clip: unset;
-    background-clip: unset;
-    color: var(--oc-boundary);
-  }
-  .oc-marquee {
-    animation: none !important;
-  }
+  .oc-aurora,
+  .oc-marquee,
   .oc-hero-enter > * {
     animation: none !important;
+  }
+  .oc-lift:hover,
+  .oc-card:hover {
+    transform: none;
   }
 }
 
 :focus-visible {
-  outline: 2px solid var(--oc-boundary);
-  outline-offset: 2px;
+  outline: 2px solid var(--oc-signal);
+  outline-offset: 3px;
 }
 
-/* Interactive affordance (Pro Max checklist: cursor-pointer on clickables) */
 a,
 button,
 summary,
@@ -372,74 +337,99 @@ summary,
   min-width: 44px;
 }
 
-/* Prefer contain overscroll on shop lists (accidental pull-to-refresh) */
 .oc-scroll-contain {
   overscroll-behavior: contain;
 }
 
-/* Pitch stripe texture for dark sections */
 .oc-pitch-lines {
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 47px,
-    rgba(244, 240, 230, 0.03) 47px,
-    rgba(244, 240, 230, 0.03) 48px
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px
   );
+  background-size: 24px 24px;
 }
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  .no-scrollbar::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  /* Compat aliases used across components during migration */
-  .text-gold {
-    color: var(--oc-boundary);
+  .text-gold,
+  .text-boundary,
+  .text-signal {
+    color: var(--oc-signal);
   }
-  .text-gold-hover {
-    color: var(--oc-boundary-hover);
+  .text-gold-hover,
+  .text-boundary-hover {
+    color: var(--oc-signal-deep);
   }
-  .bg-gold {
-    background-color: var(--oc-boundary);
+  .bg-gold,
+  .bg-boundary,
+  .bg-signal {
+    background-color: var(--oc-signal);
   }
-  .bg-gold-hover {
-    background-color: var(--oc-boundary-hover);
+  .bg-gold-hover,
+  .bg-boundary-hover {
+    background-color: var(--oc-signal-deep);
   }
-  .border-gold {
-    border-color: var(--oc-boundary);
+  .border-gold,
+  .border-boundary {
+    border-color: var(--oc-signal);
   }
-  .text-ink {
-    color: var(--oc-pitch);
+  .text-ink,
+  .text-pitch {
+    color: var(--oc-ink);
   }
-  .bg-ink {
-    background-color: var(--oc-pitch);
+  .bg-ink,
+  .bg-pitch {
+    background-color: var(--oc-ink);
   }
-  .text-cream {
-    color: var(--oc-willow);
+  .bg-pitch-elevated {
+    background-color: #141414;
+  }
+  .text-cream,
+  .text-willow {
+    color: #fafaf8;
   }
   .text-cream-muted {
-    color: rgba(244, 240, 230, 0.55);
+    color: rgba(250, 250, 248, 0.55);
   }
-  .hover\:text-gold:hover {
-    color: var(--oc-boundary);
+  .text-mist,
+  .text-fog {
+    color: var(--oc-fog);
+  }
+  .bg-crease,
+  .bg-mute {
+    background-color: var(--oc-mute);
+  }
+  .bg-willow,
+  .bg-paper {
+    background-color: var(--oc-paper);
+  }
+  .bg-willow-card {
+    background-color: var(--oc-surface);
+  }
+  .hover\:text-gold:hover,
+  .hover\:text-boundary:hover,
+  .hover\:text-signal:hover {
+    color: var(--oc-signal);
   }
   .hover\:text-gold-hover:hover {
-    color: var(--oc-boundary-hover);
+    color: var(--oc-signal-deep);
   }
-  .hover\:bg-gold-hover:hover {
-    background-color: var(--oc-boundary-hover);
+  .hover\:bg-gold-hover:hover,
+  .hover\:bg-boundary-hover:hover {
+    background-color: var(--oc-signal-deep);
   }
-  .hover\:border-gold:hover {
-    border-color: var(--oc-boundary);
+  .hover\:border-gold:hover,
+  .hover\:border-boundary:hover {
+    border-color: var(--oc-signal);
   }
-  .group:hover .group-hover\:text-gold {
-    color: var(--oc-boundary);
+  .group:hover .group-hover\:text-gold,
+  .group:hover .group-hover\:text-boundary {
+    color: var(--oc-signal);
   }
 }

@@ -3,58 +3,55 @@ import Reveal from "@modules/common/components/reveal"
 const STEPS = [
   {
     n: "01",
-    title: "Pick",
-    desc: "Every cleft of English Willow is hand-graded — grains counted, blemishes culled. Only honest wood goes forward.",
+    title: "Spec",
+    desc: "Clear grades and honest materials — no vague “pro quality” claims.",
   },
   {
     n: "02",
-    title: "Press",
-    desc: "Pressed for rebound: firm enough to last seasons, lively enough to ping from day one.",
+    title: "Select",
+    desc: "Curated lines starting with cricket; gym and fuel on the same rails.",
   },
   {
     n: "03",
-    title: "Balance",
-    desc: "Profile, spine and edges shaped until the pickup feels lighter than the scale.",
+    title: "Ship",
+    desc: "Pan-India fulfilment in 3–5 days. Free shipping from ₹2,999.",
   },
   {
     n: "04",
-    title: "Play",
-    desc: "Checked and shipped play-ready — anywhere in India in 3–5 business days.",
+    title: "Support",
+    desc: "7-day returns on unused gear. Real humans at support@onecurve.in.",
   },
 ]
 
 export default function CraftProcess() {
   return (
     <section
-      className="border-t border-ui-border-base"
+      className="border-t border-white/10"
       aria-labelledby="craft-h"
     >
       <div className="content-container py-16 small:py-24">
-        <header className="mb-12">
-          <p className="text-boundary text-[11px] uppercase tracking-[0.28em] font-medium m-0">
-            Workshop
+        <header className="mb-12 max-w-xl">
+          <p className="text-signal text-xs font-bold uppercase tracking-[0.2em] m-0">
+            How we work
           </p>
           <h2
             id="craft-h"
-            className="font-display font-bold text-4xl small:text-5xl text-ui-fg-base mt-2 m-0 tracking-tight uppercase"
+            className="font-display font-extrabold text-3xl small:text-5xl text-white mt-2 m-0 tracking-tight"
           >
-            How a OneCurve bat is made
+            From pick to crease.
           </h2>
         </header>
         <ol className="grid grid-cols-1 small:grid-cols-4 gap-4 list-none m-0 p-0">
           {STEPS.map((s, i) => (
-            <Reveal as="li" key={s.n} delay={i * 70}>
-              <div className="oc-lift relative h-full rounded-xl border border-ui-border-base bg-pitch-elevated p-6 small:p-7 overflow-hidden">
-                <span
-                  aria-hidden
-                  className="absolute -top-2 -right-1 font-display font-bold text-[5rem] leading-none text-boundary/10 select-none"
-                >
+            <Reveal as="li" key={s.n} delay={i * 80}>
+              <div className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-6 small:p-7">
+                <span className="font-display font-extrabold text-signal text-sm tracking-widest">
                   {s.n}
                 </span>
-                <h3 className="font-display font-bold text-2xl text-boundary uppercase tracking-tight m-0">
+                <h3 className="font-display font-bold text-xl text-white mt-3 m-0">
                   {s.title}
                 </h3>
-                <p className="relative text-ui-fg-muted text-sm leading-relaxed mt-3 m-0">
+                <p className="text-white/50 text-sm leading-relaxed mt-2 m-0 font-medium">
                   {s.desc}
                 </p>
               </div>

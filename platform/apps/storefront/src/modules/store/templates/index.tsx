@@ -20,20 +20,20 @@ const StoreTemplate = ({
 
   return (
     <>
-      <div className="border-b border-ui-border-base bg-gradient-to-b from-crease to-willow">
-        <div className="content-container py-10 small:py-14">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-boundary font-medium m-0">
-            OneCurve · Catalogue
+      <div className="border-b border-line bg-mute">
+        <div className="content-container py-12 small:py-16">
+          <p className="text-xs uppercase tracking-[0.2em] text-signal font-bold m-0">
+            Catalogue
           </p>
           <h1
-            className="font-display font-bold text-4xl small:text-6xl text-pitch mt-2 m-0 tracking-tight uppercase"
+            className="font-display font-extrabold text-4xl small:text-6xl text-ink mt-2 m-0 tracking-tight"
             data-testid="store-page-title"
           >
             All products
           </h1>
-          <p className="text-mist text-sm small:text-base mt-3 max-w-xl m-0 leading-relaxed">
-            Everything in stock — cricket live now; training and nutrition join
-            the same catalogue as we launch. Free shipping over ₹2,999.
+          <p className="text-fog text-base mt-3 max-w-xl m-0 leading-relaxed font-medium">
+            Cricket live now; training and nutrition next. Free shipping over
+            ₹2,999 pan-India.
           </p>
         </div>
       </div>

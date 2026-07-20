@@ -1,75 +1,67 @@
 import { BRAND } from "@lib/brand/verticals"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
-/**
- * Cinematic hero — all copy SSR (SEO sticky).
- * Motion is CSS-only (oc-hero-enter / oc-aurora); disabled under reduced-motion.
- */
+/** Full-bleed Studio Curve hero — SSR copy for SEO */
 const Hero = () => {
   return (
     <section
-      className="relative w-full min-h-[min(92vh,900px)] flex items-center overflow-hidden bg-pitch oc-pitch-lines"
+      className="relative w-full min-h-[min(88vh,860px)] flex items-end overflow-hidden bg-ink oc-pitch-lines"
       aria-labelledby="hero-heading"
     >
       <div className="oc-aurora" aria-hidden />
-      {/* Soft vignette for text contrast without extra paint layers */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none bg-gradient-to-r from-pitch via-pitch/80 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-transparent pointer-events-none"
       />
 
-      <div className="relative z-10 content-container w-full py-28 small:py-36">
-        <div className="oc-hero-enter max-w-3xl flex flex-col items-start text-left gap-6 small:gap-7">
-          <p className="oc-glass rounded-full px-4 py-2 text-boundary tracking-[0.2em] text-[11px] uppercase font-medium min-h-[40px] inline-flex items-center">
-            {BRAND.name} · Performance equipment · India
+      <div className="relative z-10 content-container w-full pb-16 pt-36 small:pb-24 small:pt-44">
+        <div className="oc-hero-enter max-w-3xl flex flex-col items-start gap-6 small:gap-8">
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-signal">
+            <span className="w-1.5 h-1.5 rounded-full bg-signal animate-pulse" aria-hidden />
+            India · Multi-discipline · Free ship ₹2,999+
           </p>
 
           <h1
             id="hero-heading"
-            className="font-display font-bold text-willow leading-[0.92] text-5xl small:text-7xl medium:text-[5.25rem] m-0 uppercase tracking-tight"
+            className="font-display font-extrabold text-white text-5xl small:text-7xl medium:text-8xl leading-[0.95] tracking-tight m-0"
           >
             {BRAND.tagline.replace(/\.$/, "")}
-            <span className="text-boundary">.</span>
-            <br />
-            <span className="oc-shimmer text-[0.82em] normal-case tracking-normal font-semibold">
-              Gear for every discipline
-            </span>
+            <span className="text-signal">.</span>
           </h1>
 
-          <p className="text-willow/75 text-base small:text-lg max-w-xl leading-relaxed m-0 font-normal normal-case tracking-normal">
-            Cricket is live — English Willow bats, pads and gloves. Training,
-            gym and nutrition join the same inventory next. One cart, free
-            shipping over ₹2,999, pan-India delivery.
+          <p className="text-white/70 text-lg small:text-xl max-w-xl leading-relaxed m-0 font-medium">
+            {BRAND.platformLine} Cricket is live — bats, pads, gloves. Training
+            and nutrition next. One cart. One trusted stock.
           </p>
 
-          <div className="flex flex-col xsmall:flex-row gap-3 w-full xsmall:w-auto pt-1">
+          <div className="flex flex-col xsmall:flex-row gap-3 w-full xsmall:w-auto">
             <LocalizedClientLink
               href="/store"
               data-testid="hero-shop-link"
               className="oc-btn oc-btn-primary"
             >
-              Shop cricket gear
+              Shop the store
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/categories/bats"
               data-testid="hero-bats-link"
               className="oc-btn oc-btn-ghost"
             >
-              Browse bats
+              Explore cricket bats
             </LocalizedClientLink>
           </div>
 
-          <dl className="grid grid-cols-3 gap-4 small:gap-10 pt-8 border-t border-willow/10 w-full max-w-xl">
+          <dl className="flex flex-wrap gap-8 small:gap-12 pt-4 m-0">
             {[
-              { k: "Live now", v: "Cricket" },
-              { k: "Next", v: "Gym · Fuel" },
-              { k: "Ship", v: "3–5 days" },
+              { k: "Live", v: "Cricket" },
+              { k: "Delivery", v: "3–5 days" },
+              { k: "Checkout", v: "UPI · Cards" },
             ].map((s) => (
-              <div key={s.k} className="flex flex-col gap-1">
-                <dt className="text-[10px] uppercase tracking-[0.2em] text-willow/45 m-0">
+              <div key={s.k} className="flex flex-col gap-0.5">
+                <dt className="text-[11px] uppercase tracking-[0.18em] text-white/40 m-0 font-semibold">
                   {s.k}
                 </dt>
-                <dd className="font-display font-semibold text-xl small:text-2xl text-willow m-0 tracking-tight">
+                <dd className="font-display font-bold text-xl text-white m-0">
                   {s.v}
                 </dd>
               </div>

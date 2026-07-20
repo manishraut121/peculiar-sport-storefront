@@ -8,10 +8,7 @@ type Props = {
   light?: boolean
 }
 
-/**
- * OneCurve wordmark + curve stroke (brand logo system).
- * Always a real link for SEO crawl paths when href is set.
- */
+/** OneCurve wordmark — Studio Curve identity */
 export default function BrandMark({
   href = "/",
   size = "md",
@@ -19,22 +16,18 @@ export default function BrandMark({
   light = false,
 }: Props) {
   const sizeClass =
-    size === "lg"
-      ? "text-4xl small:text-5xl"
-      : size === "sm"
-        ? "text-2xl"
-        : "text-3xl"
+    size === "lg" ? "text-3xl small:text-4xl" : size === "sm" ? "text-xl" : "text-2xl"
 
   const inner = (
     <span
       className={clx(
-        "font-display font-bold uppercase tracking-[0.04em] oc-mark",
+        "font-display font-extrabold tracking-tight oc-mark",
         sizeClass,
-        light ? "text-willow" : "text-ui-fg-base",
+        light ? "text-white" : "text-ink",
         className
       )}
     >
-      One<span className="text-boundary">Curve</span>
+      One<span className="text-signal">Curve</span>
     </span>
   )
 
@@ -43,9 +36,9 @@ export default function BrandMark({
   return (
     <LocalizedClientLink
       href={href}
-      className="inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-boundary"
+      className="inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
       data-testid="nav-store-link"
-      aria-label="OneCurve Sports — home"
+      aria-label="OneCurve — home"
     >
       {inner}
     </LocalizedClientLink>

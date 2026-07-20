@@ -32,58 +32,53 @@ export default async function ProductPreview({
         }).format(mrp)
       : null
 
-  const alt = `${product.title}${
-    category ? ` ${category}` : ""
-  } — OneCurve cricket equipment`
+  const alt = `${product.title}${category ? ` ${category}` : ""} — OneCurve`
 
   return (
     <article className="h-full">
       <LocalizedClientLink
         href={`/products/${product.handle}`}
-        className="group flex flex-col h-full oc-card p-2 small:p-2.5 oc-lift focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-boundary"
+        className="group flex flex-col h-full rounded-3xl bg-white border border-line p-2 small:p-2.5 oc-lift hover:border-signal/40 hover:shadow-xl transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
         data-testid={`product-card-${product.handle}`}
       >
         <div data-testid="product-wrapper" className="relative">
           {discount > 0 && (
-            <span className="absolute top-3 left-3 z-10 rounded-full bg-pitch text-boundary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide border border-boundary/40">
+            <span className="absolute top-3 left-3 z-10 rounded-full bg-signal text-white px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide">
               −{discount}%
             </span>
           )}
-          <div className="overflow-hidden rounded-xl bg-crease">
+          <div className="overflow-hidden rounded-2xl bg-mute">
             <Thumbnail
               thumbnail={product.thumbnail}
               images={product.images}
               size="full"
               isFeatured={isFeatured}
               alt={alt}
-              className="!border-0 !rounded-xl"
+              className="!border-0 !rounded-2xl"
             />
           </div>
-          <div className="mt-3 flex flex-col gap-1 px-1 pb-1">
+          <div className="mt-3.5 flex flex-col gap-1 px-1.5 pb-1.5">
             {category && (
-              <p className="text-[10px] uppercase tracking-[0.16em] text-mist m-0">
+              <p className="text-[10px] uppercase tracking-[0.16em] text-fog font-bold m-0">
                 {category}
               </p>
             )}
             <h3
-              className="text-sm font-medium text-pitch group-hover:text-boundary transition-colors duration-200 leading-snug m-0"
+              className="text-sm font-bold text-ink group-hover:text-signal transition-colors duration-200 leading-snug m-0"
               data-testid="product-title"
             >
               {product.title}
             </h3>
             {cheapestPrice && (
-              <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
-                <span className="font-display font-semibold text-lg text-pitch tracking-tight">
+              <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5 mt-1">
+                <span className="font-display font-extrabold text-lg text-ink tracking-tight">
                   <PreviewPrice price={cheapestPrice} />
                 </span>
                 {mrpFmt && discount > 0 && (
-                  <span className="text-xs text-mist line-through">{mrpFmt}</span>
+                  <span className="text-xs text-fog line-through">{mrpFmt}</span>
                 )}
               </div>
             )}
-            <span className="mt-1 text-[11px] uppercase tracking-wide text-boundary opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden small:inline">
-              View →
-            </span>
           </div>
         </div>
       </LocalizedClientLink>
