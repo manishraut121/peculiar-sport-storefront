@@ -139,9 +139,12 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         className="content-container oc-section my-12 small:my-20"
         data-testid="related-products-container"
       >
-        <h2 className="font-display font-bold text-3xl small:text-4xl uppercase tracking-tight text-pitch mb-8 m-0">
-          You may also like
+        <h2 className="font-display font-extrabold text-2xl small:text-4xl tracking-tight text-ink mb-3 m-0">
+          Related cricket equipment
         </h2>
+        <p className="text-fog text-sm small:text-base mb-8 m-0 font-medium max-w-xl">
+          More gear from OneCurve — free shipping over ₹2,999 pan-India.
+        </p>
         <Suspense fallback={<SkeletonRelatedProducts />}>
           <RelatedProducts product={product} countryCode={countryCode} />
         </Suspense>

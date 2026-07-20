@@ -50,9 +50,10 @@ export const DISCIPLINES: Record<DisciplineSlug, DisciplinePage> = {
     ],
     ctaShopHref: "/store",
     ctaShopLabel: "Shop cricket gear now",
-    seoTitle: "Training & Gym Advice | Equipment Coming Soon — OneCurve",
+    seoTitle:
+      "Cricket Training & Strength Advice India | Gear Coming Soon — OneCurve",
     seoDesc:
-      "Training advice for athletes in India. OneCurve gym and conditioning gear is coming soon — shop cricket equipment today.",
+      "Training advice for cricket and multi-sport athletes in India: strength, power and recovery fundamentals. OneCurve gym gear coming soon — shop cricket equipment today with free shipping over ₹2,999.",
   },
   nutrition: {
     slug: "nutrition",
@@ -83,9 +84,10 @@ export const DISCIPLINES: Record<DisciplineSlug, DisciplinePage> = {
     ],
     ctaShopHref: "/store",
     ctaShopLabel: "Shop live products",
-    seoTitle: "Sports Nutrition Advice | Products Coming Soon — OneCurve",
+    seoTitle:
+      "Sports Nutrition Advice for Athletes India | Coming Soon — OneCurve",
     seoDesc:
-      "Practical sports nutrition guidance for athletes. OneCurve nutrition products coming soon. Shop cricket gear today with free shipping over ₹2,999.",
+      "Practical sports nutrition for Indian athletes: fuelling, protein and hydration. OneCurve nutrition products coming soon. Shop cricket gear today — free shipping over ₹2,999.",
   },
   recovery: {
     slug: "recovery",
@@ -116,9 +118,10 @@ export const DISCIPLINES: Record<DisciplineSlug, DisciplinePage> = {
     ],
     ctaShopHref: "/store",
     ctaShopLabel: "Browse the store",
-    seoTitle: "Athlete Recovery Advice | Products Coming Soon — OneCurve",
+    seoTitle:
+      "Athlete Recovery & Mobility Advice India | Coming Soon — OneCurve",
     seoDesc:
-      "Recovery advice for serious athletes. OneCurve recovery products coming soon. Shop cricket equipment now with pan-India delivery.",
+      "Recovery advice for serious athletes in India — sleep, active recovery and injury signals. OneCurve recovery products coming soon. Shop cricket equipment with pan-India delivery.",
   },
 }
 

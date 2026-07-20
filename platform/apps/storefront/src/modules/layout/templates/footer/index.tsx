@@ -15,8 +15,9 @@ export default async function Footer() {
           <div className="small:col-span-5 flex flex-col gap-4 small:gap-5 max-w-md">
             <BrandMark size="lg" light />
             <p className="text-white/55 text-sm small:text-base leading-relaxed m-0 font-medium">
-              Performance equipment for India. Cricket live — training and
-              nutrition next. Spec-honest. One inventory.
+              Buy cricket bats, pads and gloves online in India. Free shipping
+              over ₹2,999. Training, nutrition and recovery guides live —
+              products next. Spec-honest. One inventory.
             </p>
             <p className="font-display font-bold text-signal text-base small:text-lg m-0">
               Move with the curve.
@@ -98,9 +99,18 @@ export default async function Footer() {
 
             <div className="flex flex-col gap-3">
               <span className="text-[11px] uppercase tracking-[0.2em] text-signal font-bold">
-                Help
+                Help &amp; guides
               </span>
               <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
+                <li>
+                  <LocalizedClientLink
+                    href="/blog"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
+                    data-testid="footer-blog"
+                  >
+                    Cricket guides
+                  </LocalizedClientLink>
+                </li>
                 <li>
                   <LocalizedClientLink
                     href="/legal/shipping-returns"
@@ -116,7 +126,7 @@ export default async function Footer() {
                     className="text-white/60 hover:text-white transition-colors font-medium"
                     data-testid="footer-privacy"
                   >
-                    Privacy
+                    Privacy policy
                   </LocalizedClientLink>
                 </li>
                 <li>
@@ -125,7 +135,7 @@ export default async function Footer() {
                     className="text-white/60 hover:text-white transition-colors font-medium"
                     data-testid="footer-terms"
                   >
-                    Terms
+                    Terms of sale
                   </LocalizedClientLink>
                 </li>
                 <li>

@@ -50,6 +50,8 @@ export const VERTICALS: Vertical[] = [
 export const BRAND = {
   name: "OneCurve",
   tagline: "Move with the curve.",
-  platformLine: "Performance gear for every discipline.",
-  supportLine: "Spec-honest. India-first. One inventory.",
+  platformLine:
+    "Performance sports equipment for India — cricket live, training next.",
+  supportLine:
+    "Spec-honest cricket gear. Free shipping over ₹2,999. One inventory.",
 } as const

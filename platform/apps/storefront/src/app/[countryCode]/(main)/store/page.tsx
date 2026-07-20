@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 
+import { STORE_SEO, SEO } from "@lib/brand/seo-copy"
 import { listProducts } from "@lib/data/products"
 import { getBaseURL } from "@lib/util/env"
 import { jsonLd } from "@lib/util/json-ld"
@@ -10,15 +11,28 @@ export async function generateMetadata(props: {
   params: Promise<{ countryCode: string }>
 }): Promise<Metadata> {
   const { countryCode } = await props.params
-  const title = "Shop Sports Equipment — Cricket & More | OneCurve India"
-  const description =
-    "Shop OneCurve performance gear. Cricket bats, pads and gloves live now; training and nutrition next. Free shipping over ₹2,999 pan-India."
+  const title = STORE_SEO.title
+  const description = STORE_SEO.description
   const canonical = `${getBaseURL()}/${countryCode}/store`
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords: [
+      "cricket equipment online India",
+      "buy cricket bat",
+      "cricket pads gloves",
+      "OneCurve store",
+    ],
     alternates: { canonical },
-    openGraph: { title, description, url: canonical, locale: "en_IN" },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      locale: "en_IN",
+      siteName: SEO.brandLegal,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
     robots: { index: true, follow: true },
   }
 }

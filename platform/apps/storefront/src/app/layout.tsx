@@ -27,18 +27,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
   title: {
     default:
-      "OneCurve — Performance Sports Equipment | Cricket, Training & More India",
+      "OneCurve — Cricket Bats, Pads & Performance Gear | Buy Online India",
     template: "%s | OneCurve",
   },
   description:
-    "Move with the curve. Performance sports gear for India — cricket live, training & nutrition next. Free shipping over ₹2,999.",
+    "Shop premium cricket equipment online in India — English Willow bats, pads, gloves. Free shipping over ₹2,999. Training, nutrition & recovery guides live.",
   applicationName: "OneCurve",
   keywords: [
-    "sports equipment India",
-    "cricket bat online",
+    "cricket bat online India",
+    "English Willow cricket bat",
+    "buy cricket pads gloves",
     "OneCurve",
-    "performance gear",
-    "English Willow",
+    "performance sports equipment India",
+    "cricket kit online",
   ],
   openGraph: {
     siteName: "OneCurve Sports",

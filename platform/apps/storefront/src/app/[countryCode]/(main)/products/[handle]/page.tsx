@@ -94,16 +94,24 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const cat = product.categories?.[0]?.name
   const title =
     meta.seo_title ||
-    `${product.title}${cat ? ` — ${cat}` : ""} | Buy India | OneCurve`
+    `Buy ${product.title}${cat ? ` — ${cat}` : ""} Online India | OneCurve`
   const description =
     meta.seo_desc ||
     product.description?.replace(/\s+/g, " ").slice(0, 158) ||
-    `Buy ${product.title} at OneCurve. Handcrafted cricket equipment, free shipping over ₹2,999. Made in India.`
+    `Buy ${product.title} online at OneCurve. Premium cricket equipment for India — free shipping over ₹2,999, secure UPI checkout, pan-India delivery.`
   const canonical = `${getBaseURL()}/${params.countryCode}/products/${handle}`
+  const keywords = [
+    product.title,
+    cat,
+    "buy online India",
+    "OneCurve",
+    "cricket equipment",
+  ].filter(Boolean) as string[]
 
   return {
     title: { absolute: title },
     description,
+    keywords,
     alternates: { canonical },
     openGraph: {
       type: "website",
@@ -113,7 +121,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       url: canonical,
       siteName: "OneCurve Sports",
       images: product.thumbnail
-        ? [{ url: product.thumbnail, alt: `${product.title} — OneCurve` }]
+        ? [{ url: product.thumbnail, alt: `${product.title} cricket gear — OneCurve` }]
         : [],
     },
     twitter: {

@@ -1,33 +1,11 @@
+import { SITE_FAQS } from "@lib/brand/seo-copy"
 import { jsonLd as toJsonLd } from "@lib/util/json-ld"
 
-const FAQS: { q: string; a: string }[] = [
-  {
-    q: "How long does delivery take?",
-    a: "Pan-India in 3–5 business days. Free shipping on orders of ₹2,999+; ₹199 below that.",
-  },
-  {
-    q: "What payment methods do you accept?",
-    a: "UPI, credit/debit cards, and net-banking via Razorpay. Prices include applicable taxes.",
-  },
-  {
-    q: "Do I need to knock in a new bat?",
-    a: "Yes for English Willow — knock in gently over a couple of weeks before match use.",
-  },
-  {
-    q: "What is your return policy?",
-    a: "Unused items in original packaging within 7 days. Email support@onecurve.in with your order ID.",
-  },
-  {
-    q: "Will you sell gym gear and supplements?",
-    a: "Yes. OneCurve is multi-discipline — cricket is live first; training and nutrition launch on the same site and cart.",
-  },
-]
-
 export default function Faq() {
-  const jsonLd = {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
+    mainEntity: SITE_FAQS.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -38,7 +16,7 @@ export default function Faq() {
     <section className="border-t border-white/10" aria-labelledby="faq-h">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: toJsonLd(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(schema) }}
       />
       <div className="content-container py-12 small:py-24">
         <div className="mx-auto w-full max-w-3xl">
@@ -50,15 +28,21 @@ export default function Faq() {
               id="faq-h"
               className="font-display font-extrabold text-2xl small:text-4xl text-white mt-2 m-0"
             >
-              Good questions.
+              Cricket gear &amp; delivery FAQs
             </h2>
+            <p className="text-white/50 text-sm small:text-base mt-3 m-0 font-medium max-w-lg mx-auto">
+              Common questions about buying cricket equipment online in India,
+              shipping, knocking in bats, and returns.
+            </p>
           </header>
           <ul className="flex flex-col divide-y divide-white/10 border-y border-white/10 list-none m-0 p-0">
-            {FAQS.map((f) => (
+            {SITE_FAQS.map((f) => (
               <li key={f.q}>
                 <details className="group py-4 small:py-5">
                   <summary className="flex items-center justify-between gap-3 small:gap-4 cursor-pointer list-none text-white font-semibold min-h-11 text-sm small:text-base">
-                    <span className="text-left min-w-0">{f.q}</span>
+                    <h3 className="text-left min-w-0 m-0 text-inherit font-semibold text-sm small:text-base">
+                      {f.q}
+                    </h3>
                     <span
                       className="text-signal text-2xl leading-none transition-transform duration-200 group-open:rotate-45 shrink-0"
                       aria-hidden
