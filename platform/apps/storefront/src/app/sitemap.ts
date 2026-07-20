@@ -31,6 +31,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.4,
     },
+    {
+      url: `${base}/${r}/disciplines/training`,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    },
+    {
+      url: `${base}/${r}/disciplines/nutrition`,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    },
+    {
+      url: `${base}/${r}/disciplines/recovery`,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    },
   ]
 
   let productRoutes: MetadataRoute.Sitemap = []

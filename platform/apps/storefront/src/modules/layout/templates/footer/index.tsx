@@ -58,23 +58,39 @@ export default async function Footer() {
 
             <div className="flex flex-col gap-3">
               <span className="text-[11px] uppercase tracking-[0.2em] text-signal font-bold">
-                Account
+                Disciplines
               </span>
               <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
+                <li>
+                  <LocalizedClientLink
+                    href="/disciplines/training"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
+                  >
+                    Training
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
+                    href="/disciplines/nutrition"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
+                  >
+                    Nutrition
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
+                    href="/disciplines/recovery"
+                    className="text-white/60 hover:text-white transition-colors font-medium"
+                  >
+                    Recovery
+                  </LocalizedClientLink>
+                </li>
                 <li>
                   <LocalizedClientLink
                     href="/account"
                     className="text-white/60 hover:text-white transition-colors font-medium"
                   >
-                    My account
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/cart"
-                    className="text-white/60 hover:text-white transition-colors font-medium"
-                  >
-                    Cart
+                    Account
                   </LocalizedClientLink>
                 </li>
               </ul>
