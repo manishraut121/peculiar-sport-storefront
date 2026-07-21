@@ -1,5 +1,9 @@
 # OneCurve Sports — Netlify configuration
-# Static site (vanilla HTML/JS) + serverless functions for Razorpay.
+# Vanilla HTML bridge (index.html) + optional Razorpay functions.
+#
+# CUTOVER: when the Medusa + Next shop is live on onecurve.in, enable the
+# 301 block below (and remove/disable checkout functions) so there is only
+# ONE cart/inventory. See CUTOVER.md.
 
 [build]
   publish = "."
@@ -13,6 +17,13 @@
   from = "/admin"
   to = "/admin/index.html"
   status = 200
+
+# --- PROD CUTOVER (uncomment after platform DNS is live) ---
+# [[redirects]]
+#   from = "/*"
+#   to = "https://onecurve.in/:splat"
+#   status = 301
+#   force = true
 
 # Security headers
 [[headers]]

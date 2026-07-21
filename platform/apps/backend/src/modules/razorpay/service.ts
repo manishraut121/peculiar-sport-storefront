@@ -105,12 +105,13 @@ class RazorpayProviderService extends AbstractPaymentProvider<Options> {
     input: AuthorizePaymentInput
   ): Promise<AuthorizePaymentOutput> {
     const data: any = input.data || {};
-    const orderId = data.id || data.razorpay_order_id;
+    // Prefer explicit razorpay_order_id (set after Checkout) over internal id
+    const orderId = data.razorpay_order_id || data.id;
     const paymentId = data.razorpay_payment_id;
     const signature = data.razorpay_signature;
 
-    // No client confirmation yet -> still pending.
-    if (!paymentId || !signature) {
+    // No client confirmation yet -> still pending (user must open Razorpay).
+    if (!paymentId || !signature || !orderId) {
       return { status: "pending", data };
     }
 
@@ -127,8 +128,9 @@ class RazorpayProviderService extends AbstractPaymentProvider<Options> {
       );
 
     if (!ok) {
-      return { status: "error", data };
+      return { status: "error", data: { ...data, verified: false } };
     }
+    // CAPTURED: payment_capture:1 already captured at Razorpay
     return { status: "captured", data: { ...data, verified: true } };
   }
 

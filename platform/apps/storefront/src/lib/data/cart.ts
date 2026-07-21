@@ -255,6 +255,37 @@ export async function initiatePaymentSession(
     .catch(medusaError)
 }
 
+/**
+ * Attach Razorpay Checkout success payload to the cart's payment session
+ * (HMAC verified server-side), then complete the cart.
+ */
+export async function confirmRazorpayAndPlaceOrder(input: {
+  cartId: string
+  razorpay_order_id: string
+  razorpay_payment_id: string
+  razorpay_signature: string
+}) {
+  const headers = {
+    ...(await getAuthHeaders()),
+    "Content-Type": "application/json",
+  }
+
+  await sdk.client
+    .fetch<{ ok: boolean }>("/store/razorpay/confirm", {
+      method: "POST",
+      headers,
+      body: {
+        cart_id: input.cartId,
+        razorpay_order_id: input.razorpay_order_id,
+        razorpay_payment_id: input.razorpay_payment_id,
+        razorpay_signature: input.razorpay_signature,
+      },
+    })
+    .catch(medusaError)
+
+  return placeOrder(input.cartId)
+}
+
 export async function applyPromotions(codes: string[]) {
   const cartId = await getCartId()
 

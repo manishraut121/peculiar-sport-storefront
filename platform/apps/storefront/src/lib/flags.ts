@@ -97,8 +97,45 @@ export function getOcEnv(): OcEnv {
   return "dev"
 }
 
+const DEFAULT_STAGE: OcFlags = {
+  ...DEFAULT_DEV,
+  payments: {
+    razorpay: true,
+    razorpay_live_keys: false,
+    manual_checkout: true,
+    cod: false,
+  },
+  ops: {
+    ...DEFAULT_DEV.ops,
+    seed_on_boot: false,
+    show_env_badge: true,
+  },
+}
+
+const DEFAULT_PROD: OcFlags = {
+  ...DEFAULT_DEV,
+  payments: {
+    razorpay: true,
+    razorpay_live_keys: true,
+    manual_checkout: false,
+    cod: false,
+  },
+  ops: {
+    ...DEFAULT_DEV.ops,
+    seed_on_boot: false,
+    debug_logging: false,
+    e2e_hooks: false,
+    show_env_badge: false,
+  },
+}
+
 export function getFlags(): OcFlags {
-  return parseFlags(process.env.NEXT_PUBLIC_OC_FEATURE_FLAGS) || DEFAULT_DEV
+  const fromEnv = parseFlags(process.env.NEXT_PUBLIC_OC_FEATURE_FLAGS)
+  if (fromEnv) return fromEnv
+  const env = getOcEnv()
+  if (env === "prod") return DEFAULT_PROD
+  if (env === "stage") return DEFAULT_STAGE
+  return DEFAULT_DEV
 }
 
 export function isFeatureEnabled(

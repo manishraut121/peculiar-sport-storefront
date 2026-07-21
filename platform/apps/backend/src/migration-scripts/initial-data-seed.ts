@@ -166,6 +166,8 @@ export default async function initial_data_seed({
           name: "India",
           currency_code: "inr",
           countries: ["in"],
+          // Manual always; Razorpay added when provider is registered +
+          // enable-razorpay-region.ts (or Admin → Region → payment providers).
           payment_providers: ["pp_system_default"],
         },
       ],
