@@ -31,6 +31,8 @@ COPY --from=build /app/.medusa/server ./
 COPY --from=build /app/static ./static
 COPY --from=build /app/data ./data
 COPY --from=build /app/start.sh /app/boot-check.js ./
+# Ops scripts for `medusa exec` (region payment providers, catalog, etc.)
+COPY --from=build /app/src/scripts ./src/scripts
 
 RUN npm install --omit=dev --no-audit --no-fund && chmod +x ./start.sh
 

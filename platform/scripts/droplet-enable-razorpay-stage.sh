@@ -62,11 +62,37 @@ for i in $(seq 1 40); do
 done
 
 echo "▶ Link pp_razorpay_razorpay to India region"
+# Production image may predate scripts/ — copy from host into the running container.
+SCRIPT_HOST="apps/backend/src/scripts/enable-razorpay-region.ts"
+if [[ ! -f "$SCRIPT_HOST" ]]; then
+  echo "✗ Missing $SCRIPT_HOST — run: git pull origin main"
+  exit 1
+fi
+
+docker compose --env-file .env exec -T backend mkdir -p /app/src/scripts || true
+# compose v2: `docker compose cp`  |  older: docker cp
+if docker compose --env-file .env cp "$SCRIPT_HOST" backend:/app/src/scripts/enable-razorpay-region.ts 2>/dev/null; then
+  echo "  copied script into container"
+else
+  CID="$(docker compose --env-file .env ps -q backend)"
+  docker cp "$SCRIPT_HOST" "${CID}:/app/src/scripts/enable-razorpay-region.ts"
+  echo "  copied script via docker cp"
+fi
+
+set +e
 docker compose --env-file .env exec -T backend \
-  npx medusa exec ./src/scripts/enable-razorpay-region.ts || \
-  docker compose --env-file .env exec -T backend \
-  yarn medusa exec ./src/scripts/enable-razorpay-region.ts || \
-  echo "⚠ exec failed — run manually inside backend container"
+  npx medusa exec ./src/scripts/enable-razorpay-region.ts
+EXEC_RC=$?
+set -e
+
+if [[ $EXEC_RC -ne 0 ]]; then
+  echo ""
+  echo "⚠ medusa exec failed. Link Razorpay in Admin instead:"
+  echo "  http://DROPLET_IP:9000/app → Settings → Regions → India"
+  echo "  → Payment providers → enable pp_razorpay_razorpay (and keep manual for stage)"
+  echo ""
+  echo "  Or re-run after rebuild: docker compose --env-file .env up -d --build backend"
+fi
 
 echo ""
 echo "✓ Stage Razorpay path prepared."
@@ -74,3 +100,7 @@ echo "  1. Storefront .env.local → NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://DROPL
 echo "  2. Optional: NEXT_PUBLIC_RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID (fallback if session lacks keyId)"
 echo "  3. Checkout → select UPI · Cards → test UPI/card from Razorpay docs"
 echo "  4. Confirm order appears in Admin → Orders"
+echo ""
+echo "  Verify providers:"
+echo "  curl -s http://127.0.0.1:9000/store/payment-providers?region_id=REGION_ID \\"
+echo "    -H 'x-publishable-api-key: pk_…'"
