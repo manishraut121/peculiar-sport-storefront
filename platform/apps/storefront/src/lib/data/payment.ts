@@ -28,14 +28,12 @@ export const listCartPaymentMethods = async (regionId: string) => {
       }
     )
     .then(({ payment_providers }) => {
+      // Backend + region links are the source of truth for which providers exist.
+      // Only hide Manual when flags say so (prod). Never hide Razorpay if the
+      // API returns it — stage often has stale NEXT_PUBLIC_OC_FEATURE_FLAGS=dev.
       let list = payment_providers || []
-      // Prod: hide manual "place order without pay"
       if (!flags.payments.manual_checkout) {
         list = list.filter((p) => !p.id?.includes("system_default"))
-      }
-      // Hide Razorpay option if flag off (provider may still be registered)
-      if (!flags.payments.razorpay) {
-        list = list.filter((p) => !p.id?.includes("razorpay"))
       }
       // Prefer Razorpay first for India checkout
       return list.sort((a, b) => {

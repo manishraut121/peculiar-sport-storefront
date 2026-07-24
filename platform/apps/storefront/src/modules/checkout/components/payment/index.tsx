@@ -47,10 +47,16 @@ const Payment = ({
   const setPaymentMethod = async (method: string) => {
     setError(null)
     setSelectedPaymentMethod(method)
-    if (isStripeLike(method)) {
-      await initiatePaymentSession(cart, {
-        provider_id: method,
-      })
+    // Stripe needs an early session for the card element; Razorpay needs a
+    // session so order_id + keyId exist before the review step.
+    if (isStripeLike(method) || method.includes("razorpay")) {
+      try {
+        await initiatePaymentSession(cart, {
+          provider_id: method,
+        })
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err))
+      }
     }
   }
 
